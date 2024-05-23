@@ -1,21 +1,13 @@
 <div class="mt-4 mb-4 m-2">
-    <input wire:model="form.name" type="text" placeholder="Type here"
-        class="input input-sm input-bordered w-full mb-2" />
-    @error('form.name')
-        <small>{{ $message }}</small>
-    @enderror
-    
-    <input wire:model='form.price' type="int" placeholder="Type here"
-    class="input input-sm input-bordered w-full mb-2" />
-    @error('form.price')
-        <small>{{ $message }}</small>
-    @enderror
-    
-    <textarea wire:model='form.description' class="textarea textarea-bordered w-full mb-2" placeholder="Bio"></textarea>
-    @error('form.description')
-        <small>{{ $message }}</small>
-    @enderror
-    
+    <div wire:loading>
+        Saving post...
+    </div>
+    <input wire:model="data.name" type="text" placeholder="Type here" class="input input-sm input-bordered w-full mb-2" value="{{ $data['name'] }}"/>
+
+    <input wire:model='data.price' type="int" placeholder="Type here" class="input input-sm input-bordered w-full mb-2" value="{{ $data['price']}}"/>
+
+    <textarea wire:model='data.description' class="textarea textarea-bordered w-full mb-2" placeholder="Bio"> {{ $data['description']}} </textarea>
+
     <input type="file" class="file-input file-input-sm file-input-bordered w-full max-w-xs" />
 
     <div class="flex justify-center px-2 pt-4 text-black">
@@ -33,7 +25,7 @@
         </div>
     </div>
     <div class="flex justify-center">
-        <button wire:click='store' class="btn btn-sm bg-blue text-white border-none">Simpan</button>
+                <button wire:click='update({{ $data['id']}} )' class="btn btn-sm bg-blue text-white border-none">Simpan</button>
     </div>
-
+    
 </div>
