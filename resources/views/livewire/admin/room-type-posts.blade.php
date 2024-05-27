@@ -1,39 +1,42 @@
 <div class="mt-4 mb-4 m-2">
     <input wire:model="form.name" type="text" placeholder="Type here"
         class="input input-sm input-bordered w-full mb-2" />
-    @error('form.name')
-        <small>{{ $message }}</small>
-    @enderror
-    
-    <input wire:model='form.price' type="int" placeholder="Type here"
-    class="input input-sm input-bordered w-full mb-2" />
-    @error('form.price')
-        <small>{{ $message }}</small>
-    @enderror
-    
+    <input wire:model='form.price' type="number" placeholder="Type here"
+        class="input input-sm input-bordered w-full mb-2" />
     <textarea wire:model='form.description' class="textarea textarea-bordered w-full mb-2" placeholder="Bio"></textarea>
-    @error('form.description')
-        <small>{{ $message }}</small>
-    @enderror
-    
-    <input type="file" class="file-input file-input-sm file-input-bordered w-full max-w-xs" />
+    <input wire:model='photo' type="file" multiple
+        class="file-input file-input-sm file-input-bordered w-full max-w-xs" />
+    <div>
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <small class="text-error">{{ $error }}</small><br>
+            @break
+        @endforeach
+    @endif
+</div>
+<div wire:loading wire:target="photo">
+    Processing image...
+</div>
+<div>
 
-    <div class="flex justify-center px-2 pt-4 text-black">
-        <div class="grid grid-cols-5 gap-2">
-            @for ($i = 0; $i < 7; $i++)
-                <div class="relative group">
-                    <img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes"
-                        class="rounded-xl" />
-                    <div
-                        class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-300 rounded-xl">
-                        <span class="text-white text-lg font-bold">Delete</span>
+
+    @if ($photo)
+        <div class="flex justify-center px-2 pt-4 text-black">
+            <div class="grid grid-cols-4 gap-2">
+                @foreach ($photo as $item)
+                    <div class="relative group">
+                        <img src="{{ $item->temporaryUrl() }}" class="rounded-xl" />
                     </div>
-                </div>
-            @endfor
+                @endforeach
+            </div>
         </div>
-    </div>
-    <div class="flex justify-center">
-        <button wire:click='store' class="btn btn-sm bg-blue text-white border-none">Simpan</button>
-    </div>
+    @endif
+
+</div>
+
+
+<div class="flex justify-center mt-4">
+    <button wire:click='store' class="btn btn-sm bg-blue text-white border-none">Simpan</button>
+</div>
 
 </div>

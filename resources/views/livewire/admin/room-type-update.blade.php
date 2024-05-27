@@ -1,31 +1,61 @@
 <div class="mt-4 mb-4 m-2">
-    <div wire:loading>
-        Saving post...
+    <input wire:model='form.name' type="text" placeholder="Type here"
+        class="input input-sm input-bordered w-full mb-2" />
+    <input wire:model='form.price' type="number" placeholder="Type here"
+        class="input input-sm input-bordered w-full mb-2" />
+    <textarea wire:model='form.description' class="textarea textarea-bordered w-full mb-2" placeholder="Bio"></textarea>
+    <div>
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <small class="text-error">{{ $error }}</small><br>
+            @endforeach
+        @endif
     </div>
-    <input wire:model="data.name" type="text" placeholder="Type here" class="input input-sm input-bordered w-full mb-2" value="{{ $data['name'] }}"/>
-
-    <input wire:model='data.price' type="int" placeholder="Type here" class="input input-sm input-bordered w-full mb-2" value="{{ $data['price']}}"/>
-
-    <textarea wire:model='data.description' class="textarea textarea-bordered w-full mb-2" placeholder="Bio"> {{ $data['description']}} </textarea>
-
-    <input type="file" class="file-input file-input-sm file-input-bordered w-full max-w-xs" />
-
-    <div class="flex justify-center px-2 pt-4 text-black">
-        <div class="grid grid-cols-5 gap-2">
-            @for ($i = 0; $i < 7; $i++)
-                <div class="relative group">
-                    <img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes"
-                        class="rounded-xl" />
-                    <div
-                        class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-300 rounded-xl">
-                        <span class="text-white text-lg font-bold">Delete</span>
-                    </div>
-                </div>
-            @endfor
+    <div class="my-4">
+        <p>Existing Photo</p>
+        <div wire:loading wire:target="deletePhoto">
+            Processing delete image...
         </div>
+        {{-- if existing photo is empty --}}
+        @if ($photoMe)
+            <div class="flex justify-center px-2 pt-4 text-black">
+                <div class="grid grid-cols-4 gap-2">
+                    @foreach ($photoMe as $item)
+                        <div class="relative group">
+                            <img src="{{ asset('storage/photos/' . $item['url']) }}" alt="Room Type" class="rounded-xl">
+
+                            <div wire:click="deletePhoto({{ $item['id'] }})"
+                                class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-300 rounded-xl cursor-pointer">
+                                <span class="text-white text-lg font-bold">Delete</span>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
     </div>
-    <div class="flex justify-center">
-                <button wire:click='update({{ $data['id']}} )' class="btn btn-sm bg-blue text-white border-none">Simpan</button>
+    <input wire:model='selectedPhoto' type="file" multiple class="file-input file-input-sm file-input-bordered w-full max-w-xs" />
+    <div wire:loading wire:target="selectedPhoto">
+        Processing image...
     </div>
+    @if ($selectedPhoto)
+        <div class="flex justify-center px-2 pt-4 text-black">
+            <div class="grid grid-cols-4 gap-2">
+                @foreach ($selectedPhoto as $item)
+                    <div class="relative group">
+                        <img src="{{ $item->temporaryUrl() }}" class="rounded-xl" />
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
     
+    {{-- fix position buttom simapn --}}
+    <div wire:loading wire:target="update">
+        Update Data...
+    </div>
+    <div class="flex justify-center mt-4">
+        <button wire:click="update( {{ $data['id'] }} )"
+            class="btn btn-sm bg-blue text-white border-none">Simpan</button>
+    </div>
 </div>

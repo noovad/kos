@@ -1,18 +1,16 @@
 <div>
-        <div class="swiper mySwiper h-52 mt-4">
+    <div class="swiper mySwiper h-52 mt-4">
         <div class="swiper-wrapper">
-            <div class="swiper-slide size-44">
-                <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-            </div>
-            <div class="swiper-slide size-44">
-                <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-            </div>
-            <div class="swiper-slide size-44">
-                <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-            </div>
+            {{-- if photo nil add dummy photo --}}
+            @foreach ($photo as $item)
+                <div class="swiper-slide size-44">
+                    <img src="{{ asset('storage/photos/' . $item['url']) }}" alt="Room Type">
+                </div>
+            @endforeach
         </div>
         <div class="swiper-pagination"></div>
     </div>
+
     <div class="mt-2 mb-4 text-center">
         <h3 class="text-xl font-semibold text-blue">{{ $data->name }}</h3>
         <small class="-m-1 mb-4">Rp. {{ $data->price }} </small>
