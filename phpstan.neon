@@ -1,0 +1,26 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+    - ./vendor/spaze/phpstan-disallowed-calls/extension.neon
+
+parameters:
+    paths:
+        - app
+        - routes
+
+    # The level 9 is the highest level
+    level: 5
+
+    errorFormat: gitlab
+
+    disallowedFunctionCalls:
+        -
+            function: 'env()'
+            message: 'use config() instead'
+
+    disallowedMethodCalls:
+        -
+            method: 'Illuminate\Database\*::first()'
+            message: 'use firstOrFail() + handle ModelNotFoundException or apply Guard Clause'
+    
+    excludePaths:
+        - %currentWorkingDirectory%/app/Http/Controllers/Auth/VerifyEmailController.php

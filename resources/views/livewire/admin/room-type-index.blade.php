@@ -23,7 +23,7 @@
                 </div>
                 <div class="expand-button col-span-2 flex flex-col justify-center">
                     <button class="btn btn-xs bg-blue text-white border-none" wire:click='destroy({{ $item->id }})'
-                        wire:confirm='Are '>Hapus</button>
+                        wire:confirm='Hapus data?'>Hapus</button>
                 </div>
                 <div class="expand-button col-span-2 flex flex-col justify-center">
                     <a class="btn btn-xs bg-blue text-white border-none"

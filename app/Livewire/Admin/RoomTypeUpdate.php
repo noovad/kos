@@ -2,22 +2,24 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Photo;
-use Livewire\Component;
-use App\Models\RoomType;
-use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\DB;
 use App\Livewire\Forms\RoomTypeForm;
+use App\Models\Photo;
+use App\Models\RoomType;
+use Illuminate\Support\Facades\DB;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class RoomTypeUpdate extends Component
 {
     use WithFileUploads;
-    
-    public $selectedPhoto = [];
-    public $data;
+
+    public array $selectedPhoto = [];
+
+    public object $data;
+
     public RoomTypeForm $form;
 
-    public function mount($id)
+    public function mount(string $id): void
     {
         $this->data = RoomType::find($id);
         $this->form->name = $this->data->name;
@@ -26,36 +28,36 @@ class RoomTypeUpdate extends Component
 
     }
 
-    public function update()
+    public function update(): void
     {
         DB::transaction(function () {
             $this->data->update($this->form->validate());
             foreach ($this->selectedPhoto as $photo) {
-            $photoName = $photo->hashName();
-            $photo->storeAs('photos', $photoName, 'public');
+                $photoName = $photo->hashName();
+                $photo->storeAs('photos', $photoName, 'public');
 
-            Photo::create([
-                'room_type_id' => $this->data->id,
-                'url' => $photoName
-            ]);
+                Photo::create([
+                    'room_type_id' => $this->data->id,
+                    'url' => $photoName,
+                ]);
             }
         });
 
-        noty()->timeout(1000)->progressBar(false)->addSuccess('Product successfuly updated.');
-
-
         $this->selectedPhoto = [];
+        noty()->timeout(1000)->progressBar(false)->addSuccess('Data berhasil diperbarui.');
     }
 
-    public function deletePhoto($idPhoto)
+    public function deletePhoto(string $idPhoto): void
     {
         $photo = Photo::find($idPhoto);
         $photo->delete();
+        noty()->timeout(1000)->progressBar(false)->addSuccess('Photo berhasil dihapus.');
     }
 
-    public function render()
+    public function render(): \Illuminate\View\View
     {
         $photo = Photo::where('room_type_id', $this->data->id)->get();
+
         return view('livewire.admin.room-type-update', ['data' => $this->data, 'photoMe' => $photo]);
     }
 }

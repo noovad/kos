@@ -7,13 +7,12 @@ use Livewire\Form;
 
 class RoomTypeForm extends Form
 {
-    
     #[Validate('required|min:2')]
-    public $name = '';
+    public string $name = '';
 
     #[Validate('required')]
-    public $description = '';
+    public string $description = '';
 
     #[Validate('required')]
-    public $price = '';
+    public int $price = 0;
 }

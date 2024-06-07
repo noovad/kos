@@ -1,9 +1,9 @@
 <div class="mt-4 mb-4 m-2">
-    <input wire:model="form.name" type="text" placeholder="Type here"
+    <input wire:model="form.name" type="text" placeholder="Nama Kamar"
         class="input input-sm input-bordered w-full mb-2" />
-    <input wire:model='form.price' type="number" placeholder="Type here"
+    <input wire:model='form.price' type="number" placeholder="Harga"
         class="input input-sm input-bordered w-full mb-2" />
-    <textarea wire:model='form.description' class="textarea textarea-bordered w-full mb-2" placeholder="Bio"></textarea>
+    <textarea wire:model='form.description' class="textarea textarea-bordered w-full mb-2" placeholder="Deskripsi"></textarea>
     <input wire:model='photo' type="file" multiple
         class="file-input file-input-sm file-input-bordered w-full max-w-xs" />
     <div>

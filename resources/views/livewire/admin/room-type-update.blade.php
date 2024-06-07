@@ -16,15 +16,15 @@
         <div wire:loading wire:target="deletePhoto">
             Processing delete image...
         </div>
-        {{-- if existing photo is empty --}}
-        @if ($photoMe)
+
+        @if (count($photoMe) > 0)
             <div class="flex justify-center px-2 pt-4 text-black">
                 <div class="grid grid-cols-4 gap-2">
                     @foreach ($photoMe as $item)
                         <div class="relative group">
                             <img src="{{ asset('storage/photos/' . $item['url']) }}" alt="Room Type" class="rounded-xl">
-
-                            <div wire:click="deletePhoto({{ $item['id'] }})"
+        
+                            <div wire:click="deletePhoto({{ $item['id'] }})" wire:confirm="Hapus photo"
                                 class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-300 rounded-xl cursor-pointer">
                                 <span class="text-white text-lg font-bold">Delete</span>
                             </div>
@@ -32,7 +32,12 @@
                     @endforeach
                 </div>
             </div>
+        @else
+            <div class="flex justify-center">
+            <small class="text-center">No photo</small>
+            </div>
         @endif
+        <hr class="m-2">
     </div>
     <input wire:model='selectedPhoto' type="file" multiple class="file-input file-input-sm file-input-bordered w-full max-w-xs" />
     <div wire:loading wire:target="selectedPhoto">
