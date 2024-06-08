@@ -15,11 +15,15 @@ class RoomTypePosts extends Component
 
     public array $photo = [];
 
+    public $formattedValue = '';
+
     public RoomTypeForm $form;
 
     public function store(): void
     {
         DB::transaction(function () {
+            $this->form->price = (int) str_replace('.', '', $this->formattedValue);
+            // dd($this->form);
             $roomType = RoomType::create($this->form->validate());
 
             foreach ($this->photo as $photo) {
@@ -35,7 +39,6 @@ class RoomTypePosts extends Component
 
         noty()->timeout(1000)->progressBar(false)->addSuccess('Product successfuly created.');
 
-        $this->form->reset();
         redirect(route('admin.room-type'));
     }
 

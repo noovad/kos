@@ -23,7 +23,7 @@ class RoomTypeIndex extends Component
 
     public function render(): \Illuminate\View\View
     {
-        $data = RoomType::all();
+        $data = RoomType::orderByDesc('created_at')->get();
 
         return view('livewire.admin.room-type-index', ['data' => $data]);
     }
