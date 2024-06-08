@@ -11,6 +11,13 @@ use function Flasher\Noty\Prime\noty;
 
 class RoomTypeIndex extends Component
 {
+    public $deleteId;
+
+    public function confirmDelete(string $id): void
+    {
+        $this->deleteId = $id;
+    }
+
     public function destroy(string $id): void
     {
         DB::transaction(function () use ($id) {
@@ -18,7 +25,7 @@ class RoomTypeIndex extends Component
             Photo::where('room_type_id', $id)->delete();
             $roomType->delete();
         });
-        noty()->timeout(1000)->progressBar(false)->warning('Product successfuly deleted.');
+        noty()->timeout(1000)->progressBar(false)->warning('Data berhasil dihapus.');
     }
 
     public function render(): \Illuminate\View\View

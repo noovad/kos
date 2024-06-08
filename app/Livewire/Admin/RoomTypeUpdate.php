@@ -15,6 +15,8 @@ class RoomTypeUpdate extends Component
 
     public array $selectedPhoto = [];
 
+    public string $formattedValue = '';
+
     public object $data;
 
     public RoomTypeForm $form;
@@ -22,14 +24,15 @@ class RoomTypeUpdate extends Component
     public function mount(string $id): void
     {
         $this->data = RoomType::find($id);
+        $this->formattedValue = number_format($this->data->price, 0, ',', '.');
         $this->form->name = $this->data->name;
         $this->form->description = $this->data->description;
         $this->form->price = $this->data->price;
-
     }
 
     public function update(): void
     {
+        $this->form->price = (int) str_replace('.', '', $this->formattedValue);
         DB::transaction(function () {
             $this->data->update($this->form->validate());
             foreach ($this->selectedPhoto as $photo) {
@@ -43,7 +46,7 @@ class RoomTypeUpdate extends Component
             }
         });
 
-        $this->selectedPhoto = [];
+        $this->reset(['selectedPhoto']);
         noty()->timeout(1000)->progressBar(false)->addSuccess('Data berhasil diperbarui.');
     }
 

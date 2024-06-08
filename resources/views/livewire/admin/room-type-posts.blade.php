@@ -1,5 +1,5 @@
 <div class="mt-4 mb-4 m-2">
-    
+
     <input wire:model="form.name" type="text" placeholder="Nama Tipe Kamar"
         class="input input-sm input-bordered w-full mb-2" />
     <div class="flex">
@@ -14,9 +14,9 @@
         @if ($errors->any())
             @foreach ($errors->all() as $error)
                 <small class="text-error">{{ $error }}</small><br>
-            @break
-        @endforeach
-    @endif
+                @break
+            @endforeach
+        @endif
 </div>
 <div>
 

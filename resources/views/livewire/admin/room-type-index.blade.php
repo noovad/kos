@@ -1,4 +1,4 @@
-<div>
+<div class="m-2">
 
     <div class="mt-4 mb-4">
         <a class="btn btn-xs bg-blue text-white border-none" href="{{ route('admin.room-type.create') }}">+Tambah Tipe
@@ -6,7 +6,7 @@
     </div>
     <hr>
     <div wire:loading>
-        <x-loading-message message="Memperbarui data..." />
+        Saving post...
     </div>
 
 
@@ -22,8 +22,7 @@
                         href="{{ route('admin.room-type.update', ['id' => $item->id]) }}">Ubah</a>
                 </div>
                 <div class="expand-button col-span-2 flex flex-col justify-center">
-                    <button class="btn btn-xs bg-blue text-white border-none" wire:click='destroy({{ $item->id }})'
-                        wire:confirm='Hapus data?'>Hapus</button>
+                    <button class="btn btn-xs bg-blue text-white border-none" onclick="deleteModal.showModal()">Hapus</button>
                 </div>
                 <div class="expand-button col-span-2 flex flex-col justify-center">
                     <a class="btn btn-xs bg-blue text-white border-none"
@@ -31,5 +30,17 @@
                 </div>
             </div>
         </div>
+
+        <dialog id="deleteModal" class="modal">
+            <div class="modal-box">
+                <p class="text-center">Hapus Data???</p>
+                <div class="modal-action">
+                    <form method="dialog">
+                    <button class="btn btn-xs bg-blue text-white border-none" wire:click='destroy({{ $item->id }})'>Hapus</button>
+                    <button class="btn btn-xs bg-blue text-white border-none">Batal</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
     @endforeach
 </div>
