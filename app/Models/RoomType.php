@@ -14,4 +14,14 @@ class RoomType extends Model
         'description',
         'price',
     ];
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
 }

@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'room_id',
     ];
 
     /**
@@ -43,5 +44,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the room that owns the user.
+     */
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
     }
 }

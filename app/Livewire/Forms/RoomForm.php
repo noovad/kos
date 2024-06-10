@@ -8,8 +8,8 @@ use Livewire\Form;
 class RoomForm extends Form
 {
     #[Validate('required')]
-    public string $name = '123';
-    #[Validate('required')]
-    public string $room_type_id = '123';
+    public string $name = '';
 
+    #[Validate('required', as: 'room type')]
+    public string $room_type_id = '';
 }

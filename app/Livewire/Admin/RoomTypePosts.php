@@ -21,24 +21,25 @@ class RoomTypePosts extends Component
 
     public function store(): void
     {
-        DB::transaction(function () {
-            $this->form->price = (int) str_replace('.', '', $this->formattedValue);
-            $roomType = RoomType::create($this->form->validate());
-
-            foreach ($this->photo as $photo) {
-                $photoName = $photo->hashName();
-                $photo->storeAs('photos', $photoName, 'public');
-
-                Photo::create([
-                    'room_type_id' => $roomType->id,
-                    'url' => $photoName,
-                ]);
-            }
-        });
-
-        noty()->timeout(1000)->progressBar(false)->addSuccess('Tipe kamar berhasil dibuat.');
-
-        redirect(route('admin.room-type'));
+        $this->form->price = (int) str_replace('.', '', $this->formattedValue);
+        $validate = $this->form->validate();
+        try {
+            DB::transaction(function () use ($validate) {
+                $roomType = RoomType::create($validate);
+                foreach ($this->photo as $photo) {
+                    $photoName = $photo->hashName();
+                    $photo->storeAs('photos', $photoName, 'public');
+                    Photo::create([
+                        'room_type_id' => $roomType->id,
+                        'url' => $photoName,
+                    ]);
+                }
+            });
+            noty()->timeout(1000)->progressBar(false)->addSuccess('Tipe kamar berhasil dibuat.');
+            redirect(route('admin.room-type'));
+        } catch (\Exception $e) {
+            noty()->timeout(1000)->progressBar(false)->warning('Tipe kamar gagal dibuat.');
+        }
     }
 
     public function render(): \Illuminate\View\View

@@ -33,28 +33,39 @@ class RoomTypeUpdate extends Component
     public function update(): void
     {
         $this->form->price = (int) str_replace('.', '', $this->formattedValue);
-        DB::transaction(function () {
-            $this->data->update($this->form->validate());
-            foreach ($this->selectedPhoto as $photo) {
-                $photoName = $photo->hashName();
-                $photo->storeAs('photos', $photoName, 'public');
+        $validate = $this->form->validate();
+        try {
+            DB::transaction(function () use ($validate) {
+                $this->data->update($validate);
+                foreach ($this->selectedPhoto as $photo) {
+                    $photoName = $photo->hashName();
+                    $photo->storeAs('photos', $photoName, 'public');
 
-                Photo::create([
-                    'room_type_id' => $this->data->id,
-                    'url' => $photoName,
-                ]);
-            }
-        });
+                    Photo::create([
+                        'room_type_id' => $this->data->id,
+                        'url' => $photoName,
+                    ]);
+                }
+            });
 
-        $this->reset(['selectedPhoto']);
-        noty()->timeout(1000)->progressBar(false)->addSuccess('Data berhasil diperbarui.');
+            $this->reset(['selectedPhoto']);
+            noty()->timeout(1000)->progressBar(false)->addSuccess('Data berhasil diperbarui.');
+
+            redirect(route('admin.room-type'));
+        } catch (\Exception $e) {
+            noty()->timeout(1000)->progressBar(false)->warning('Data gagal diperbarui.');
+        }
     }
 
     public function deletePhoto(string $idPhoto): void
     {
-        $photo = Photo::find($idPhoto);
-        $photo->delete();
-        noty()->timeout(1000)->progressBar(false)->addSuccess('Photo berhasil dihapus.');
+        try {
+            $photo = Photo::find($idPhoto);
+            $photo->delete();
+            noty()->timeout(1000)->progressBar(false)->addSuccess('Foto berhasil dihapus.');
+        } catch (\Exception $e) {
+            noty()->timeout(1000)->progressBar(false)->warning('Gagal menghapus foto.');
+        }
     }
 
     public function render(): \Illuminate\View\View

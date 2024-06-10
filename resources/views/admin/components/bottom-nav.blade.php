@@ -37,7 +37,7 @@
         <small>Chat</small>
     </a>
     </a>
-    <a href="">
+    <a href="{{ route('admin.users') }}">
         <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="currentColor" class="bi bi-person"
             viewBox="0 0 16 16">
             <path

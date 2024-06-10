@@ -11,13 +11,6 @@ use function Flasher\Noty\Prime\noty;
 
 class RoomTypeIndex extends Component
 {
-    public $deleteId;
-
-    public function confirmDelete(string $id): void
-    {
-        $this->deleteId = $id;
-    }
-
     public function destroy(string $id): void
     {
         DB::transaction(function () use ($id) {

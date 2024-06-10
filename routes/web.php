@@ -24,6 +24,7 @@ Route::view('/bill', 'user.bill')->name('user.bill');
 Route::view('/profile', 'user.profile')->name('user.profile');
 Route::view('/bill-detail', 'user.bill-detail')->name('user.bill-detail');
 
+//admin
 Route::view('/admin', 'admin.dashboard')->name('admin.dashboard');
 Route::view('/admin/dashboard', 'admin.dashboard')->name('admin.dashboard');
 Route::view('/admin/room', 'admin.room')->name('admin.room');

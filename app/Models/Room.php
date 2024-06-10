@@ -18,4 +18,9 @@ class Room extends Model
     {
         return $this->belongsTo(RoomType::class);
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }
