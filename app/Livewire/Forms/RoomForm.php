@@ -8,7 +8,7 @@ use Livewire\Form;
 class RoomForm extends Form
 {
     #[Validate('required')]
-    public string $name = '';
+    public string $name = 'Kamar';
 
     #[Validate('required', as: 'room type')]
     public string $room_type_id = '';

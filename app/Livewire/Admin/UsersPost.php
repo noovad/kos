@@ -3,27 +3,30 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Room;
-use Livewire\Component;
-use Livewire\Attributes\On;
-use App\Livewire\Forms\RoomForm;
-use App\Models\RoomType;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 use Illuminate\Validation\Rule;
-use Livewire\Attributes\Layout;
+use Illuminate\Validation\Rules;
+use Livewire\Attributes\On;
+use Livewire\Component;
 
 class UsersPost extends Component
 {
-    public string $name;
-    public string $email;
+    public string $name = 'user';
 
-    public string $password;
-    public string $password_confirmation;
+    public string $email = 'user@email.com';
+
+    public string $password = '12312344';
+
+    public string $password_confirmation = '12312344';
 
     public string $room_id;
+
+    public string $room_id_update;
+
+    public string $room_name_update;
 
     public int $userId;
 
@@ -34,11 +37,10 @@ class UsersPost extends Component
     public function register()
     {
         $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:' . User::class],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'name' => ['required', 'string', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
-
 
         $validated['password'] = Hash::make($validated['password']);
 
@@ -55,7 +57,9 @@ class UsersPost extends Component
     public function openUpdate($id)
     {
         $this->userId = $id;
-        $this->user = User::where('id', $id)->firstOrFail();
+        $this->user = User::where('id', $id)->with('room')->firstOrFail();
+        $this->room_id_update = optional($this->user->room)->id ?? '';
+        $this->room_name_update = optional($this->user->room)->name ?? '';
         $this->name = $this->user->name ?? '';
         $this->email = $this->user->email ?? '';
         $this->password = '';
@@ -73,8 +77,8 @@ class UsersPost extends Component
             'password' => ['string', 'confirmed', Rules\Password::defaults()],
             'room_id' => ['nullable'],
         ]);
-
         // dd($validated);
+
         try {
             $this->user->update($validated);
 
@@ -96,9 +100,11 @@ class UsersPost extends Component
         $this->dispatch('close-modal-create');
         $this->reset();
     }
+
     public function render()
     {
-        $tipe = Room::latest()->get();
+        $tipe = Room::orderBy('name')->doesntHave('user')->get();
+
         return view('livewire.admin.users-post', ['tipe' => $tipe]);
     }
 }

@@ -53,4 +53,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Room::class);
     }
+
+    /**
+     * Get the transaction that owns the user.
+     */
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
+    }
 }

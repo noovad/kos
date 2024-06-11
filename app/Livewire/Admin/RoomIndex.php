@@ -11,6 +11,7 @@ use Livewire\Component;
 class RoomIndex extends Component
 {
     public $filter = '';
+
     public $empty = '';
 
     public RoomForm $form;
@@ -35,7 +36,7 @@ class RoomIndex extends Component
     #[On('room-updated')]
     public function render()
     {
-        $data = Room::latest()->with('roomType')->with('user');
+        $data = Room::orderBy('name')->with('roomType')->with('user');
 
         if ($this->filter) {
             $data->where('room_type_id', $this->filter);
@@ -49,7 +50,7 @@ class RoomIndex extends Component
 
         $data = $data->get();
 
-        $tipe = RoomType::latest()->get();
+        $tipe = RoomType::orderBy('name')->get();
 
         return view('livewire.admin.room-index', ['data' => $data, 'tipe' => $tipe]);
     }

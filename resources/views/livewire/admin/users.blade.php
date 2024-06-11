@@ -111,7 +111,7 @@
                                             <p class="p-1 mb-0">Kamar</p>
                                         </div>
                                         <div class="expand-button col-span-4 flex flex-col justify-center">
-                                            <p>: {{ $item->room->name }}</p>
+                                            <p>: {{ $item->room->name ?? ""}}</p>
                                         </div>
                                     </div>
                                 </div>

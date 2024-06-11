@@ -3,8 +3,8 @@
 namespace App\Livewire\Admin;
 
 use App\Models\User;
-use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\Component;
 
 class Users extends Component
 {
@@ -29,15 +29,14 @@ class Users extends Component
 
     #[On('user-created')]
     #[On('user-updated')]
-
     public function render()
     {
-        $users = User::query()->with('room');
+        $users = User::query();
 
         if ($this->filter == '1') {
-            $users->whereNotNull('room_id');
+            $users->whereNotNull('room_id')->Where('room_id', '!=', 0)->with('room');
         } elseif ($this->filter == '0') {
-            $users->whereNull('room_id');
+            $users->whereNull('room_id')->orWhere('room_id', 0);
         }
 
         $users = $users->get();
