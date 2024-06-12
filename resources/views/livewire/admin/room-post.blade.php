@@ -16,9 +16,11 @@
                 @endif
             </h3>
 
-            <input wire:model='form.name' type="text" placeholder="Type here" class="input input-bordered w-full" />
+            <label for="name" class="block text-xs text-gray-700">Name:</label>
+            <input wire:model='form.name' type="text" id="name" placeholder="Type here" class="input input-sm input-bordered w-full text-xs mt-1" />
 
-            <select wire:model="form.room_type_id" class="select select-bordered w-full max-w-xs mt-4">
+            <label for="room_type" class="block mt-4 text-xs text-gray-700">Room Type:</label>
+            <select wire:model="form.room_type_id" id="room_type" class="select select-sm text-xs select-bordered w-full max-w-xs mt-1">
                 @if (!$update_data)
                     <option selected>Pilih tipe</option>
                 @endif

@@ -2,7 +2,7 @@
     <livewire:admin.users-post>
         <div class="mt-4 mb-4">
             <div class="overflow-x-auto">
-                <select wire:model.lazy="filter" class="select bg-blue text-white border-none">
+                <select wire:model.lazy="filter" class="select select-sm text-xs bg-blue text-white border-none">
                     <option selected value="">Semua data</option>
                     <option value="1">Aktif</option>
                     <option value="0">Tidak Aktif</option>
@@ -10,13 +10,14 @@
             </div>
         </div>
         <hr>
+        
         <table class="table">
             <thead>
                 <tr>
                     <th></th>
-                    <th class="text-center">Name</th>
+                    <th class="text-center">Nama</th>
                     <th class="text-center">Status</th>
-                    <th class="text-center">Detail</th>
+                    <th class="text-center">Aksi</th>
                 </tr>
                 </tr>
             </thead>
@@ -97,7 +98,7 @@
                             <div class="card border border-grey text-black mt-2 mb-2">
                                 <div class="grid grid-cols-7 pl-2">
                                     <div class="col-span-3 rounded-lg">
-                                        <p class="p-1 mb-0">email</p>
+                                        <p class="p-1 mb-0">Email</p>
                                     </div>
                                     <div class="expand-button col-span-4 flex flex-col justify-center">
                                         <p>: {{ $item->email }}</p>
@@ -115,6 +116,18 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="card border border-grey text-black mt-2 mb-2">
+                                    <div class="grid grid-cols-7 pl-2">
+                                        <div class="col-span-3 rounded-lg">
+                                            <p class="p-1 mb-0">Tanggal Mulai</p>
+                                        </div>
+                                        <div class="expand-button col-span-4 flex flex-col justify-center">
+                                            <p>: {{ $item->start_date ?? ""}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
                             @endif
                             <div class="modal-action pt-4 m-0">
                                 <form method="dialog">

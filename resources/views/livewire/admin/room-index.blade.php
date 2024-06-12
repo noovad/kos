@@ -2,14 +2,14 @@
     <livewire:admin.room-post>
         <hr>
         <div class="mt-4 mb-4">
-            <select wire:model.lazy="filter" class="select bg-blue text-white border-none">
+            <select wire:model.lazy="filter" class="select select-sm text-xs bg-blue text-white border-none">
                 <option selected value="">Semua tipe kamar</option>
 
                 @foreach ($tipe as $itemType)
                     <option value="{{ $itemType->id }}">{{ $itemType->name }}</option>
                 @endforeach
             </select>
-            <select wire:model.lazy="empty" class="select bg-blue text-white border-none">
+            <select wire:model.lazy="empty" class="select select-sm text-xs bg-blue text-white border-none">
                 <option selected value="">Semua status</option>
                 <option value="0">Kosong</option>
                 <option value="1">Terisi</option>

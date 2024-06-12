@@ -13,7 +13,7 @@
                 <small class="pl-3">status</small>
             </div>
             <div class="expand-button col-span-2 flex flex-col justify-center">
-                <a class="btn btn-xs bg-blue text-white border-none" href="{{ route('user.bill-detail') }}">Lihat</a>
+                <a class="btn btn-xs bg-blue text-white border-none" href="{{ route('user.transaction-detail') }}">Lihat</a>
             </div>
         </div>
     </div>
