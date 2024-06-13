@@ -32,6 +32,7 @@ class TransactionIndex extends Component
     #[On('transaction-updated')]
     public function render()
     {
+        // pagination
         $transaction = Transaction::orderBy('due_date')->with('user')->get();
         return view('livewire.admin.transaction-index', ['transaction' => $transaction]);
     }

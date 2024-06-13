@@ -2,12 +2,15 @@
 
 namespace App\Livewire\Admin;
 
+use App\Enums\TransactionStatus;
+use App\Models\Room;
 use App\Models\User;
+use Midtrans\Config;
 use Livewire\Component;
 use App\Models\Transaction;
 use Livewire\Attributes\On;
+use App\Services\PaymentService;
 use App\Livewire\Forms\TransactionForm;
-use App\Models\Room;
 
 class TransactionPost extends Component
 {
@@ -15,11 +18,19 @@ class TransactionPost extends Component
     public User $userUp;
 
     public string $user_selected = "";
-    public $update_data = false;
 
     public function create()
     {
         $user = User::has('room')->where('id', $this->user_selected)->with('room')->first();
+        
+
+        $payload = [
+            'name' => $user->name,
+            'phone' => $user->phone,
+            'gross_amount' => $user->room->roomType->price,
+        ];
+        
+        $payment = json_decode((new PaymentService())->createTransaction($payload)->getContent(), true);
 
         // update start date dan description
         try {
@@ -27,49 +38,25 @@ class TransactionPost extends Component
                 [
                     'user_id' => $this->user_selected,
                     'amount' => $user->room->roomType->price,
-                    'due_date' => $user->start_date,
-                    'status' => 'Menunggu Pembayaran',
-                    'description' => 'Pembayaran bulanan.'
+                    'due_date' => generateDueDate($user->room->start_date),
+                    'status' => TransactionStatus::PENDING,
+                    'description' => 'Pembayaran bulan '. dateNow(),
+                    'payment_code' => $payment['permata_va_number'],
+                    'order_id' => $payment['order_id'],
+                    'room' => $user->room->name,
                 ]
             );
             noty()->timeout(1000)->progressBar(false)->addSuccess('Data berhasil dibuat.');
             $this->dispatch('transaction-created');
             $this->dispatch('close-modal-create');
         } catch (\Throwable $th) {
-            dd($th->getMessage());
+            dd($th);
             noty()->timeout(1000)->progressBar(false)->addError('Data gagal dibuat.');
         }
     }
 
-    #[On('update-transaction')]
-    public function openUpdate($id)
-    {
-        $this->transaction = Transaction::where('id', $id)->with('room')->firstOrFail();
-        $this->update_data = true;
-        $this->dispatch('open-modal-create');
-    }
-
-    public function update()
-    {
-        $validate = ($this->form->validate());
-        try {
-            $this->transaction->update($validate);
-
-            noty()->timeout(1000)->progressBar(false)->addSuccess('Data berhasil diperbarui.');
-            $this->dispatch('close-modal-create');
-            $this->dispatch('transaction-updated');
-
-            $this->update_data = false;
-        } catch (\Throwable $th) {
-
-            noty()->timeout(1000)->progressBar(false)->addError('Data gagal diperbarui.');
-        }
-        $this->form->reset();
-    }
-
     public function closeModal()
     {
-        $this->update_data = false;
         $this->dispatch('close-modal-create');
         $this->user_selected = "";
     }

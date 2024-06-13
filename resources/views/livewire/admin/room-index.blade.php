@@ -11,10 +11,9 @@
             </select>
             <select wire:model.lazy="empty" class="select select-sm text-xs bg-blue text-white border-none">
                 <option selected value="">Semua status</option>
-                <option value="0">Kosong</option>
                 <option value="1">Terisi</option>
+                <option value="0">Kosong</option>
             </select>
-
         </div>
         @foreach ($data as $item)
             <div class="card border border-grey text-black mt-4 mb-4">

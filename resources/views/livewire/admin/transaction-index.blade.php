@@ -34,7 +34,7 @@
                             <p class="p-1 mb-0">Kamar</p>
                         </div>
                         <div class="expand-button col-span-4 flex flex-col justify-center">
-                            <p>: {{ $item->user->name }}</p>
+                            <p>: {{ $item->room }}</p>
                         </div>
                     </div>
                 </div>
@@ -44,11 +44,21 @@
                             <p class="p-1 mb-0">Tagihan</p>
                         </div>
                         <div class="expand-button col-span-4 flex flex-col justify-center">
-                            <p>: {{ $item->amount }}</p>
+                            <p>: Rp {{ number_format($item->amount, 0, ',', '.')}}</p>
                         </div>
                     </div>
                 </div>
                 {{-- // jika sudah dibayar, maka tidak muncul --}}
+                <div class="card border border-grey text-black mt-2">
+                    <div class="grid grid-cols-7 pl-2">
+                        <div class="col-span-3 rounded-lg">
+                            <p class="p-1 mb-0">Kode Pembayaran</p>
+                        </div>
+                        <div class="expand-button col-span-4 flex flex-col justify-center">
+                            <p>: {{ $item->payment_code }}</p>
+                        </div>
+                    </div>
+                </div>
                 <div class="card border border-grey text-black mt-2">
                     <div class="grid grid-cols-7 pl-2">
                         <div class="col-span-3 rounded-lg">

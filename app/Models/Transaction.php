@@ -15,6 +15,9 @@ class Transaction extends Model
         'due_date',
         'status',
         'description',
+        'payment_code',
+        'room',
+        'order_id',
     ];
 
     public function user()

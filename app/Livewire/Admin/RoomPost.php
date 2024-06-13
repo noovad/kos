@@ -71,7 +71,7 @@ class RoomPost extends Component
 
     public function render()
     {
-        $tipe = RoomType::latest()->get();
+        $tipe = RoomType::orderBy('name')->get();
 
         return view('livewire.admin.room-post', ['tipe' => $tipe]);
     }
