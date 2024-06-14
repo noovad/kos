@@ -12,6 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->string('email')->nullable()->change();
+            $table->foreignId('room_id')->nullable()->constrained('rooms')->onDelete('set null');
+            $table->foreignId('role_id')->nullable()->constrained('roles')->onDelete('set null');
             $table->date('start_date')->nullable();
             $table->string('phone')->nullable();
         });
@@ -23,6 +26,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->string('email')->nullable(false)->change();
+            $table->dropForeign(['role_id']);
+            $table->dropColumn('role_id');
+            $table->dropColumn('room_id');
             $table->dropColumn('start_date');
             $table->dropColumn('phone');
         });

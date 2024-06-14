@@ -15,7 +15,6 @@
             <div class="grid grid-cols-11 gap-2 p-2">
                 <div class="col-span-5 rounded-lg">
                     <p class="pl-3 -mb-2">{{ $item->name }}</p>
-                    <small class="pl-3">status</small>
                 </div>
                 <div class="expand-button col-span-2 flex flex-col justify-center">
                     <a class="btn btn-xs bg-blue text-white border-none"
