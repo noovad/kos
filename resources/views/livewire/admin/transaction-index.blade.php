@@ -21,10 +21,10 @@
                 <div class="card border border-grey text-black mt-2 mb-2">
                     <div class="grid grid-cols-7 pl-2">
                         <div class="col-span-3 rounded-lg">
-                            <p class="p-1 mb-0">Nama Penghuni</p>
+                            <p class="p-1 mb-0">Nama</p>
                         </div>
                         <div class="expand-button col-span-4 flex flex-col justify-center">
-                            <p>: {{ $item->user->name }}</p>
+                            <p>: {{ $item->user_name }}</p>
                         </div>
                     </div>
                 </div>

@@ -29,10 +29,7 @@
             <label for="room_id" class="block mb-2 text-xs">Nama Kamar</label>
             <select wire:model.lazy="room_id" id="room_id"
                 class="select select-sm text-xs select-bordered w-full max-w-xs mb-2">
-                @if ($room_id_update === '')
-                    <option selected>Pilih tipe</option>
-                @endif
-                <option selected value="">Tidak aktif</option>
+                <option selected value="0">Tidak aktif</option>
                 @if (($room_id_update || $room_name_update) != '')
                     <option value=" {{ $room_id_update }} " selected class="text-green-600"> {{ $room_name_update }}
                     </option>

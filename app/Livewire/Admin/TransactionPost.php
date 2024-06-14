@@ -36,7 +36,8 @@ class TransactionPost extends Component
         try {
             Transaction::create(
                 [
-                    'user_id' => $this->user_selected,
+                    'user_id' => $user->id,
+                    'user_name' => $user->name,
                     'amount' => $user->room->roomType->price,
                     'due_date' => generateDueDate($user->room->start_date),
                     'status' => TransactionStatus::PENDING,

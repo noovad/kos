@@ -42,6 +42,7 @@ class UsersPost extends Component
 
     public function register()
     {
+        $this->room_id == "0" ? $this->room_id = null : $this->room_id;
         $this->phone = "+62" . preg_replace('/-/', '', $this->phone_format);
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255', 'unique:' . User::class],
@@ -82,6 +83,7 @@ class UsersPost extends Component
 
     public function update()
     {
+        $this->room_id == "0" || $this->room_id == null ? $this->room_id = null : $this->room_id;
         $this->phone = "+62" . preg_replace('/-/', '', $this->phone_format);
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique(User::class)->ignore($this->userId)],
@@ -111,6 +113,7 @@ class UsersPost extends Component
             $this->dispatch('user-updated');
             $this->update_data = false;
         } catch (\Throwable $th) {
+            dd($th);
             noty()->timeout(1000)->progressBar(false)->addError('Data gagal diperbarui.');
         }
     }
