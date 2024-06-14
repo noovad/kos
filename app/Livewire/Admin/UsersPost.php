@@ -48,7 +48,7 @@ class UsersPost extends Component
             'phone' => ['required', 'string', 'max:14', 'min:14', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
             'room_id' => ['nullable'],
-            'start_date' => $this->room_id ? ['required', 'date_format:Y-m-d H:i:s'] : ['nullable'],
+            'start_date' => $this->room_id ? ['required'] : ['nullable'],
         ]);
 
         $validated['password'] = Hash::make($validated['password']);

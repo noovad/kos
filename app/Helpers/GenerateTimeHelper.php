@@ -2,30 +2,16 @@
 
 function generateDueDate($startDate): string
 {
-     // Membuat objek DateTime dari tanggal awal
      $date = new DateTime($startDate);
-
-     // Mendapatkan bulan saat ini
      $currentMonth = new DateTime();
-
-     // Mengubah bulan pada objek DateTime ke bulan saat ini ditambah satu
      $currentMonth->modify('+1 month');
      $year = $currentMonth->format('Y');
      $month = $currentMonth->format('m');
-
-     // Mengatur tanggal ke 1 pada bulan baru untuk mendapatkan hari terakhir bulan tersebut
      $date->setDate($year, $month, 1);
      $lastDayOfMonth = $date->format('t');
-
-     // Jika tanggal awal lebih besar dari hari terakhir bulan baru, gunakan hari terakhir bulan baru
      $day = min((new DateTime($startDate))->format('d'), $lastDayOfMonth);
-
-     // Atur kembali tanggal dengan tahun, bulan, dan hari yang telah disesuaikan
      $date->setDate($year, $month, $day);
-
-     // Format tanggal hasil sesuai kebutuhan (misalnya Y-m-d)
      $newDate = $date->format('Y-m-d');
-
      return $newDate;
 }
 
@@ -50,4 +36,24 @@ function dateNow(): string
      ];
      
      return $months[$month] . ' ' . $year;
+}
+
+function compareDate(?string $dateString): bool
+{
+     if ($dateString === null) {
+         return false;
+     }
+     
+     // $dateString = "2024-06-14";
+     // Mendapatkan bulan dan tanggal dari string
+     $date = DateTime::createFromFormat('Y-m-d', $dateString);
+     $month = $date->format('n');
+     $day = $date->format('j');
+
+     // Mendapatkan bulan dan tanggal saat ini
+     $currentMonth = date('n');
+     $currentDay = date('j');
+
+     // Membandingkan bulan dan tanggal
+     return $month == $currentMonth && $day == $currentDay;
 }

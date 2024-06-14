@@ -10,6 +10,7 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
         "livewire/volt": "^1.0",
+        "midtrans/midtrans-php": "^2.5",
         "php-flasher/flasher-noty-laravel": "^2.0"
     },
     "require-dev": {
@@ -29,7 +30,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/GenerateTimeHelper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
