@@ -23,4 +23,9 @@ class Room extends Model
     {
         return $this->hasOne(User::class);
     }
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

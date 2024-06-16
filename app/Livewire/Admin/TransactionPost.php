@@ -39,12 +39,13 @@ class TransactionPost extends Component
                     'user_id' => $user->id,
                     'user_name' => $user->name,
                     'amount' => $user->room->roomType->price,
-                    'due_date' => generateDueDate($user->room->start_date),
+                    'due_date' => generateDueDate($user->start_date),
                     'status' => TransactionStatus::PENDING,
                     'description' => 'Pembayaran bulan '. dateNow(),
                     'payment_code' => $payment['permata_va_number'],
                     'order_id' => $payment['order_id'],
                     'room' => $user->room->name,
+                    'room_id' => $user->room->id,
                 ]
             );
             noty()->timeout(1000)->progressBar(false)->addSuccess('Data berhasil dibuat.');

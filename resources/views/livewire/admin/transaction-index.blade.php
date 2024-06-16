@@ -3,8 +3,15 @@
     @foreach ($transaction as $item)
         <div class="card border border-grey text-black mt-4 mb-4">
             <div class="grid grid-cols-7 gap-2 p-2">
-                <div class="col-span-6  rounded-lg">
+                <div class="col-span-6 rounded-lg">
                     <p class="pl-3 -mb-2">{{ $item->user->name }}</p>
+                    @if ($item->status == 'Belum Dibayar')
+                        <small class="text-green-600 pl-3">Belum Dibayar</small>
+                    @elseif ($item->status == 'Sudah Dibayar')
+                        <small class=" pl-3">Sudah Dibayar</small>
+                    @elseif ($item->status == 'Kadaluarasa')
+                        <small class="text-red-600 pl-3">Kadaluarasa</small>
+                    @endif
                 </div>
                 <div class="col-span-1 flex flex-col justify-center">
                     <button class="btn btn-xs bg-blue text-white border-none"
@@ -44,7 +51,7 @@
                             <p class="p-1 mb-0">Tagihan</p>
                         </div>
                         <div class="expand-button col-span-4 flex flex-col justify-center">
-                            <p>: Rp {{ number_format($item->amount, 0, ',', '.')}}</p>
+                            <p>: Rp {{ number_format($item->amount, 0, ',', '.') }}</p>
                         </div>
                     </div>
                 </div>

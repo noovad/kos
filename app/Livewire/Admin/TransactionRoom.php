@@ -2,16 +2,43 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\RoomType;
+use Carbon\Carbon;
+use App\Models\Room;
 use Livewire\Component;
+use App\Models\RoomType;
+use App\Models\Transaction;
 
 class TransactionRoom extends Component
 {
     public function render()
     {
-        $data = RoomType::orderBy('name')->with('rooms.user.transaction')->get();
+        $roomTypes = RoomType::orderBy('name')->with('rooms')->get();
+        $data = [];
 
-        // dd($data);
+        foreach ($roomTypes as $roomType) {
+            $rooms = [];
+
+            foreach ($roomType->rooms as $room) {
+                $transaction = Transaction::select('status', 'due_date')
+                    ->where('due_date', '>=', Carbon::now())
+                    ->where('room_id', $room->id)
+                    ->first();
+
+                $rooms[] = [
+                    'room' => $room->name,
+                    'user' => $room->user ? $room->user->name : null,
+                    'due_date' => $transaction ? $transaction->due_date : null,
+                    'status' => $room->user ? "active" : null,
+                    'transaction_status' => $transaction ? $transaction->status : 'Sudah Dibayar',
+                ];
+            }
+
+            $data[] = [
+                'room_type' => $roomType->name,
+                'rooms' => $rooms,
+            ];
+        }
+
         return view('livewire.admin.transaction-room', ['data' => $data]);
     }
 }

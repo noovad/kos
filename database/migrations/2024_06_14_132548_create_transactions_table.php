@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('user_name');
             $table->integer('amount');
             $table->date('due_date');
+            $table->foreignId('room_id')->nullable()->constrained('rooms')->onDelete('set null');
             $table->string('room');
             $table->string('status');
             $table->text('description');

@@ -17,6 +17,7 @@ class Transaction extends Model
         'status',
         'description',
         'payment_code',
+        'room_id',
         'room',
         'order_id',
     ];

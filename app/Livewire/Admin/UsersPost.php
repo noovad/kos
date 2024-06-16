@@ -113,7 +113,6 @@ class UsersPost extends Component
             $this->dispatch('user-updated');
             $this->update_data = false;
         } catch (\Throwable $th) {
-            dd($th);
             noty()->timeout(1000)->progressBar(false)->addError('Data gagal diperbarui.');
         }
     }
