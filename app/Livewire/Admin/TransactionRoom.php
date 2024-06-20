@@ -2,11 +2,10 @@
 
 namespace App\Livewire\Admin;
 
-use Carbon\Carbon;
-use App\Models\Room;
-use Livewire\Component;
 use App\Models\RoomType;
 use App\Models\Transaction;
+use Carbon\Carbon;
+use Livewire\Component;
 
 class TransactionRoom extends Component
 {
@@ -28,7 +27,7 @@ class TransactionRoom extends Component
                     'room' => $room->name,
                     'user' => $room->user ? $room->user->name : null,
                     'due_date' => $transaction ? $transaction->due_date : null,
-                    'status' => $room->user ? "active" : null,
+                    'status' => $room->user ? 'active' : null,
                     'transaction_status' => $transaction ? $transaction->status : 'Sudah Dibayar',
                 ];
             }

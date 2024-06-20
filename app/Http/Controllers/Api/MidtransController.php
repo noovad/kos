@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Enums\TransactionStatus;
-use Midtrans\Config;
+use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class MidtransController extends Controller
 {
@@ -15,7 +13,7 @@ class MidtransController extends Controller
     public function callback(Request $request)
     {
         $transaction = Transaction::where('order_id', $request->order_id)->first();
-        $signature_key = hash('sha512', $transaction->order_id . $request->status_code . $request->gross_amount . config('services.midtrans.serverKey'));
+        $signature_key = hash('sha512', $transaction->order_id.$request->status_code.$request->gross_amount.config('services.midtrans.serverKey'));
 
         if ($request->signature_key == $signature_key) {
             $transaction->update([

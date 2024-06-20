@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Room;
-use App\Models\User;
 use App\Models\RoomType;
 use App\Models\Transaction;
-use Illuminate\Database\Seeder;
+use App\Models\User;
 use Faker\Factory as FakerFactory;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,12 +26,12 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $roomTypes = [
-            ["id" => 1, "name" => "Tipe 1", "price" => 1100000, "description" => "Deskripsi untuk Tipe 1"],
-            ["id" => 2, "name" => "Tipe 2", "price" => 1200000, "description" => "Deskripsi untuk Tipe 2"],
-            ["id" => 3, "name" => "Tipe 3", "price" => 1300000, "description" => "Deskripsi untuk Tipe 3"],
-            ["id" => 4, "name" => "Tipe 4", "price" => 1400000, "description" => "Deskripsi untuk Tipe 4"],
-            ["id" => 5, "name" => "Tipe 5", "price" => 1500000, "description" => "Deskripsi untuk Tipe 5"],
-            ["id" => 6, "name" => "Tipe 6", "price" => 1600000, "description" => "Deskripsi untuk Tipe 6"]
+            ['id' => 1, 'name' => 'Tipe 1', 'price' => 1100000, 'description' => 'Deskripsi untuk Tipe 1'],
+            ['id' => 2, 'name' => 'Tipe 2', 'price' => 1200000, 'description' => 'Deskripsi untuk Tipe 2'],
+            ['id' => 3, 'name' => 'Tipe 3', 'price' => 1300000, 'description' => 'Deskripsi untuk Tipe 3'],
+            ['id' => 4, 'name' => 'Tipe 4', 'price' => 1400000, 'description' => 'Deskripsi untuk Tipe 4'],
+            ['id' => 5, 'name' => 'Tipe 5', 'price' => 1500000, 'description' => 'Deskripsi untuk Tipe 5'],
+            ['id' => 6, 'name' => 'Tipe 6', 'price' => 1600000, 'description' => 'Deskripsi untuk Tipe 6'],
         ];
 
         foreach ($roomTypes as $roomType) {
@@ -46,9 +46,9 @@ class DatabaseSeeder extends Seeder
         $roomTypeId = 1;
         for ($i = 1; $i <= 60; $i++) {
             $room = [
-                "id" => $i,
-                "name" => "Kamar " . sprintf("%02d", $i),
-                "room_type_id" => $roomTypeId
+                'id' => $i,
+                'name' => 'Kamar '.sprintf('%02d', $i),
+                'room_type_id' => $roomTypeId,
             ];
             $rooms[] = $room;
             if ($i % 10 == 0) {
@@ -73,12 +73,12 @@ class DatabaseSeeder extends Seeder
                 'name' => $faker->name,
                 'room_id' => $randomValue,
                 'email' => $faker->unique()->safeEmail,
-                'phone' => '+62' . $faker->randomNumber(9, true),
+                'phone' => '+62'.$faker->randomNumber(9, true),
                 'password' => Hash::make('12312344'),
             ];
 
             $start = '2024-01-01';
-            $end = '2024-' . date('m', strtotime('-1 month')) . '-31';
+            $end = '2024-'.date('m', strtotime('-1 month')).'-31';
             $randomDate = $faker->dateTimeBetween($start, $end);
             if ($user['room_id']) {
                 $user['start_date'] = $randomDate;
@@ -91,7 +91,7 @@ class DatabaseSeeder extends Seeder
         Transaction::truncate();
         $start = '2024-01-01';
         $end = date('Y-m-d', strtotime('-1 day'));
-        
+
         for ($i = 1; $i <= 150; $i++) {
             $user = User::find(rand(1, 30));
             $room = Room::where('id', $faker->numberBetween(1, 60))->with('roomType')->first();
@@ -103,10 +103,10 @@ class DatabaseSeeder extends Seeder
                 'due_date' => $faker->dateTimeBetween($start, $end),
                 'room_id' => $room->id,
                 'room' => $room->name,
-                'status' => "Sudah Dibayar",
-                'description' => 'Pembayaran bulan ' . dateNow(),
+                'status' => 'Sudah Dibayar',
+                'description' => 'Pembayaran bulan '.dateNow(),
                 'payment_code' => $faker->randomNumber(8),
-                'order_id' => $faker->randomNumber(8)
+                'order_id' => $faker->randomNumber(8),
             ];
 
             Transaction::create($transaction);
@@ -124,9 +124,9 @@ class DatabaseSeeder extends Seeder
                     'room_id' => $room->id,
                     'room' => $room->name,
                     'status' => $faker->randomElement(['Belum Dibayar', 'Sudah Dibayar']),
-                    'description' => 'Pembayaran bulan ' . dateNow(),
+                    'description' => 'Pembayaran bulan '.dateNow(),
                     'payment_code' => $faker->randomNumber(8),
-                    'order_id' => $faker->randomNumber(8)
+                    'order_id' => $faker->randomNumber(8),
                 ];
 
                 Transaction::create($transaction);

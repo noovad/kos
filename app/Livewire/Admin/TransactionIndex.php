@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Admin;
 
-use Livewire\Component;
 use App\Models\Transaction;
 use Livewire\Attributes\On;
+use Livewire\Component;
 
 class TransactionIndex extends Component
 {
@@ -34,6 +34,7 @@ class TransactionIndex extends Component
     {
         // pagination
         $transaction = Transaction::orderBy('due_date')->with('user')->get();
+
         return view('livewire.admin.transaction-index', ['transaction' => $transaction]);
     }
 }

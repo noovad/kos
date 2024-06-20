@@ -3,33 +3,29 @@
 namespace App\Livewire\Admin;
 
 use App\Enums\TransactionStatus;
-use App\Models\Room;
-use App\Models\User;
-use Midtrans\Config;
-use Livewire\Component;
 use App\Models\Transaction;
-use Livewire\Attributes\On;
+use App\Models\User;
 use App\Services\PaymentService;
-use App\Livewire\Forms\TransactionForm;
+use Livewire\Component;
 
 class TransactionPost extends Component
 {
     public Transaction $transaction;
+
     public User $userUp;
 
-    public string $user_selected = "";
+    public string $user_selected = '';
 
     public function create()
     {
         $user = User::has('room')->where('id', $this->user_selected)->with('room')->first();
-        
 
         $payload = [
             'name' => $user->name,
             'phone' => $user->phone,
             'gross_amount' => $user->room->roomType->price,
         ];
-        
+
         $payment = json_decode((new PaymentService())->createTransaction($payload)->getContent(), true);
 
         // update start date dan description
@@ -41,7 +37,7 @@ class TransactionPost extends Component
                     'amount' => $user->room->roomType->price,
                     'due_date' => generateDueDate($user->start_date),
                     'status' => TransactionStatus::PENDING,
-                    'description' => 'Pembayaran bulan '. dateNow(),
+                    'description' => 'Pembayaran bulan '.dateNow(),
                     'payment_code' => $payment['permata_va_number'],
                     'order_id' => $payment['order_id'],
                     'room' => $user->room->name,
@@ -60,13 +56,14 @@ class TransactionPost extends Component
     public function closeModal()
     {
         $this->dispatch('close-modal-create');
-        $this->user_selected = "";
+        $this->user_selected = '';
     }
 
     public function render()
     {
         $user = User::has('room')->where('id', $this->user_selected)->with('room')->first();
         $users = User::has('room')->get();
+
         return view('livewire.admin.transaction-post', ['users' => $users, 'user' => $user]);
     }
 }

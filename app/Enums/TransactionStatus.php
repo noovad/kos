@@ -5,9 +5,13 @@ namespace App\Enums;
 enum TransactionStatus
 {
     const SETTLEMENT = 'Sudah Dibayar';
+
     const PENDING = 'Belum Dibayar';
+
     const DENY = 'Ditolak';
+
     const EXPIRE = 'Kadaluarasa';
+
     const CANCEL = 'Dibatalakan';
 
     public static function mapStatus($status)
@@ -24,7 +28,7 @@ enum TransactionStatus
             case 'cancel':
                 return TransactionStatus::CANCEL;
             default:
-                throw new \InvalidArgumentException("Status tidak valid");
+                throw new \InvalidArgumentException('Status tidak valid');
         }
     }
 }

@@ -2,15 +2,15 @@
 
 namespace App\Jobs;
 
-use App\Models\User;
-use App\Models\Transaction;
-use Illuminate\Bus\Queueable;
 use App\Enums\TransactionStatus;
+use App\Models\Transaction;
+use App\Models\User;
 use App\Services\PaymentService;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class CreateTransactionJob implements ShouldQueue
 {
@@ -49,12 +49,16 @@ class CreateTransactionJob implements ShouldQueue
                         'amount' => $user->room->roomType->price,
                         'due_date' => generateDueDate($user->room->start_date),
                         'status' => TransactionStatus::PENDING,
-                        'description' => 'Pembayaran bulan ' . dateNow(),
+                        'description' => 'Pembayaran bulan '.dateNow(),
                         'payment_code' => $payment['permata_va_number'],
                         'order_id' => $payment['order_id'],
                         'room' => $user->room->name,
                     ]
                 );
+
+                $message = sprintf("Kepada Pelanggan: *%s*\n\nKami mengingatkan Anda terkait tagihan kos bulan %s sebesar Rp *%s* yang harus dibayarkan. Mohon segera melakukan pembayaran sebelum tanggal jatuh tempo.\n\nDetail Tagihan:\n\nBulan Tagihan: %s\nJumlah Tagihan: %s\nKode Pembayaran: %s\n\nHarap segera lakukan pembayaran melalui transfer bank atau metode pembayaran yang tersedia. Terima kasih atas perhatian dan kerjasamanya.\n\nHormat kami,\n\n[Perusahaan/Kosan Anda]",
+                    $user->name, dateNow(), number_format($user->room->roomType->price, 0, ',', '.'), dateNow(), number_format($user->room->roomType->price, 0, ',', '.'), $payment['permata_va_number']);
+                SendWhatsappJob::dispatch($user->phone, $message);
             }
         });
     }

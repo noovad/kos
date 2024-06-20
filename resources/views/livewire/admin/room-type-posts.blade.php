@@ -3,12 +3,13 @@
         class="input input-sm input-bordered w-full mb-2" />
     <div class="flex">
         <span class="input-sm">Rp</span>
-        <input wire:model='formattedValue' type="text" id="priceInput" class="input input-sm input-bordered w-full mb-2"
+        <input wire:ignore wire:model='formattedValue' type="text" id="priceInput" class="input input-sm input-bordered w-full mb-2"
             placeholder="0" oninput="formatRupiah(this)">
     </div>
-    <textarea wire:model='form.description' class="textarea textarea-bordered w-full mb-2" placeholder="Deskripsi"></textarea>
+    <textarea id="editor" wire:model='form.description' class="textarea textarea-bordered w-full mb-2" placeholder="Deskripsi"></textarea>
+    
     <input wire:model='photo' type="file" multiple
-        class="file-input file-input-sm file-input-bordered w-full max-w-xs" />
+        class="file-input file-input-sm file-input-bordered w-full max-w-xs mt-2" />
     <div>
         @if ($errors->any())
             @foreach ($errors->all() as $error)
@@ -51,6 +52,24 @@
     document.addEventListener('DOMContentLoaded', (event) => {
         const input = document.getElementById('priceInput');
         formatRupiah(input);
+    });
+</script>
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+
+<script>
+    CKEDITOR.replace('editor', {
+        removePlugins: 'elementspath',
+        toolbar: [
+            { name: 'styles', items: [ 'Format' ] },
+            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+            { name: 'links', items: [ 'Link', 'Unlink' ] },
+            { name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+            { name: 'editing', items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
+            { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
+            '/',
+            { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+            { name: 'tools', items: [ 'Maximize' ] }
+        ]
     });
 </script>
 </div>
