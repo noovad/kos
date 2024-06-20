@@ -85,16 +85,26 @@ class UsersPost extends Component
     {
         $this->room_id == '0' || $this->room_id == null ? $this->room_id = null : $this->room_id;
         $this->phone = '+62'.preg_replace('/-/', '', $this->phone_format);
+        $validated = [];
+
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique(User::class)->ignore($this->userId)],
             'phone' => ['required', 'string', 'max:14', 'min:14', Rule::unique(User::class)->ignore($this->userId)],
             'room_id' => ['nullable'],
-            'start_date' => $this->room_id ? ['required', 'date_format:Y-m-d'] : ['nullable'],
         ], [
             'phone.max' => 'Invalid phone number',
             'phone.min' => 'Invalid phone number',
         ]);
 
+        if ($this->room_id) {
+            $this->validate([
+                'start_date' => ['required', 'date_format:Y-m-d'],
+            ]);
+            $validated['start_date'] = $this->start_date;
+        } else {
+            $validated['start_date'] = null;
+        }
+        
         if ($this->update_password) {
             $passwordValidated = $this->validate([
                 'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],

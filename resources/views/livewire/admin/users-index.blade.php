@@ -1,15 +1,8 @@
-<div class="m-2">
+<div class="m-2 pb-14">
     <livewire:admin.users-post>
-        <div class="mt-4 mb-4">
-            <div class="overflow-x-auto">
-                <select wire:model.lazy="filter" class="select select-sm text-xs bg-blue text-white border-none">
-                    <option selected value="">Semua data</option>
-                    <option value="1">Aktif</option>
-                    <option value="0">Tidak Aktif</option>
-                </select>
-            </div>
-        </div>
-        <hr>
+        <button wire:click='userActive' class="btn btn-xs bg-blue text-white border-none">Pengguna Aktif</button>
+        <button wire:click='userInactive' class="btn btn-xs bg-blue text-white border-none">Pengguna Non-Aktif</button>
+        <hr class="mt-2">
         
         <table class="table">
             <thead>
@@ -139,5 +132,6 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $users->links() }}
 </div>
 </div>

@@ -6,9 +6,19 @@ use App\Models\User;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class Users extends Component
+class UsersIndex extends Component
 {
-    public $filter = '';
+    public $filter = 1;
+    
+    public function userActive()
+    {
+        $this->filter = 1;
+    }
+
+    public function userInactive()
+    {
+        $this->filter = 0;
+    }
 
     public function update($id)
     {
@@ -39,8 +49,8 @@ class Users extends Component
             $users->whereNull('room_id')->orWhere('room_id', 0);
         }
 
-        $users = $users->get();
+        $users = $users->orderBy('name')->paginate(5);
 
-        return view('livewire.admin.users', ['users' => $users]);
+        return view('livewire.admin.users-index', ['users' => $users]);
     }
 }

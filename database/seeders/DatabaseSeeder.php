@@ -73,7 +73,7 @@ class DatabaseSeeder extends Seeder
                 'name' => $faker->name,
                 'room_id' => $randomValue,
                 'email' => $faker->unique()->safeEmail,
-                'phone' => '+62'.$faker->randomNumber(9, true),
+                'phone' => '+62'.$faker->randomNumber(5, true) . $faker->randomNumber(6, true),
                 'password' => Hash::make('12312344'),
             ];
 

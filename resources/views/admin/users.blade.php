@@ -4,5 +4,5 @@
 @section('judul', 'Pengguna')
 
 @section('content')
-    <livewire:admin.users />
+    <livewire:admin.users-index />
 @endsection
