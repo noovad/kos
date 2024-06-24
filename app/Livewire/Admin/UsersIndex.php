@@ -3,21 +3,26 @@
 namespace App\Livewire\Admin;
 
 use App\Models\User;
-use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\Attributes\On;
+use Livewire\WithPagination;
+use Livewire\WithoutUrlPagination;
 
 class UsersIndex extends Component
 {
+    use WithPagination, WithoutUrlPagination;
     public $filter = 1;
-    
+
     public function userActive()
     {
         $this->filter = 1;
+        $this->resetPage();
     }
 
     public function userInactive()
     {
         $this->filter = 0;
+        $this->resetPage();
     }
 
     public function update($id)
@@ -31,7 +36,6 @@ class UsersIndex extends Component
             User::find($userId)->delete();
             noty()->timeout(1000)->progressBar(false)->addSuccess('Data berhasil dihapus.');
             $this->dispatch('close-modal-delete');
-
         } catch (\Throwable $th) {
             noty()->timeout(1000)->progressBar(false)->addError('Data gagal dihapus.');
         }
@@ -50,7 +54,11 @@ class UsersIndex extends Component
         }
 
         $users = $users->orderBy('name')->paginate(5);
+        $starting_number = ($users->currentPage() - 1) * $users->perPage() + 1;
 
-        return view('livewire.admin.users-index', ['users' => $users]);
+        return view('livewire.admin.users-index', [
+            'users' => $users,
+            'starting_number' => $starting_number
+        ]);
     }
 }

@@ -15,9 +15,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $item)
+                @foreach ($users as $key => $item)
                     <tr class="hover">
-                        <th>{{ $loop->iteration }}</th>
+                        <th>{{ $starting_number+$key }}</th>
                         <td>{{ $item->name }}</td>
                         <td class="text-center">
                             @if ($item->room_id)
