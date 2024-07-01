@@ -41,7 +41,7 @@
 
             <label for="date" class="block mb-2 text-xs">Tanggal</label>
             <input wire:model='start_date' type="date" id="date" placeholder="Tanggal"
-                class="input input-sm input-bordered w-full mb-2" @if (trim($room_id) === '') disabled @endif />
+                class="input input-sm input-bordered w-full mb-2" @if (trim($room_id) === '' || trim($room_id) === '0') disabled @endif />
 
 
 

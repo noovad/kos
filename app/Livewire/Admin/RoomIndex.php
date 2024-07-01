@@ -7,9 +7,13 @@ use App\Models\Room;
 use App\Models\RoomType;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
 
 class RoomIndex extends Component
 {
+    use WithoutUrlPagination, WithPagination;
+
     public $filter = '';
 
     public $empty = '';
@@ -48,7 +52,7 @@ class RoomIndex extends Component
             $data->doesntHave('user');
         }
 
-        $data = $data->get();
+        $data = $data->paginate(10);
 
         $tipe = RoomType::orderBy('name')->get();
 

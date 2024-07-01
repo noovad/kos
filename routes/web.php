@@ -37,6 +37,7 @@ Route::get('/admin/room-type/detail/{id}', function ($id) {
     return view('admin.room-type-detail', ['id' => $id]);
 })->name('admin.room-type.detail');
 Route::view('/admin/transaction', 'admin.transaction')->name('admin.transaction');
+Route::view('/admin/transaction-draft', 'admin.transaction-draft')->name('admin.transaction-draft');
 Route::view('/admin/transaction-status', 'admin.transaction-status')->name('admin.transaction-status');
 Route::view('/admin/transaction-user', 'admin.transaction-user')->name('admin.transaction-user');
 Route::view('/admin/transaction-list', 'admin.transaction-list')->name('admin.transaction-list');

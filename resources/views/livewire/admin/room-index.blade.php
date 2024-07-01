@@ -1,4 +1,4 @@
-<div class="m-2 pb-14">
+<div class="m-2 pb-20">
     <livewire:admin.room-post>
         <hr>
         <div class="mt-4 mb-4">
@@ -125,4 +125,7 @@
                 </div>
             </dialog>
         @endforeach
+        <div class="pt-2">
+            {{ $data->links() }}
+        </div>
 </div>

@@ -120,8 +120,8 @@
                                         </div>
                                     </div>
                                 </div>
-
                             @endif
+                            
                             <div class="modal-action pt-4 m-0">
                                 <form method="dialog">
                                     <button class="btn btn-sm bg-blue text-white border-none">Close</button>
@@ -132,6 +132,8 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $users->links() }}
+        <div class="pt-2">
+            {{ $users->links() }}
+        </div>
 </div>
 </div>

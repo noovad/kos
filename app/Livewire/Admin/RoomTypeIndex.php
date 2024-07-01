@@ -6,11 +6,15 @@ use App\Models\Photo;
 use App\Models\RoomType;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
 
 use function Flasher\Noty\Prime\noty;
 
 class RoomTypeIndex extends Component
 {
+    use WithoutUrlPagination, WithPagination;
+
     public function destroy(string $id): void
     {
         try {
@@ -33,7 +37,7 @@ class RoomTypeIndex extends Component
 
     public function render(): \Illuminate\View\View
     {
-        $data = RoomType::orderBy('name')->get();
+        $data = RoomType::orderBy('name')->paginate(20);
 
         return view('livewire.admin.room-type-index', ['data' => $data]);
     }

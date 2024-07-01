@@ -5,12 +5,14 @@ namespace App\Livewire\Admin;
 use App\Models\Transaction;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
 
 class TransactionIndex extends Component
 {
-    public $filter = '';
+    use WithoutUrlPagination, WithPagination;
 
-    public $empty = '';
+    public $filter = '';
 
     public function update($id)
     {
@@ -33,7 +35,13 @@ class TransactionIndex extends Component
     public function render()
     {
         // pagination
-        $transaction = Transaction::orderBy('due_date')->with('user')->get();
+        $transaction = Transaction::orderBy('due_date')->with('user');
+
+        if ($this->filter) {
+            $transaction = $transaction->where('status', $this->filter);
+        }
+
+        $transaction = $transaction->paginate(20);
 
         return view('livewire.admin.transaction-index', ['transaction' => $transaction]);
     }

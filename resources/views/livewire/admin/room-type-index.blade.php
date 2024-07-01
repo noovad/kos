@@ -53,4 +53,7 @@
             </div>
         </dialog>
     @endforeach
+    <div class="pt-2">
+        {{ $data->links() }}
+    </div>
 </div>

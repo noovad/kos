@@ -73,7 +73,7 @@ class DatabaseSeeder extends Seeder
                 'name' => $faker->name,
                 'room_id' => $randomValue,
                 'email' => $faker->unique()->safeEmail,
-                'phone' => '+62'.$faker->randomNumber(5, true) . $faker->randomNumber(6, true),
+                'phone' => '+62'.$faker->randomNumber(5, true).$faker->randomNumber(6, true),
                 'password' => Hash::make('12312344'),
             ];
 
@@ -124,6 +124,27 @@ class DatabaseSeeder extends Seeder
                     'room_id' => $room->id,
                     'room' => $room->name,
                     'status' => $faker->randomElement(['Belum Dibayar', 'Sudah Dibayar']),
+                    'description' => 'Pembayaran bulan '.dateNow(),
+                    'payment_code' => $faker->randomNumber(8),
+                    'order_id' => $faker->randomNumber(8),
+                ];
+
+                Transaction::create($transaction);
+            }
+        }
+
+        for ($i = 1; $i <= 10; $i++) {
+            $user = User::find($i);
+            if ($user->room_id) {
+                $room = Room::find($user->room_id);
+                $transaction = [
+                    'user_id' => $user->id,
+                    'user_name' => $user->name,
+                    'amount' => $room->roomType->price,
+                    'due_date' => generateDueDate($user->start_date),
+                    'room_id' => $room->id,
+                    'room' => $room->name,
+                    'status' => 'Draft',
                     'description' => 'Pembayaran bulan '.dateNow(),
                     'payment_code' => $faker->randomNumber(8),
                     'order_id' => $faker->randomNumber(8),

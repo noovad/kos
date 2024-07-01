@@ -10,18 +10,24 @@
 </head>
 
 <body>
+    {{-- Make Top bar if screen size is not mobile --}}
     <div class="container mx-auto max-w-lg w-full min-h-screen">
-    @include('user.components.header')
+        {{-- hide if screen size is not mobile --}}
+        @include('user.components.header')
 
-    <div class="pt-16">
-        @yield('content')
+        <div class="pt-16">
+            <div class="m-2 pb-20">
+                @yield('content')
+            </div>
+        </div>
     </div>
-</div>
 
 
-@section('bottombar')
-    @include('admin.components.bottom-nav')
-@show
+    @section('bottombar')
+
+        {{-- hide if screen size is not mobile --}}
+        @include('admin.components.bottom-nav')
+    @show
 </body>
 
 </html>

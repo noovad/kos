@@ -3,14 +3,15 @@
 namespace App\Livewire\Admin;
 
 use App\Models\User;
-use Livewire\Component;
 use Livewire\Attributes\On;
-use Livewire\WithPagination;
+use Livewire\Component;
 use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
 
 class UsersIndex extends Component
 {
-    use WithPagination, WithoutUrlPagination;
+    use WithoutUrlPagination, WithPagination;
+
     public $filter = 1;
 
     public function userActive()
@@ -53,12 +54,12 @@ class UsersIndex extends Component
             $users->whereNull('room_id')->orWhere('room_id', 0);
         }
 
-        $users = $users->orderBy('name')->paginate(5);
+        $users = $users->orderBy('name')->paginate(20);
         $starting_number = ($users->currentPage() - 1) * $users->perPage() + 1;
 
         return view('livewire.admin.users-index', [
             'users' => $users,
-            'starting_number' => $starting_number
+            'starting_number' => $starting_number,
         ]);
     }
 }

@@ -4,6 +4,8 @@ namespace App\Enums;
 
 enum TransactionStatus
 {
+    const DRAFT = 'Draft';
+
     const SETTLEMENT = 'Sudah Dibayar';
 
     const PENDING = 'Belum Dibayar';
@@ -17,6 +19,8 @@ enum TransactionStatus
     public static function mapStatus($status)
     {
         switch (strtolower($status)) {
+            case 'draft':
+                return TransactionStatus::DRAFT;
             case 'settlement':
                 return TransactionStatus::SETTLEMENT;
             case 'pending':

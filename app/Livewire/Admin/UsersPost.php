@@ -14,15 +14,15 @@ use Livewire\Component;
 
 class UsersPost extends Component
 {
-    public string $name = 'user';
+    public string $name = '';
 
-    public string $phone = '88123123123';
+    public string $phone = '';
 
-    public string $phone_format;
+    public string $phone_format = '';
 
-    public string $password = '12312344';
+    public string $password = '';
 
-    public string $password_confirmation = '12312344';
+    public string $password_confirmation = '';
 
     public $room_id = null;
 
@@ -50,6 +50,10 @@ class UsersPost extends Component
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
             'room_id' => ['nullable'],
             'start_date' => $this->room_id ? ['required', 'date_format:Y-m-d'] : ['nullable'],
+        ], [
+            'phone.max' => 'Invalid phone number',
+            'phone.min' => 'Invalid phone number',
+
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
@@ -104,7 +108,7 @@ class UsersPost extends Component
         } else {
             $validated['start_date'] = null;
         }
-        
+
         if ($this->update_password) {
             $passwordValidated = $this->validate([
                 'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
