@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->string('user_name');
             $table->integer('amount');
+            $table->date('period');
             $table->date('due_date');
             $table->foreignId('room_id')->nullable()->constrained('rooms')->onDelete('set null');
             $table->string('room');

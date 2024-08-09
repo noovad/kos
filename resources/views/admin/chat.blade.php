@@ -4,7 +4,7 @@
 @section('judul', 'Chat')
 
 @section('content')
-    
+
     <div class="px-2 mb-20">
         @for ($i = 0; $i < 10; $i++)
             <div class="chat chat-end">

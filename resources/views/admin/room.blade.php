@@ -5,6 +5,6 @@
 
 @section('content')
 
-    @livewire('admin.room-index')
+    @livewire('admin.room')
 
 @endsection

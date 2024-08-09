@@ -12,11 +12,8 @@ export default {
     theme: {
         extend: {
             colors: {
-                white: "#fff",
                 blue: "#304E6E",
                 bluebg: "#ACB8C5",
-                black: "#000",
-                grey: "#808080",
             },
             dropShadow: {
                 up: "0 -5px 20px rgba(0, 0, 0, 0.3)",

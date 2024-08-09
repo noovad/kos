@@ -38,6 +38,12 @@ class ReminderTransactionJob implements ShouldQueue
             number_format($transaction->amount, 0, ',', '.'),
             $transaction->payment_code
         );
+
+        // validasi phone number
+        if (!preg_match('/^\+628\d{10}$/', $transaction->user->phone)) {
+            throw new \Exception('Invalid phone number format');
+        }
+
         $job = new SendWhatsappJob($transaction->user->phone, $message);
         $job->handle();
     }

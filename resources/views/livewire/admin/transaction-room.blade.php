@@ -1,5 +1,4 @@
 <div class="m-2">
-
     @foreach ($data as $item)
         <div class="m-2 border">
             <div class="m-2 mb-0 p-2 rounded-md bg-blue text-white text-center">

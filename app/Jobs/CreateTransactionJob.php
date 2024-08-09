@@ -29,9 +29,8 @@ class CreateTransactionJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $users = User::has('room')->with('room')->first();
-
-        //send whatsapp and use websocket
+        $users = User::has('room')->with('room')->get();
+        
         $users->each(function ($user) {
             if (compareDate($user->start_date)) {
                 $payload = [
@@ -55,6 +54,8 @@ class CreateTransactionJob implements ShouldQueue
                         'room' => $user->room->name,
                     ]
                 );
+
+                // if transaction success, send reminder
             }
         });
     }

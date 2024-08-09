@@ -1,15 +1,28 @@
 <div class="m-2">
-    <div class="mt-4 mb-4">
-        <a href="{{ route('admin.transaction-draft') }}" class="btn btn-xs bg-blue text-white border-none">Draft Transaksi</a>
-        <div class="mt-4 mb-4">
-            <select wire:model.lazy="filter" class="select select-sm text-xs bg-blue text-white border-none">
-                <option selected value="">Semua status</option>
-                <option value="Belum Dibayar">Belum Dibayar</option>
-                <option value="Sudah Dibayar">Sudah Dibayar</option>
-                <option value="Kadaluarasa">Tidak Dibayar</option>
-            </select>
+    <div class="w-full max-w-sm flex flex-col mx-auto text-center">
+    <div x-data="{ selected: 'Belum Dibayar' }" class="w-full my-4">
+        <div class="relative w-full rounded-md border h-10 p-1 bg-gray-200">
+            <div class="relative w-full h-full flex items-center">
+                <div class="w-full flex justify-center text-gray-400 cursor-pointer">
+                    <button @click="selected = 'Belum Dibayar'" wire:click="$set('filter', 'Belum Dibayar')">Belum Dibayar</button>
+                </div>
+                <div class="w-full flex justify-center text-gray-400 cursor-pointer">
+                    <button @click="selected = 'Sudah Dibayar'" wire:click="$set('filter', 'Sudah Dibayar')">Sudah Dibayar</button>
+                </div>
+                <div class="w-full flex justify-center text-gray-400 cursor-pointer">
+                    <button @click="selected = 'Tidak Dibayar'" wire:click="$set('filter', 'Tidak Dibayar')">Tidak Dibayar</button>
+                </div>
+            </div>
+            <span :class="{
+                    'left-1 text-blue font-semibold': selected === 'Belum Dibayar',
+                    'left-1/3 text-blue font-semibold': selected === 'Sudah Dibayar',
+                    'left-2/3 text-blue font-semibold': selected === 'Tidak Dibayar'
+                }"
+                x-text="selected.charAt(0).toUpperCase() + selected.slice(1)"
+                class="bg-white shadow text-sm flex items-center justify-center w-1/3 rounded h-[1.88rem] transition-all duration-150 ease-linear top-[4px] absolute"></span>
         </div>
     </div>
+</div>
 
     @foreach ($transaction as $item)
     <div class="card border border-grey text-black mt-4 mb-4">
@@ -20,8 +33,8 @@
                 <small class="text-green-600 pl-3">Belum Dibayar</small>
                 @elseif ($item->status == 'Sudah Dibayar')
                 <small class=" pl-3">Sudah Dibayar</small>
-                @elseif ($item->status == 'Kadaluarasa')
-                <small class="text-red-600 pl-3">Kadaluarasa</small>
+                @elseif ($item->status == 'Tidak Dibayar')
+                <small class="text-red-600 pl-3">Tidak Dibayar</small>
                 @endif
             </div>
             <div class="col-span-1 flex flex-col justify-center">
