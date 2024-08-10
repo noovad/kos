@@ -1,8 +1,7 @@
-@extends('admin.layouts.app')
+@extends('layouts.app')
 
-@section('title', 'Pengguna')
 @section('judul', 'Pengguna')
 
 @section('content')
-    <livewire:admin.users-index />
+    @livewire('admin.users-index')
 @endsection

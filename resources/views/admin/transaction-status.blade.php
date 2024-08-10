@@ -1,10 +1,7 @@
-@extends('admin.layouts.app')
+@extends('layouts.app')
 
-@section('title', 'Keuangan')
 @section('judul', 'Status Pembayaran')
 
 @section('content')
-
-<livewire:admin.transaction-room />
-
+     @livewire('admin.transaction-room')
 @endsection

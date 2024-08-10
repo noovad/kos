@@ -1,9 +1,7 @@
-@extends('admin.layouts.app')
+@extends('layouts.app')
 
 @section('judul', 'Ubah Tipe Kamar')
 
 @section('content')
-
-@livewire('admin.room-type-update', ['id' => $id])
-
+     @livewire('admin.room-type-update', ['id' => $id])
 @endsection

@@ -1,4 +1,4 @@
-<div class="m-2 pb-14">
+<div>
     <livewire:admin.users-post>
 
         <div class="w-full max-w-sm flex flex-col mx-auto text-center">

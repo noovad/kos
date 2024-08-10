@@ -1,4 +1,4 @@
-<div class="m-2 pb-20">
+<div>
     <livewire:admin.room-post>
         <hr>
         <div class="mt-4 mb-4">

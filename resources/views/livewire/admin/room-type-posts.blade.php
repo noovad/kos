@@ -1,4 +1,4 @@
-<div class="mt-4 mb-4 m-2">
+<div>
     <input wire:model="form.name" type="text" placeholder="Nama Tipe Kamar"
         class="input input-sm input-bordered w-full mb-2" />
     <div class="flex">
@@ -54,7 +54,7 @@
         formatRupiah(input);
     });
 </script>
-<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.24.0-lts/standard/ckeditor.js"></script>
 
 <script>
     CKEDITOR.replace('editor', {

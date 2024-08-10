@@ -1,4 +1,4 @@
-<div class="mt-4 mb-4 m-2">
+<div>
     <input wire:model='form.name' type="text" placeholder="Type here"
         class="input input-sm input-bordered w-full mb-2" />
     <div class="flex">

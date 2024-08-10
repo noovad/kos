@@ -1,4 +1,4 @@
-<div class="m-2">
+<div>
 
     <div class="mt-4 mb-4">
         <a class="btn btn-xs bg-blue text-white border-none" href="{{ route('admin.room-type.create') }}">+Tambah Tipe

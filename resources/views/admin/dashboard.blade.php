@@ -13,8 +13,6 @@
         <div class="bg-blue pt-2 flex flex-col justify-center rounded-b-large items-center text-white drop-shadow-down">
             <h2 class="text-5xl font-bold">DASHBOARD</h2>
         </div>
-
-
         @include('admin.components.bottom-nav')
     </div>
 </body>
