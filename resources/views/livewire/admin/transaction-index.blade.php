@@ -1,28 +1,33 @@
 <div>
+    @section('title', $title ?? '')
     <div class="mx-auto text-center">
-    <div x-data="{ selected: 'Belum Dibayar' }" class="w-full my-4">
-        <div class="relative w-full rounded-md border h-10 p-1 bg-gray-200">
-            <div class="relative w-full h-full flex items-center">
-                <div class="w-full flex justify-center text-gray-400 cursor-pointer">
-                    <button @click="selected = 'Belum Dibayar'" wire:click="$set('filter', 'Belum Dibayar')">Belum Dibayar</button>
+        <div x-data="{ selected: 'Belum Dibayar' }" class="w-full my-4">
+            <div class="relative w-full rounded-md border h-10 p-1 bg-gray-200">
+                <div class="relative w-full h-full flex items-center">
+                    <div class="w-full flex justify-center text-gray-400 cursor-pointer">
+                        <button @click="selected = 'Belum Dibayar'" wire:click="$set('filter', 'Belum Dibayar')">Belum Dibayar</button>
+                    </div>
+                    <div class="w-full flex justify-center text-gray-400 cursor-pointer">
+                        <button @click="selected = 'Sudah Dibayar'" wire:click="$set('filter', 'Sudah Dibayar')">Sudah Dibayar</button>
+                    </div>
+                    <div class="w-full flex justify-center text-gray-400 cursor-pointer">
+                        <button @click="selected = 'Tidak Dibayar'" wire:click="$set('filter', 'Tidak Dibayar')">Tidak Dibayar</button>
+                    </div>
                 </div>
-                <div class="w-full flex justify-center text-gray-400 cursor-pointer">
-                    <button @click="selected = 'Sudah Dibayar'" wire:click="$set('filter', 'Sudah Dibayar')">Sudah Dibayar</button>
-                </div>
-                <div class="w-full flex justify-center text-gray-400 cursor-pointer">
-                    <button @click="selected = 'Tidak Dibayar'" wire:click="$set('filter', 'Tidak Dibayar')">Tidak Dibayar</button>
-                </div>
-            </div>
-            <span :class="{
+                <span :class="{
                     'left-1 text-blue font-semibold': selected === 'Belum Dibayar',
                     'left-1/3 text-blue font-semibold': selected === 'Sudah Dibayar',
                     'left-2/3 text-blue font-semibold': selected === 'Tidak Dibayar'
                 }"
-                x-text="selected.charAt(0).toUpperCase() + selected.slice(1)"
-                class="bg-white shadow text-sm flex items-center justify-center w-1/3 rounded h-[1.88rem] transition-all duration-150 ease-linear top-[4px] absolute"></span>
+                    x-text="selected.charAt(0).toUpperCase() + selected.slice(1)"
+                    class="bg-white shadow text-sm flex items-center justify-center w-1/3 rounded h-[1.88rem] transition-all duration-150 ease-linear top-[4px] absolute"></span>
+            </div>
+        </div>
+
+        <div class="flex justify-end">
+           @include('components.search-bar')
         </div>
     </div>
-</div>
 
     @foreach ($transaction as $item)
     <div class="card border border-grey text-black mt-4 mb-4">
@@ -129,7 +134,16 @@
         </div>
     </dialog>
     @endforeach
-    <div class="pt-2">
-        {{ $transaction->links() }}
+    <div class="flex justify-between items-center pt-2">
+        <div>
+            <select wire:model.lazy="paginate" class="select select-sm text-xs border-black-500">
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="75">75</option>
+            </select>
+        </div>
+        <div>
+            {{ $transaction->links() }}
+        </div>
     </div>
 </div>

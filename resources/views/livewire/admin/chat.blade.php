@@ -1,4 +1,6 @@
 <div>
+    @section('title', $title ?? '')
+
     <div class="navbar mx-auto max-w-lg max-h-16  fixed z-50">
         <div x-data="{ selected: 'group' }" class="w-full">
             <div class="relative w-full rounded-md border h-10 p-1 bg-gray-200">

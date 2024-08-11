@@ -9,6 +9,8 @@ use Livewire\Component;
 
 class TransactionRoom extends Component
 {
+    public $title = 'Transaksi';
+
     public function render()
     {
         $roomTypes = RoomType::orderBy('name')->has('rooms')->with('rooms')->get();

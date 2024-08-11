@@ -13,6 +13,8 @@ class RoomTypePosts extends Component
 {
     use WithFileUploads;
 
+    public $title = 'Tipe Kamar';
+
     public array $photo = [];
 
     public $formattedValue = '';

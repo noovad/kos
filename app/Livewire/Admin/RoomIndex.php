@@ -14,6 +14,12 @@ class RoomIndex extends Component
 {
     use WithoutUrlPagination, WithPagination;
 
+    public $title = 'Kamar';
+
+    public $search;
+
+    public $pagination = 20;
+
     public $filter = '';
 
     public $empty = '';
@@ -40,7 +46,7 @@ class RoomIndex extends Component
     #[On('room-updated')]
     public function render()
     {
-        $data = Room::orderBy('name')->with('roomType')->with('user');
+        $data = Room::orderBy('name')->with('roomType')->with('user')->where('name', 'like', '%' . $this->search . '%');
 
         if ($this->filter) {
             $data->where('room_type_id', $this->filter);
@@ -52,7 +58,7 @@ class RoomIndex extends Component
             $data->doesntHave('user');
         }
 
-        $data = $data->paginate(10);
+        $data = $data->paginate($this->pagination);
 
         $tipe = RoomType::orderBy('name')->get();
 

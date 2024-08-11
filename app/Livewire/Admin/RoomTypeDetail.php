@@ -8,6 +8,8 @@ use Livewire\Component;
 
 class RoomTypeDetail extends Component
 {
+    public $title = 'Tipe Kamar';
+
     public RoomType $data;
 
     public object $photo;

@@ -1,5 +1,5 @@
 <div>
-
+    @section('title', $title ?? '')
     <style>
         .truncate {
             max-width: 150px;

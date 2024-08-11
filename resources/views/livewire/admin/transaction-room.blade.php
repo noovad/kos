@@ -1,4 +1,5 @@
 <div>
+    @section('title', $title ?? '')
     @foreach ($data as $item)
     <div class="m-2 border">
         <div class="m-2 mb-0 p-2 rounded-md bg-blue text-white text-center">
@@ -8,7 +9,7 @@
             <div class="grid grid-cols-4 gap-3">
                 @foreach ($item['rooms'] as $room)
                 @if (!$room['user'])
-                <div class="size-16 rounded-md bg-gray-100 text-white flex justify-center items-center">
+                <div class="size-16 rounded-md bg-white text-gray-200 flex justify-center items-center">
                     <span class="text text-center font-bold">{{ $room['room'] }}</span>
                 </div>
                 @else

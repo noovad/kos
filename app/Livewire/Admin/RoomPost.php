@@ -10,6 +10,8 @@ use Livewire\Component;
 
 class RoomPost extends Component
 {
+    public $title = 'Kamar';
+
     public RoomForm $form;
 
     public Room $room;

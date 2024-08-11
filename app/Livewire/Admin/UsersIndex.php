@@ -12,6 +12,12 @@ class UsersIndex extends Component
 {
     use WithoutUrlPagination, WithPagination;
 
+    public $title = 'Pengguna';
+
+    public $pagination = 20;
+
+    public $search;
+
     public $filter = 1;
 
     public function userActive()
@@ -49,12 +55,13 @@ class UsersIndex extends Component
         $users = User::query();
 
         if ($this->filter == '1') {
-            $users->whereNotNull('room_id')->Where('room_id', '!=', 0)->with('room');
+            $users->whereNotNull('room_id')->Where('room_id', '!=', 0)->with('room')
+            ->where('name', 'like', '%' . $this->search . '%');
         } elseif ($this->filter == '0') {
             $users->whereNull('room_id')->orWhere('room_id', 0);
         }
 
-        $users = $users->orderBy('name')->paginate(20);
+        $users = $users->orderBy('name')->paginate($this->pagination);
         $starting_number = ($users->currentPage() - 1) * $users->perPage() + 1;
 
         return view('livewire.admin.users-index', [

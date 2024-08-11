@@ -13,6 +13,8 @@ class RoomTypeUpdate extends Component
 {
     use WithFileUploads;
 
+    public $title = 'Tipe Kamar';
+
     public array $selectedPhoto = [];
 
     public string $formattedValue = '';

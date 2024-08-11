@@ -14,14 +14,15 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="font-sans antialiased">
-    <div class="container mx-auto max-w-lg w-full min-h-screen">
+    <div class="fixed w-full z-50">
         @include('components.header')
+    </div>
+    <div class="mx-auto max-w-2xl min-h-screen">
 
         <div class="pt-16">
             <div class="pb-20 m-2 mt-4">
@@ -31,10 +32,9 @@
     </div>
 
     @section('bottombar')
-
     @include('components.bottom-nav')
     <!-- @include('user.components.bottom-nav') -->
-
     @show
 </body>
+
 </html>

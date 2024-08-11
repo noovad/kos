@@ -14,6 +14,8 @@ use Livewire\Component;
 
 class UsersPost extends Component
 {
+    public $title = 'Pengguna';
+
     public string $name = '';
 
     public string $phone = '';

@@ -13,6 +13,7 @@ class TransactionReport extends Component
 {
     use WithoutUrlPagination, WithPagination;
 
+    public $title = 'Transaksi';
     public $display = 'monthly';
     public $year;
     public $month;

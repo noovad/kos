@@ -16,6 +16,7 @@ class TransactionPost extends Component
 {
     use WithoutUrlPagination, WithPagination;
 
+    public $title = 'Transaksi';
     public array $selected_items;
 
     public string $user_selected = '';

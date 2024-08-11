@@ -15,6 +15,8 @@ class RoomTypeIndex extends Component
 {
     use WithoutUrlPagination, WithPagination;
 
+    public $title = 'Tipe Kamar';
+
     public function destroy(string $id): void
     {
         try {

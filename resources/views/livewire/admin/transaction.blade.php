@@ -1,5 +1,5 @@
 <div>
-
+    @section('title', $title ?? '')
     @php
     $cards = [
     ['title' => '% Tagihan Terbayar', 'route' => 'admin.transaction-room'],

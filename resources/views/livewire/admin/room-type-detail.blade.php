@@ -1,11 +1,12 @@
 <div>
+    @section('title', $title ?? '')
     <div class="swiper mySwiper h-52 mt-4">
         <div class="swiper-wrapper">
             {{-- if photo nil add dummy photo --}}
             @foreach ($photo as $item)
-                <div class="swiper-slide size-44">
-                    <img src="{{ asset('storage/photos/' . $item['url']) }}" alt="Room Type">
-                </div>
+            <div class="swiper-slide size-44">
+                <img src="{{ asset('storage/photos/' . $item['url']) }}" alt="Room Type">
+            </div>
             @endforeach
         </div>
         <div class="swiper-pagination"></div>

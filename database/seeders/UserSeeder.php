@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         User::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-        for ($i = 1; $i <= 30; $i++) {
+        for ($i = 1; $i <= 100; $i++) {
             // Generate random value for room_id, which can be null or a random room id between 1 and 60
             $randomValue = mt_rand(0, 1) ? rand(1, 60) : null;
 

@@ -12,11 +12,19 @@ class TransactionIndex extends Component
 {
     use WithoutUrlPagination, WithPagination;
 
-    public $filter = '';
+    public $title = 'Transaksi';
+    public $filter = 'belum dibayar';
+    public $search;
+    public $pagination = 20;
 
     public function update($id)
     {
         $this->dispatch('update-room', id: $id);
+    }
+
+    public function search()
+    {
+        $this->resetPage();
     }
 
     public function delete($id)
@@ -34,14 +42,13 @@ class TransactionIndex extends Component
     #[On('transaction-updated')]
     public function render()
     {
-        // pagination
-        $transaction = Transaction::orderBy('due_date')->with('user');
+        $transaction = Transaction::orderBy('due_date')->with('user')->where('user_name', 'like', '%' . $this->search . '%');
 
         if ($this->filter) {
             $transaction = $transaction->where('status', $this->filter);
         }
 
-        $transaction = $transaction->paginate(20);
+        $transaction = $transaction->paginate($this->pagination);
 
         return view('livewire.admin.transaction-index', ['transaction' => $transaction]);
     }

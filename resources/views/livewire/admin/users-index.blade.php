@@ -1,4 +1,5 @@
 <div>
+    @section('title', $title ?? '')
     <livewire:admin.users-post>
 
         <div class="mx-auto text-center">
@@ -20,6 +21,9 @@
                         class="bg-white shadow text-sm flex items-center justify-center w-1/2 rounded h-[1.88rem] transition-all duration-150 ease-linear top-[4px] absolute"></span>
                 </div>
             </div>
+        </div>
+        <div class="flex justify-end">
+            @include('components.search-bar')
         </div>
 
 
@@ -152,8 +156,17 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="pt-2">
-            {{ $users->links() }}
+        <div class="flex justify-between items-center pt-2">
+            <div>
+                <select wire:model.lazy="paginate" class="select select-sm text-xs border-black-500">
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="75">75</option>
+                </select>
+            </div>
+            <div>
+                {{ $users->links() }}
+            </div>
         </div>
 </div>
 </div>
