@@ -116,7 +116,7 @@
 
                     <div class="modal-action pt-4 m-0">
                         <a class="btn btn-sm bg-blue text-white border-none"
-                            href="{{ route('admin.room-type.detail', ['id' => $item->roomType->id]) }}">Detail Tipe
+                            href="{{ route('admin.room-type-detail', ['id' => $item->roomType->id]) }}">Detail Tipe
                             Kamar</a>
                         <form method="dialog">
                             <button class="btn btn-sm bg-blue text-white border-none">Close</button>

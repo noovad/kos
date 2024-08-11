@@ -9,7 +9,7 @@
         </button> -->
     </div>
     <div class="navbar-center text-white">
-        <h4>@yield('judul')</h4>
+        <h4>@yield('title')</h4>
     </div>
     <div class="navbar-end">
 

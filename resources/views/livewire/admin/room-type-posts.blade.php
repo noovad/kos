@@ -8,7 +8,7 @@
     </div>
     <textarea wire:model='form.description' class="textarea textarea-bordered w-full mb-2" placeholder="Deskripsi"></textarea>
     
-    <input wire:model='photo' type="file" multiple
+    <input wire:model='photo' type="file" accept="image/jpeg, image/png" multiple
         class="file-input file-input-sm file-input-bordered w-full max-w-xs mt-2" />
     <div>
         @if ($errors->any())

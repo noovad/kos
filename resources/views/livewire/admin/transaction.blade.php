@@ -2,10 +2,10 @@
 
     @php
     $cards = [
-    ['title' => '% Tagihan Terbayar', 'route' => 'admin.transaction-status'],
+    ['title' => '% Tagihan Terbayar', 'route' => 'admin.transaction-room'],
     ['title' => 'Laporan Keuangan', 'route' => 'admin.transaction-report'],
-    ['title' => 'Transaksi', 'route' => 'admin.transaction-list'],
-    ['title' => 'Draft Transaksi', 'route' => 'admin.transaction-draft'],
+    ['title' => 'Transaksi', 'route' => 'admin.transaction-index'],
+    ['title' => 'Draft Transaksi', 'route' => 'admin.transaction-post'],
     ];
     @endphp
 

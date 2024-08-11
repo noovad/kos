@@ -6,7 +6,8 @@ use Livewire\Component;
 
 class Room extends Component
 {
-    public $page = 'page';
+    public $title = 'Room';
+    public $page;
 
     public function render()
     {

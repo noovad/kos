@@ -28,7 +28,7 @@
         <small>Keuangan</small>
     </a>
     </a>
-    <a href="{{ route('admin.chat-menu') }}">
+    <a href="{{ route('admin.chat') }}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5" fill="currentColor" class="bi bi-chat-right"
             viewBox="0 0 16 16">
             <path
@@ -37,7 +37,7 @@
         <small>Chat</small>
     </a>
     </a>
-    <a href="{{ route('admin.users') }}">
+    <a href="{{ route('admin.users-index') }}">
         <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="currentColor" class="bi bi-person"
             viewBox="0 0 16 16">
             <path

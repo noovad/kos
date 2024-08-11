@@ -11,7 +11,7 @@ class TransactionRoom extends Component
 {
     public function render()
     {
-        $roomTypes = RoomType::orderBy('name')->with('rooms')->get();
+        $roomTypes = RoomType::orderBy('name')->has('rooms')->with('rooms')->get();
         $data = [];
 
         foreach ($roomTypes as $roomType) {

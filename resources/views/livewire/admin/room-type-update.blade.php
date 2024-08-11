@@ -55,9 +55,6 @@
     </div>
     <input wire:model='selectedPhoto' type="file" multiple
         class="file-input file-input-sm file-input-bordered w-full max-w-xs" />
-    <div wire:loading wire:target="selectedPhoto">
-        Processing image...
-    </div>
 
     <div class="flex justify-center mt-4">
         <button wire:click="update( {{ $data['id'] }} )"

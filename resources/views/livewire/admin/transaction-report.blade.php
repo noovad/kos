@@ -35,7 +35,7 @@
     </div>
 
     <div>
-        <select wire:model.lazy="month" id="month-select" class="select select-sm text-xs mx-2 bg-blue text-white border-none" {{ !$display ? 'disabled' : '' }}>
+        <select wire:model.lazy="month" id="month-select" class="select select-sm text-xs mx-2 bg-blue text-white border-none" {{ $display == 'yearly' ? 'disabled' : '' }}>
             <option value="01">Januari</option>
             <option value="02">Februari</option>
             <option value="03">Maret</option>

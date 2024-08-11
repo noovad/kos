@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Makos -  {{$title ?? ''}}</title>
+    <title>Makos</title>
 
 
     <!-- Fonts -->
@@ -24,7 +24,7 @@
         @include('components.header')
 
         <div class="pt-16">
-            <div class="pb-20">
+            <div class="pb-20 m-2 mt-4">
                 @yield('content')
             </div>
         </div>
@@ -36,6 +36,5 @@
     <!-- @include('user.components.bottom-nav') -->
 
     @show
-    @livewireScripts
 </body>
 </html>
