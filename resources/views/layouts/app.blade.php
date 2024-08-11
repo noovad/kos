@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>App Name - @yield('title')</title>
+    <title>Makos -  {{$title ?? ''}}</title>
 
 
     <!-- Fonts -->
@@ -32,9 +32,10 @@
 
     @section('bottombar')
 
-    @include('admin.components.bottom-nav')
+    @include('components.bottom-nav')
     <!-- @include('user.components.bottom-nav') -->
 
     @show
+    @livewireScripts
 </body>
 </html>

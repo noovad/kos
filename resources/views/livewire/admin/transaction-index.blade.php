@@ -1,5 +1,5 @@
 <div>
-    <div class="w-full max-w-sm flex flex-col mx-auto text-center">
+    <div class="mx-auto text-center">
     <div x-data="{ selected: 'Belum Dibayar' }" class="w-full my-4">
         <div class="relative w-full rounded-md border h-10 p-1 bg-gray-200">
             <div class="relative w-full h-full flex items-center">

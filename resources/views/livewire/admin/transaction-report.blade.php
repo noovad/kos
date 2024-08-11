@@ -1,4 +1,5 @@
 <div>
+
     <style>
         .truncate {
             max-width: 150px;
@@ -15,26 +16,26 @@
         }
     </style>
 
-    <div class="w-full max-w-sm flex flex-col mx-auto text-center">
-        <div x-data="{ selected: true }" class="w-full my-4">
+    <div class="mx-auto text-center">
+        <div x-data="{ selected: 'monthly' }" class="w-full my-4">
             <div class="relative w-full rounded-md border h-10 p-1 bg-gray-200">
                 <div class="relative w-full h-full flex items-center">
                     <div class="w-full flex justify-center text-gray-400 cursor-pointer">
-                        <button @click="selected = true" wire:click="$set('display', true)">Bulanan</button>
+                        <button @click="selected = 'monthly'" wire:click="$set('display', 'monthly')">Bulanan</button>
                     </div>
                     <div class="w-full flex justify-center text-gray-400 cursor-pointer">
-                        <button @click="selected = false" wire:click="$set('display', false)">Tahunan</button>
+                        <button @click="selected = 'yearly'" wire:click="$set('display', 'yearly')">Tahunan</button>
                     </div>
                 </div>
-                <span :class="{ 'left-1/2 -ml-1 text-blue font-semibold':!selected, 'left-1 text-blue font-semibold':selected }"
-                    x-text="selected ? 'Bulanan' : 'Tahunan'"
+                <span :class="{ 'left-1/2 -ml-1 text-blue font-semibold':selected === 'yearly', 'left-1 text-blue font-semibold':selected === 'monthly' }"
+                    x-text="selected === 'monthly' ? 'monthly' : 'yearly'"
                     class="bg-white shadow text-sm flex items-center justify-center w-1/2 rounded h-[1.88rem] transition-all duration-150 ease-linear top-[4px] absolute"></span>
             </div>
         </div>
     </div>
 
     <div>
-    <select wire:model.lazy="month" id="month-select" class="select select-sm text-xs mx-2 bg-blue text-white border-none" {{ !$display ? 'disabled' : '' }}>
+        <select wire:model.lazy="month" id="month-select" class="select select-sm text-xs mx-2 bg-blue text-white border-none" {{ !$display ? 'disabled' : '' }}>
             <option value="01">Januari</option>
             <option value="02">Februari</option>
             <option value="03">Maret</option>
@@ -63,11 +64,11 @@
     </div>
     <hr class="m-4">
     <div class="m-2 mb-4">
-        <a href="" class="btn btn-xs bg-gray-200 text-blue border-none">Export</a>
+        <button wire:click='export' class="btn btn-xs bg-gray-200 text-blue border-none">Export</button>
     </div>
 
-    @if ($display === true)
-    <div class="m-2 overflow-auto" style="width: 100%; overflow-x: auto;">
+    @if ($display === 'monthly')
+    <div class="my-2 overflow-auto" style="width: 100%; overflow-x: auto;">
         <table class="table table-xs">
             <thead>
                 <tr>
@@ -85,8 +86,8 @@
                     <th>{{ $starting_number + $key}}</th>
                     <td class="truncate">{{ $item->user_name }}</td>
                     <td>{{ $item->room }}</td>
-                    <td>{{ $item->period }}</td>
-                    <td>{{ $item->amount }}</td>
+                    <td>{{ date('m-Y', strtotime($item->period)) }}</td>
+                    <td>{{ number_format($item->amount, 0, ',', '.') }}</td>
                     <td>{{ $item->status }}</td>
                 </tr>
                 @endforeach
@@ -94,53 +95,55 @@
         </table>
     </div>
     <div class="pt-2">
-
-        <div class="flex items-center space-x-2">
-            <select wire:model.lazy="paginate" class="select select-sm text-xs border-black-500">
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="75">75</option>
-            </select>
+        <div class="flex justify-between items-center">
+            <div>
+                <select wire:model.lazy="paginate" class="select select-sm text-xs border-black-500">
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="75">75</option>
+                </select>
+            </div>
             <div>
                 {{ $data->links() }}
             </div>
-
-            @else
-            <div class="m-2 overflow-auto" style="width: 100%; overflow-x: auto;">
-                <table class="table table-xs">
-                    <thead>
-                        <tr>
-                            <th rowspan="2" class="text-center"></th>
-                            <th rowspan="2" class="text-center">Periode</th>
-                            <th colspan="2" class="text-center">Tagihan</th>
-                            <th colspan="2" class="text-center">Terbayar</th>
-                            <th rowspan="2" class="text-center">%</th>
-                        </tr>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th class="text-center">Rp</th>
-                            <th class="text-center">#</th>
-                            <th class="text-center">Rp</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($yearly as $key => $item)
-                        <tr>
-                            <th>{{ $starting_number + $key}}</th>
-                            <td>{{ $item->period }}</td>
-                            <td>{{ $item->jumlah_tagihan }}</td>
-                            <td>{{ $item->total_tagihan }}</td>
-                            <td>{{ $item->jumlah_terbayar }}</td>
-                            <td>{{ $item->total_terbayar }}</td>
-                            <td>{{ $item->persentase_pembayaran }} %</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            @endif
-
         </div>
 
+        @elseIf($display === 'yearly')
+        <div class="m-2 overflow-auto" style="width: 100%; overflow-x: auto;">
+            <table class="table table-xs">
+                <thead>
+                    <tr>
+                        <th rowspan="2" class="text-center"></th>
+                        <th rowspan="2" class="text-center">Periode</th>
+                        <th colspan="2" class="text-center">Tagihan</th>
+                        <th colspan="2" class="text-center">Terbayar</th>
+                        <th rowspan="2" class="text-center">%</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Rp</th>
+                        <th class="text-center">#</th>
+                        <th class="text-center">Rp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($yearly as $key => $item)
+                    <tr>
+                        <th class="text-center">{{ $loop->iteration }}</th>
+                        <td class="text-center">{{ date('m-Y', strtotime($item->period)) }}</td>
+                        <td class="text-center">{{ $item->jumlah_tagihan }}</td>
+                        <td class="text-right">{{ number_format($item->total_tagihan, 0, ',', '.') }}</td>
+                        <td class="text-center">{{ $item->jumlah_terbayar }}</td>
+                        <td class="text-right">{{ number_format($item->total_terbayar, 0, ',', '.') }}</td>
+                        <td class="text-center">{{ $item->persentase_pembayaran }} %</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        @endif
+
+
     </div>
+
 </div

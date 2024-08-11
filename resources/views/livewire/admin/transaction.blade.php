@@ -1,4 +1,5 @@
 <div>
+
     @php
     $cards = [
     ['title' => '% Tagihan Terbayar', 'route' => 'admin.transaction-status'],
@@ -22,4 +23,5 @@
         </div>
         @endforeach
     </div>
+
 </div>
