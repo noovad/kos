@@ -23,7 +23,7 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Custom Chart Title',
+                    text: 'Kamar Tersedia',
                     padding: {
                         top: 10,
                         bottom: 10

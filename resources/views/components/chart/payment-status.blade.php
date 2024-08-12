@@ -11,8 +11,8 @@
           type: 'pie',
           data: {
                datasets: [{
-                    backgroundColor: ['#6C8198', '#304E6E', '#E5E7EB'],
-                    borderColor: ['#6C8198', '#304E6E', '#E5E7EB'],
+                    backgroundColor: ['#6C8198', '#304E6E', '#9CA3AF'],
+                    borderColor: ['#6C8198', '#304E6E', '#9CA3AF'],
                     data: transaction['count'],
                }],
                labels: transaction['status']

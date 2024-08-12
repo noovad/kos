@@ -1,58 +1,84 @@
 <div>
     @section('title', $title ?? '')
-    <div class="carousel w-full">
-        <div id="item1" class="carousel-item w-full pt-10">
-            <div class="w-full">
-                <!-- Chart Keuangan per Bulan -->
-                @include('components.chart.monthly-financial-chart', ['yearly' => $yearly])
-            </div>
+    <div class="carousel-item w-full">
+        <div class="w-full">
+            @include('components.chart.monthly-financial-chart')
         </div>
-        <div id="item2" class="carousel-item w-full pt-10">
-            <div class="w-full">
-                <!-- Chart keterisian kamar saat ini berdasarkan tipe, dengan jumlah kamar -->
-                @include('components.chart.room-occupied')
-            </div>
+    </div>
+    <div class="carousel-item w-full">
+        <div class="w-full">
+            @include('components.chart.room-occupied')
         </div>
-        <div id="item3" class="carousel-item w-full">
-            <div class="w-full">
-                <!-- chart keterisian kamar perbulan dalam setahun berdsarkan bulan-->
-                @include('components.chart.monthly-room-occupancy')
-            </div>
+    </div>
+    <div class="carousel-item w-full">
+        <div class="w-full">
+            @include('components.chart.monthly-room-occupancy')
         </div>
     </div>
     <div class="flex w-full justify-center gap-2 py-2 pt-10">
-        <a href="#item1" class="btn btn-xs bg-gray-200">1</a>
-        <a href="#item2" class="btn btn-xs bg-gray-200">2</a>
-        <a href="#item3" class="btn btn-xs bg-gray-200">3</a>
+        <a class="btn btn-xs bg-gray-200" onclick="showCarousel(1)">1</a>
+        <a class="btn btn-xs bg-gray-200" onclick="showCarousel(2)">2</a>
+        <a class="btn btn-xs bg-gray-200" onclick="showCarousel(3)">3</a>
     </div>
+
+    <script>
+        function showCarousel(index) {
+            const carouselItems = document.getElementsByClassName('carousel-item');
+            const buttons = document.getElementsByClassName('btn');
+
+            for (let i = 0; i < carouselItems.length; i++) {
+                carouselItems[i].style.display = 'none';
+            }
+
+            carouselItems[index - 1].style.display = 'block';
+
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+
+            buttons[index - 1].classList.add('active');
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            showCarousel(1);
+        });
+    </script>
+
 
     <div class="flex justify-center px-4 pt-4 text-black">
         <div class="grid grid-cols-2 gap-6">
             <div class="card">
-                <a href="/room-list">
-                    <div class="card bg-gray-200 shadow-xl p-2" style="aspect-ratio: 1/1;">
-                        <!-- persentase pembayaran bulanan -->
-                        <p>900 %</p>
+                <a href="{{ route('admin.transaction-room') }}">
+                    <div class="card bg-gray-200 shadow-xl p-8" style="aspect-ratio: 1/1; display: flex; justify-content: center;">
+                        <div class="stat-title text-blue font-semibold text-left">Tagihan Bulan Ini</div>
+                        <div class="stat-value m-4 text-6xl text-blue text-center">{{$percentage}} %</div>
+                        <div class="stat-Title text-blue font-semibold text-right">Sudah Dibayar</div>
                     </div>
                 </a>
             </div>
             <div class="card">
-                <div class="card bg-gray-200 shadow-xl p-2" style="aspect-ratio: 1/1;">
-                    <!-- nilai keuangan masuk bulan tersebut -->
-                    <p>Rp. 1.000.000</p>
-                </div>
+                <a href="{{ route('admin.transaction-report') }}">
+                    <div class="card bg-gray-200 shadow-xl p-8" style="aspect-ratio: 1/1; display: flex; justify-content: center;">
+                        <div class="stat-title text-blue font-semibold text-left">Pemasukan Bulan Ini</div>
+                        <div class="stat-value m-4 text-6xl text-blue text-center">{{$income}}</div>
+                        <div class="stat-Title text-blue font-semibold text-right">Juta</div>
+                    </div>
+                </a>
+                </a>
             </div>
             <div class="card">
-                <div class="card bg-gray-200 shadow-xl p-2" style="aspect-ratio: 1/1;">
-                    <!-- Chart status pembayaran per Bulan -->
-                    @include('components.chart.payment-status')
-                </div>
+                <a href="{{ route('admin.transaction-index') }}">
+                    <div class="card bg-gray-200 shadow-xl p-2" style="aspect-ratio: 1/1;">
+                        @include('components.chart.payment-status')
+                    </div>
+                </a>
             </div>
             <div class="card">
-                <div class="card bg-gray-200 shadow-xl p-2" style="aspect-ratio: 1/1;">
-                    <!-- Chart keterisian kamar saat-->
-                    @include('components.chart.room-occupied-pie')
-                </div>
+                <a href="{{ route('admin.transaction-room') }}">
+                    <div class="card bg-gray-200 shadow-xl p-2" style="aspect-ratio: 1/1;">
+                        @include('components.chart.room-occupied-pie')
+                    </div>
+                </a>
             </div>
         </div>
     </div>

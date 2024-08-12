@@ -17,18 +17,18 @@
     </style>
 
     <div class="mx-auto text-center">
-        <div x-data="{ selected: 'monthly' }" class="w-full my-4">
+        <div x-data="{ selected: 'Bulanan' }" class="w-full my-4">
             <div class="relative w-full rounded-md border h-10 p-1 bg-gray-200">
                 <div class="relative w-full h-full flex items-center">
                     <div class="w-full flex justify-center text-gray-400 cursor-pointer">
-                        <button @click="selected = 'monthly'" wire:click="$set('display', 'monthly')">Bulanan</button>
+                        <button @click="selected = 'Bulanan'" wire:click="$set('display', 'monthly')">Bulanan</button>
                     </div>
                     <div class="w-full flex justify-center text-gray-400 cursor-pointer">
-                        <button @click="selected = 'yearly'" wire:click="$set('display', 'yearly')">Tahunan</button>
+                        <button @click="selected = 'Tahunan'" wire:click="$set('display', 'yearly')">Tahunan</button>
                     </div>
                 </div>
-                <span :class="{ 'left-1/2 -ml-1 text-blue font-semibold':selected === 'yearly', 'left-1 text-blue font-semibold':selected === 'monthly' }"
-                    x-text="selected === 'monthly' ? 'monthly' : 'yearly'"
+                <span :class="{ 'left-1/2 -ml-1 text-blue font-semibold':selected === 'Tahunan', 'left-1 text-blue font-semibold':selected === 'Bulanan' }"
+                    x-text="selected === 'Bulanan' ? 'Bulanan' : 'Tahunan'"
                     class="bg-white shadow text-sm flex items-center justify-center w-1/2 rounded h-[1.88rem] transition-all duration-150 ease-linear top-[4px] absolute"></span>
             </div>
         </div>

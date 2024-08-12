@@ -49,7 +49,7 @@ class Dashboard extends Component
         $roomsWithUser = Room::whereHas('user')->count();
         $data = [
             $roomsWithUser,
-            $rooms-$roomsWithUser,
+            $rooms - $roomsWithUser,
         ];
 
         return $data;
@@ -78,11 +78,24 @@ class Dashboard extends Component
         $roomType = $this->roomType();
         $room = $this->room();
         $yearly = $this->monthlyFinancial();
+
+        $percentage = Transaction::selectRaw("
+        ROUND((SUM(CASE WHEN status = 'Sudah Dibayar' THEN 1 ELSE 0 END) / COUNT(*)) * 100) AS persentase_pembayaran")
+            ->where('status', '!=', 'draft')
+            ->whereYear('period', '=', date('Y'))
+            ->whereMonth('period', '=', date('m'))->get();
+
+        $income = Transaction::where('status', 'Sudah Dibayar')
+            ->whereMonth('period', '=', date('m'))
+            ->sum('amount');
+
         return view('livewire.admin.dashboard', [
             'yearly' => $yearly,
             'roomtype' => $roomType,
             'transaction' => $transaction,
-            'room' => $room
+            'room' => $room,
+            'percentage' => $percentage[0]['persentase_pembayaran'],
+            'income' => $income / 1000000
         ]);
     }
 }
