@@ -9,6 +9,24 @@
     ];
     @endphp
 
+    <div class="carousel w-full">
+        <div id="item1" class="carousel-item w-full">
+            <div class="w-full">
+                <!-- Chart Keuangan per Bulan -->
+                @include('components.chart.monthly-financial-chart')
+            </div>
+        </div>
+        <div id="item2" class="carousel-item w-full">
+            <div class="w-1/2 mx-auto">
+                <!-- Chart status pembayaran per Bulan -->
+                @include('components.chart.payment-status')
+            </div>
+        </div>
+    </div>
+    <div class="flex w-full justify-center gap-2 py-2 mb-8">
+        <a href="#item1" class="btn btn-xs bg-gray-200">1</a>
+        <a href="#item2" class="btn btn-xs bg-gray-200">2</a>
+    </div>
     <div>
         @foreach ($cards as $card)
         <div class="card border border-grey text-black mt-4 mb-4">
@@ -23,5 +41,6 @@
         </div>
         @endforeach
     </div>
+    
 
 </div>
