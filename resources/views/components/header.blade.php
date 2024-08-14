@@ -7,7 +7,6 @@
     </div>
     <div class="navbar-end">
         <div>
-
             @if (auth() && auth()->user() && auth()->user()->role == 'admin')
                 <a href="{{ route('admin.dashboard') }}" class="m-2 font-semibold">
                     <small>Dashboard</small>
@@ -39,7 +38,13 @@
                 </a>
             @else
                 <a href="{{ route('user.login') }}" class="m-2 font-semibold">
-                    <small>Login</small>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
+                        <path fill-rule="evenodd"
+                            d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                    </svg>
                 </a>
             @endif
         </div>
@@ -47,8 +52,23 @@
 </div>
 
 <!-- Navbar for Small Screens -->
-<div class="navbar max-h-16 bg-blue drop-shadow-down justify-center lg:hidden">
-    <div class="text-white text-center">
+<div class="navbar max-h-16 bg-blue drop-shadow-down text-white justify-center lg:hidden">
+    <div class="navbar-start">
+    </div>
+    <div class="navbar-center text-white">
         <p class="btn btn-ghost text-xl">@yield('title')</p>
+    </div>
+    <div class="navbar-end">
+        @guest
+            <a href="{{ route('user.login') }}" class="m-2 font-semibold">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                    class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
+                    <path fill-rule="evenodd"
+                        d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                </svg>
+            </a>
+        @endguest
     </div>
 </div>

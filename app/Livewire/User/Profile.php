@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Profile extends Component
 {
+    public $title = 'Profil';
     public function logout(Request $request)
     {
         Auth::guard('web')->logout();

@@ -21,25 +21,33 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="fixed w-full z-50">
-        @include('components.header')
-    </div>
-    <div class="mx-auto max-w-2xl min-h-screen">
 
-        <div class="pt-16">
-            <div class="pb-20 m-2 mt-4">
-                @yield('content')
+    @if (Route::currentRouteName() == 'user.login')
+        <div class="mx-auto max-w-2xl">
+            @yield('content')
+        </div>
+    @else
+        <div class="fixed w-full z-50">
+            @include('components.header')
+        </div>
+        <div class="mx-auto max-w-2xl min-h-screen">
+
+            <div class="pt-16">
+                <div class="pb-20 m-2 mt-4">
+                    @yield('content')
+                </div>
             </div>
         </div>
-    </div>
 
-    @section('bottombar')
-        @if (auth() && auth()->user() && auth()->user()->role == 'admin')
-            @include('components.bottom-nav-admin')
-        @else
-            @include('components.bottom-nav-user')
-        @endif
-    @show
+        @section('bottombar')
+            @if (auth() && auth()->user() && auth()->user()->role == 'admin')
+                @include('components.bottom-nav-admin')
+            @elseif(auth() && auth()->user())
+                @include('components.bottom-nav-user')
+            @endif
+        @show
+    @endif
+
 </body>
 
 

@@ -4,7 +4,7 @@
         <button class="btn btn-xs bg-blue text-white border-none" onclick="modalCreate.showModal()">
             + TambahPengguna
         </button>
-        <a href='{{ route("admin.profile") }}' class="btn btn-xs bg-blue text-white border-none">Profil</a>
+        <a href='{{ route("user.profile") }}' class="btn btn-xs bg-blue text-white border-none">Profil</a>
     </div>
 
     {{-- Modal Create --}}
