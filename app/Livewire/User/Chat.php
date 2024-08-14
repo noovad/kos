@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Admin;
+namespace App\Livewire\User;
 
 use App\Models\Message;
 use Livewire\Component;
@@ -26,6 +26,6 @@ class Chat extends Component
 
     public function render()
     {
-        return view('livewire.admin.chat');
+        return view('livewire.user.chat');
     }
 }

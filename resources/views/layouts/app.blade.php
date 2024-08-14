@@ -34,8 +34,8 @@
     </div>
 
     @section('bottombar')
-    @include('components.bottom-nav')
-    <!-- @include('user.components.bottom-nav') -->
+    @include('components.bottom-nav-admin')
+    @include('components.bottom-nav-user')
     @show
 </body>
 

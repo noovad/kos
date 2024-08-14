@@ -2,27 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome');
+Route::view('/', 'layouts.pages')->name('user.home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
-
-require __DIR__.'/auth.php';
 
 // user
-Route::view('/home', 'user.home')->name('user.home');
-Route::view('/chat-menu', 'user.chat-menu')->name('user.chat-menu');
-Route::view('/chat', 'user.chat')->name('user.chat');
-Route::view('/room-list', 'user.room-list')->name('user.room-list');
-Route::view('/room-detail', 'user.room-detail')->name('user.room-detail');
-Route::view('/transaction', 'user.transaction')->name('user.transaction');
-Route::view('/profile', 'user.profile')->name('user.profile');
-Route::view('/transaction-detail', 'user.transaction-detail')->name('user.transaction-detail');
+Route::view('/home', 'layouts.pages')->name('user.home');
+Route::view('/chat', 'layouts.pages')->name('user.chat');
+Route::view('/room-index', 'layouts.pages')->name('user.room-index');
+Route::view('/room-detail', 'layouts.pages')->name('user.room-detail');
+Route::view('/transaction', 'layouts.pages')->name('user.transaction-index');
+Route::view('/profile', 'layouts.pages')->name('user.profile');
 
 //admin
 Route::view('/admin', 'layouts.pages')->name('admin.dashboard');

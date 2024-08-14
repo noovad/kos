@@ -22,6 +22,19 @@
             <a href="{{ route('admin.users-index') }}" class="m-2 font-semibold">
                 <small>Pengguna</small>
             </a>
+
+            <a href="{{ route('user.home') }}" class="m-2 font-semibold">
+                <small>Home</small>
+            </a>
+            <a href="{{ route('user.transaction-index') }}" class="m-2 font-semibold">
+                <small>Transaksi</small>
+            </a>
+            <a href="{{ route('user.chat') }}" class="m-2 font-semibold">
+                <small>Chat</small>
+            </a>
+            <a href="{{ route('user.profile') }}" class="m-2 font-semibold">
+                <small>Profil</small>
+            </a>
         </div>
     </div>
 </div>
