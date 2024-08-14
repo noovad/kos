@@ -1,6 +1,7 @@
 <div>
     @section('title', $title ?? '')
 
+    <button wire:click='message' class="bg-blue hover:bg-blue text-white font-bold py-2 px-4 rounded">Click Me</button>
     <div class="navbar mx-auto max-w-lg max-h-16  fixed z-50">
         <div x-data="{ selected: 'group' }" class="w-full">
             <div class="relative w-full rounded-md border h-10 p-1 bg-gray-200">

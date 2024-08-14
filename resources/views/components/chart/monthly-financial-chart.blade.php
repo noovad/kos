@@ -21,7 +21,7 @@
                plugins: {
                     title: {
                          display: true,
-                         text: 'Transakti Tahun ' + currentYear,
+                         text: 'Transaksi Tahun ' + currentYear,
                          padding: {
                               top: 10,
                               bottom: 10
