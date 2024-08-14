@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('email')->nullable()->change();
+            $table->string('role')->default('user');
             $table->foreignId('room_id')->nullable()->constrained('rooms')->onDelete('set null');
-            $table->foreignId('role_id')->nullable()->constrained('roles')->onDelete('set null');
             $table->date('start_date')->nullable();
             $table->string('phone')->nullable();
         });

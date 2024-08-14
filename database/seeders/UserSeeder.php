@@ -17,11 +17,32 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $faker = FakerFactory::create();
-
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         User::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-        for ($i = 1; $i <= 100; $i++) {
+
+        $user = [
+            'id' => 1,
+            'name' => 'admin',
+            'email' => $faker->unique()->safeEmail,
+            'role' => 'admin',
+            'phone' => '+62' . $faker->randomNumber(5, true) . $faker->randomNumber(6, true),
+            'password' => Hash::make('12312344'),
+        ];
+        User::create($user);
+
+
+        $user = [
+            'id' => 2,
+            'name' => 'nova',
+            'email' => $faker->unique()->safeEmail,
+            'role' => 'user',
+            'phone' => '+62' . $faker->randomNumber(5, true) . $faker->randomNumber(6, true),
+            'password' => Hash::make('12312344'),
+        ];
+        User::create($user);
+
+        for ($i = 3; $i <= 100; $i++) {
             // Generate random value for room_id, which can be null or a random room id between 1 and 60
             $randomValue = mt_rand(0, 1) ? rand(1, 60) : null;
 
@@ -30,6 +51,7 @@ class UserSeeder extends Seeder
                 'name' => $faker->name,
                 'room_id' => $randomValue,
                 'email' => $faker->unique()->safeEmail,
+                'role' => 'user',
                 'phone' => '+62' . $faker->randomNumber(5, true) . $faker->randomNumber(6, true),
                 'password' => Hash::make('12312344'),
             ];

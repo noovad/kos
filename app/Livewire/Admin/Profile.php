@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\User;
+namespace App\Livewire\Admin;
 
 use Livewire\Component;
 use Illuminate\Http\Request;
@@ -21,6 +21,6 @@ class Profile extends Component
 
     public function render()
     {
-        return view('livewire.user.profile');
+        return view('livewire.admin.profile');
     }
 }

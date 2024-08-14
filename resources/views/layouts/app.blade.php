@@ -34,8 +34,11 @@
     </div>
 
     @section('bottombar')
-    @include('components.bottom-nav-admin')
-    @include('components.bottom-nav-user')
+        @if (auth() && auth()->user() && auth()->user()->role == 'admin')
+            @include('components.bottom-nav-admin')
+        @else
+            @include('components.bottom-nav-user')
+        @endif
     @show
 </body>
 

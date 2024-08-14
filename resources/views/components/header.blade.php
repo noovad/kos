@@ -7,34 +7,41 @@
     </div>
     <div class="navbar-end">
         <div>
-            <a href="{{ route('admin.dashboard') }}" class="m-2 font-semibold">
-                <small>Dashboard</small>
-            </a>
-            <a href="{{ route('admin.room') }}" class="m-2 font-semibold">
-                <small>Kamar</small>
-            </a>
-            <a href="{{ route('admin.transaction') }}" class="m-2 font-semibold">
-                <small>Keuangan</small>
-            </a>
-            <a href="{{ route('admin.chat') }}" class="m-2 font-semibold">
-                <small>Chat</small>
-            </a>
-            <a href="{{ route('admin.users-index') }}" class="m-2 font-semibold">
-                <small>Pengguna</small>
-            </a>
 
-            <a href="{{ route('user.home') }}" class="m-2 font-semibold">
-                <small>Home</small>
-            </a>
-            <a href="{{ route('user.transaction-index') }}" class="m-2 font-semibold">
-                <small>Transaksi</small>
-            </a>
-            <a href="{{ route('user.chat') }}" class="m-2 font-semibold">
-                <small>Chat</small>
-            </a>
-            <a href="{{ route('user.profile') }}" class="m-2 font-semibold">
-                <small>Profil</small>
-            </a>
+            @if (auth() && auth()->user() && auth()->user()->role == 'admin')
+                <a href="{{ route('admin.dashboard') }}" class="m-2 font-semibold">
+                    <small>Dashboard</small>
+                </a>
+                <a href="{{ route('admin.room') }}" class="m-2 font-semibold">
+                    <small>Kamar</small>
+                </a>
+                <a href="{{ route('admin.transaction') }}" class="m-2 font-semibold">
+                    <small>Keuangan</small>
+                </a>
+                <a href="{{ route('admin.chat') }}" class="m-2 font-semibold">
+                    <small>Chat</small>
+                </a>
+                <a href="{{ route('admin.users-index') }}" class="m-2 font-semibold">
+                    <small>Pengguna</small>
+                </a>
+            @elseif (auth() && auth()->user() && auth()->user()->role == 'user')
+                <a href="{{ route('user.home') }}" class="m-2 font-semibold">
+                    <small>Home</small>
+                </a>
+                <a href="{{ route('user.transaction-index') }}" class="m-2 font-semibold">
+                    <small>Transaksi</small>
+                </a>
+                <a href="{{ route('user.chat') }}" class="m-2 font-semibold">
+                    <small>Chat</small>
+                </a>
+                <a href="{{ route('user.profile') }}" class="m-2 font-semibold">
+                    <small>Profil</small>
+                </a>
+            @else
+                <a href="{{ route('user.login') }}" class="m-2 font-semibold">
+                    <small>Login</small>
+                </a>
+            @endif
         </div>
     </div>
 </div>
