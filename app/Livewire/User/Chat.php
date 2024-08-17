@@ -4,7 +4,8 @@ namespace App\Livewire\User;
 
 use App\Models\Message;
 use Livewire\Component;
-use App\Jobs\SendMessage;
+use App\Events\GotMessage;
+use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
@@ -17,10 +18,7 @@ class Chat extends Component
     public function chat()
     {
         $authId = Auth::id();
-
-        $authId = Auth::id();
         $adminRole = 'admin';
-
 
         $messages = Message::where('is_group_chat', false)
             ->where(function ($query) use ($authId, $adminRole) {
@@ -49,7 +47,6 @@ class Chat extends Component
 
     public function group()
     {
-
         $messages = Message::where('is_group_chat', true)
             ->oldest('created_at')
             ->with('sender')
@@ -61,30 +58,29 @@ class Chat extends Component
         return $messages;
     }
 
-
     public function sendMessage()
     {
         if (empty($this->message)) {
             return;
         }
 
+        GotMessage::dispatch($this->message);
+
         try {
             if ($this->display == 'group') {
-                $message = Message::create([
+                Message::create([
                     'sender_id' => Auth::id(),
                     'message' => $this->message,
                     'is_group_chat' => true,
                 ]);
             } else {
-                $message = Message::create([
+                Message::create([
                     'sender_id' => Auth::id(),
                     'receiver_id' => 1,
                     'message' => $this->message,
                     'is_group_chat' => false,
                 ]);
             }
-
-            SendMessage::dispatch($message);
         } catch (\Exception $e) {
             throw ValidationException::withMessages([
                 'message' => 'Pesan gagal dikirim.',
@@ -94,6 +90,7 @@ class Chat extends Component
         $this->message = '';
     }
 
+    #[On('echo:chatroom,GotMessage')]
     public function render()
     {
         $chat = $this->group();

@@ -5,8 +5,8 @@ namespace App\Livewire\Admin;
 use App\Models\User;
 use App\Models\Message;
 use Livewire\Component;
-use App\Jobs\SendMessage;
-use Illuminate\Support\Facades\DB;
+use App\Events\GotMessage;
+use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
@@ -55,15 +55,16 @@ class Chat extends Component
             return;
         }
 
+        GotMessage::dispatch($this->message);
+
         try {
-            $message = Message::create([
+            Message::create([
                 'sender_id' => Auth::id(),
                 'receiver_id' => $this->receiver,
                 'message' => $this->message,
                 'is_group_chat' => false,
             ]);
 
-            SendMessage::dispatch($message);
         } catch (\Exception $e) {
             throw ValidationException::withMessages([
                 'message' => 'Pesan gagal dikirim.',
@@ -73,10 +74,10 @@ class Chat extends Component
         $this->message = '';
     }
 
+    #[On('echo:chatroom,GotMessage')]
     public function render()
     {
         $chat = $this->messages();
-        // dd($chat);
         return view('livewire.admin.chat', ['chat' => $chat]);
     }
 }

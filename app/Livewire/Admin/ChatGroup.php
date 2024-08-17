@@ -5,6 +5,8 @@ namespace App\Livewire\Admin;
 use App\Models\Message;
 use Livewire\Component;
 use App\Jobs\SendMessage;
+use App\Events\GotMessage;
+use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
@@ -21,7 +23,7 @@ class ChatGroup extends Component
             ->oldest('created_at')
             ->get()
             ->groupBy(function ($date) {
-                return $date->created_at->format('Y-m-d'); // Group by date
+                return $date->created_at->format('Y-m-d');
             });
         return $messages;
     }
@@ -33,15 +35,14 @@ class ChatGroup extends Component
             return;
         }
 
+        GotMessage::dispatch($this->message);
+
         try {
-            $message = Message::create([
+            Message::create([
                 'sender_id' => Auth::id(),
                 'message' => $this->message,
                 'is_group_chat' => true,
             ]);
-            
-            SendMessage::dispatch($message);
-            
         } catch (\Exception $e) {
             throw ValidationException::withMessages([
                 'message' => 'Pesan gagal dikirim.',
@@ -51,6 +52,7 @@ class ChatGroup extends Component
         $this->message = '';
     }
 
+    #[On('echo:chatroom,GotMessage')]
     public function render()
     {
         $chat = $this->messages();
