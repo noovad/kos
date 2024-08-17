@@ -6,9 +6,9 @@
     let room = JSON.parse(`<?php echo json_encode($room); ?>`);
 
     new Chart(ctxpiee1, {
+        plugins: [ChartDataLabels],
         type: 'pie',
         data: {
-
             datasets: [{
                 backgroundColor: ['#6C8198', '#304E6E'],
                 borderColor: ['#6C8198', '#304E6E'],
@@ -21,6 +21,13 @@
         },
         options: {
             plugins: {
+                datalabels: {
+                    color: '#fff',
+                    font: {
+                        weight: 'bold',
+                        size: 16
+                    },
+                },
                 title: {
                     display: true,
                     text: 'Kamar Tersedia',

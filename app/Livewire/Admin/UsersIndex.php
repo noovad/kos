@@ -56,12 +56,13 @@ class UsersIndex extends Component
 
         if ($this->filter == '1') {
             $users->whereNotNull('room_id')->Where('room_id', '!=', 0)->with('room')
-            ->where('name', 'like', '%' . $this->search . '%');
+                ->where('name', 'like', '%' . $this->search . '%');
         } elseif ($this->filter == '0') {
             $users->whereNull('room_id')->orWhere('room_id', 0);
         }
 
-        $users = $users->orderBy('name')->paginate($this->pagination);
+        $users = $users->where('role', 'user')
+            ->orderBy('name')->paginate($this->pagination);
         $starting_number = ($users->currentPage() - 1) * $users->perPage() + 1;
 
         return view('livewire.admin.users-index', [

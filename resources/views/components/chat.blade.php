@@ -4,6 +4,9 @@
     <div class="px-2 pt-1 flex flex-col-reverse h-[calc(100vh-215px)] lg:h-[calc(100vh-170px)] overflow-y-auto">
 @endif
 
+@section('title', $title ?? '')
+
+
 <div class="max-w-2xl mx-auto">
     @foreach ($chat as $date => $dayMessages)
         <div class="date-header text-center text-gray-500">
@@ -23,7 +26,7 @@
                 </div>
             @else
                 <!-- Message from another user -->
-                <div class="chat wchat-start">
+                <div class="chat chat-start">
                     <div class="chat-header">
                         <small>{{ $item->sender->name }}</small>
                         <small class="opacity-50">{{ $item->created_at->format('H:i') }}</small>

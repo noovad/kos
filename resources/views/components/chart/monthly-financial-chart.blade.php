@@ -9,7 +9,7 @@
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'],
             datasets: [{
                 backgroundColor: '#304E6E',
                 label: 'Transaksi ' + currentYear + ' (Rp)',

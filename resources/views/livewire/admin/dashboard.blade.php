@@ -10,15 +10,15 @@
             @include('components.chart.room-occupied')
         </div>
     </div>
-    <div class="carousel-item w-full">
+    {{-- <div class="carousel-item w-full">
         <div class="w-full">
             @include('components.chart.monthly-room-occupancy')
         </div>
-    </div>
+    </div> --}}
     <div class="flex w-full justify-center gap-2 py-2 pt-10">
         <a class="btn btn-xs bg-gray-200" onclick="showCarousel(1)">1</a>
         <a class="btn btn-xs bg-gray-200" onclick="showCarousel(2)">2</a>
-        <a class="btn btn-xs bg-gray-200" onclick="showCarousel(3)">3</a>
+        {{-- <a class="btn btn-xs bg-gray-200" onclick="showCarousel(3)">3</a> --}}
     </div>
 
     <script>

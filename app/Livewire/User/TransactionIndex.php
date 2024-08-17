@@ -23,7 +23,7 @@ class TransactionIndex extends Component
     public function render()
     {
         // where user_id = auth()->id()
-        $transaction = Transaction::orderBy('due_date')->with('user');
+        $transaction = Transaction::where('user_id', auth()->id())->orderBy('due_date')->with('user');
 
         if ($this->filter) {
             $transaction = $transaction->where('status', $this->filter);

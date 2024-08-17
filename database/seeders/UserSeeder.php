@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
 
         $user = [
             'id' => 2,
-            'name' => 'nova',
+            'name' => 'Floyd',
             'email' => $faker->unique()->safeEmail,
             'role' => 'user',
             'phone' => '+62' . $faker->randomNumber(5, true) . $faker->randomNumber(6, true),

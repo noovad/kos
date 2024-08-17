@@ -6,10 +6,10 @@
             <div class="relative w-full rounded-md border h-10 p-1 bg-gray-200">
                 <div class="relative w-full h-full flex items-center">
                     <div class="w-1/2 flex justify-center text-gray-400 cursor-pointer">
-                        <button @click="selected = 'group'" wire:click="$set('display', 'kamar')">Grup</button>
+                        <button @click="selected = 'group'" wire:click="$set('display', 'group')">Grup</button>
                     </div>
                     <div class="w-1/2 flex justify-center text-gray-400 cursor-pointer">
-                        <button @click="selected = 'admin'" wire:click="$set('display', 'tipe kamar')">Admin</button>
+                        <button @click="selected = 'admin'" wire:click="$set('display', 'admin')">Admin</button>
                     </div>
                 </div>
                 <span
@@ -24,7 +24,7 @@
     </div>
 
     <div class="mt-16">
-        @if ($display == 'kamar')
+        @if ($display == 'group')
             @include('components.chat', ['title' => $title, 'chat' => $chat])
         @else
             @include('components.chat', ['title' => $title, 'chat' => $group])
