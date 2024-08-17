@@ -7,6 +7,8 @@ $routeName = Route::currentRouteName();
 
 @if ($routeName == 'admin.room-type-update' || $routeName == 'admin.room-type-detail')
 	@livewire($routeName, ['id' => $id])
+@elseif ($routeName == 'admin.chat')
+	@livewire($routeName, ['name' => $name])
 @else
 	@livewire($routeName)
 @endif

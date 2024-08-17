@@ -20,12 +20,9 @@ class RoomTypeSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $roomTypes = [
-            ['id' => 1, 'name' => 'Tipe 1', 'price' => 1100000, 'description' => 'Deskripsi untuk Tipe 1'],
-            ['id' => 2, 'name' => 'Tipe 2', 'price' => 1200000, 'description' => 'Deskripsi untuk Tipe 2'],
-            ['id' => 3, 'name' => 'Tipe 3', 'price' => 1300000, 'description' => 'Deskripsi untuk Tipe 3'],
-            ['id' => 4, 'name' => 'Tipe 4', 'price' => 1400000, 'description' => 'Deskripsi untuk Tipe 4'],
-            ['id' => 5, 'name' => 'Tipe 5', 'price' => 1500000, 'description' => 'Deskripsi untuk Tipe 5'],
-            ['id' => 6, 'name' => 'Tipe 6', 'price' => 1600000, 'description' => 'Deskripsi untuk Tipe 6'],
+            ['id' => 1, 'name' => 'Tipe A', 'price' => 1250000, 'description' => 'Deskripsi untuk Tipe 1'],
+            ['id' => 2, 'name' => 'Tipe B', 'price' => 100000, 'description' => 'Deskripsi untuk Tipe 2'],
+            ['id' => 3, 'name' => 'Tipe C ', 'price' => 750000, 'description' => 'Deskripsi untuk Tipe 3'],
         ];
 
         foreach ($roomTypes as $roomType) {

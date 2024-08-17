@@ -9,6 +9,7 @@
     <title>Makos</title>
 
 
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -18,6 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
 </head>
 
 <body class="font-sans antialiased">
@@ -30,13 +32,16 @@
         <div class="fixed w-full z-50">
             @include('components.header')
         </div>
-        <div class="mx-auto max-w-2xl min-h-screen">
-
-            <div class="pt-16">
-                <div class="pb-20 m-2 mt-4">
-                    @yield('content')
-                </div>
+        @if (Route::currentRouteName() == 'admin.chat-group' || Route::currentRouteName() == 'admin.chat' || Route::currentRouteName() == 'user.chat')
+            <div class="mx-auto min-h-screen">
+            @else
+                <div class="mx-auto max-w-2xl min-h-screen">
+        @endif
+        <div class="pt-16">
+            <div class="pb-20 m-2 mt-4">
+                @yield('content')
             </div>
+        </div>
         </div>
 
         @section('bottombar')
@@ -48,7 +53,7 @@
         @show
     @endif
 
+    @livewireScripts
 </body>
-
 
 </html>

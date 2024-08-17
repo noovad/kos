@@ -34,7 +34,7 @@ class TransactionSeeder extends Seeder
             $dateArray[] = $date->format('Y-m-d');
         }
         foreach ($dateArray as $date) {
-            $room = Room::where('id', $faker->numberBetween(1, 60))->with('roomType')->first();
+            $room = Room::where('id', $faker->numberBetween(1, 30))->with('roomType')->first();
             for ($i = 1; $i <= 45; $i++) {
                 $status = 'Sudah Dibayar';
                 $user = User::find(rand(1, 30));

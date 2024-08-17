@@ -1,8 +1,9 @@
 <div class="mx-auto max-w-2xl">
     <div class="flex justify-center items-center h-screen">
         <div class="w-2/3">
-            <div class="flex justify-center">
-                <img src="https://picsum.photos/200" class="" alt="">
+            <div class="flex justify-center" style="scale: 1/1">
+                <img src="{{ asset('asset/icon_login.png') }}" class="px-20" alt="">
+            </img>
             </div>
             <label class="input input-bordered flex items-center gap-2 mt-4">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"

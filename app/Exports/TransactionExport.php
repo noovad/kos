@@ -12,13 +12,16 @@ class TransactionExport implements FromView
 
     public function __construct(
         public $data,
-        public $type
+        public $type,
+        public $totalAmount
     ) {}
 
     public function view(): View
     {
         return view('exports.transactions', [
-            'data' => $this->data, 'type' => $this->type
+            'data' => $this->data,
+            'type' => $this->type,
+            'totalAmount' => $this->totalAmount
         ]);
     }
 }

@@ -1,9 +1,4 @@
-@extends('layouts.app')
-
-
-@section('judul', 'Room')
-
-@section('content')
+<div>
     <div class="swiper mySwiper h-52 mt-4">
         <div class="swiper-wrapper">
             <div class="swiper-slide size-44">
@@ -74,4 +69,4 @@
             },
         });
     </script>
-@endsection
+</div>

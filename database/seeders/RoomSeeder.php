@@ -19,7 +19,7 @@ class RoomSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $rooms = [];
         $roomTypeId = 1;
-        for ($i = 1; $i <= 60; $i++) {
+        for ($i = 1; $i <= 30; $i++) {
             $room = [
                 'id' => $i,
                 'name' => 'Kamar ' . sprintf('%02d', $i),

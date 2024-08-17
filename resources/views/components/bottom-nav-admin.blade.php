@@ -1,4 +1,8 @@
+@if (Route::currentRouteName() == 'user.chat-group')
+<div class="btm-nav mx-auto bg-white border-t-2 text-black lg:hidden">
+@else
 <div class="btm-nav mx-auto bg-white drop-shadow-up text-black lg:hidden">
+@endif
     <a href="{{ route('admin.dashboard') }}">
         <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="currentColor" class="bi bi-house-door"
             viewBox="0 0 16 16">
@@ -25,7 +29,7 @@
         </svg>
         <small>Keuangan</small>
     </a>
-    <a href="{{ route('admin.chat') }}">
+    <a href="{{ route('admin.chat-menu') }}">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5" fill="currentColor" class="bi bi-chat-right"
             viewBox="0 0 16 16">
             <path

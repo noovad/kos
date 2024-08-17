@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['group', 'admin']);
-            $table->foreignId('user_id')->constrained();
-            $table->text('text');
+            $table->unsignedBigInteger('sender_id');
+            $table->unsignedBigInteger('receiver_id')->nullable();
+            $table->text('message');
+            $table->boolean('is_group_chat')->default(false);
+            $table->boolean('is_admin')->default(false);
             $table->timestamps();
         });
     }

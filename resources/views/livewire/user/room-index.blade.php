@@ -1,9 +1,5 @@
-@extends('layouts.app')
+<div>
 
-
-@section('judul', 'Room')
-
-@section('content')
 
     <div class="px-2 mt-4 mb-20">
         @for ($i = 0; $i < 20; $i++)
@@ -55,4 +51,5 @@
             });
         });
     </script>
-@endsection
+</div>
+

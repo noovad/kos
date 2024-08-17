@@ -1,6 +1,18 @@
 <!-- Navbar for Large Screens -->
 <div class="navbar max-h-16 bg-blue drop-shadow-down text-white hidden lg:flex">
     <div class="navbar-start">
+        @if (auth() && auth()->user() && auth()->user()->role == 'admin')
+            <a href='{{ route('user.profile') }}' class="m-2 font-semibold">
+                <small>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                        <path fill-rule="evenodd"
+                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                    </svg>
+                </small>
+            </a>
+        @endif
     </div>
     <div class="navbar-center hidden lg:flex">
         <p class="btn btn-ghost text-xl">@yield('title')</p>
@@ -17,7 +29,7 @@
                 <a href="{{ route('admin.transaction') }}" class="m-2 font-semibold">
                     <small>Keuangan</small>
                 </a>
-                <a href="{{ route('admin.chat') }}" class="m-2 font-semibold">
+                <a href="{{ route('admin.chat-menu') }}" class="m-2 font-semibold">
                     <small>Chat</small>
                 </a>
                 <a href="{{ route('admin.users-index') }}" class="m-2 font-semibold">
@@ -54,6 +66,18 @@
 <!-- Navbar for Small Screens -->
 <div class="navbar max-h-16 bg-blue drop-shadow-down text-white justify-center lg:hidden">
     <div class="navbar-start">
+        @if (auth() && auth()->user() && auth()->user()->role == 'admin')
+            <a href='{{ route('user.profile') }}' class="m-2 font-semibold">
+                <small>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                        <path fill-rule="evenodd"
+                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                    </svg>
+                </small>
+            </a>
+        @endif
     </div>
     <div class="navbar-center text-white">
         <p class="btn btn-ghost text-xl">@yield('title')</p>

@@ -5,27 +5,99 @@ namespace App\Livewire\User;
 use App\Models\Message;
 use Livewire\Component;
 use App\Jobs\SendMessage;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class Chat extends Component
 {
     public $title = 'Chat';
     public $display = 'group';
+    public $message;
 
-    public function messages() {
-        $messages = Message::with('user')->get()->append('time');
+    public function chat()
+    {
+        $authId = Auth::id();
+
+        $authId = Auth::id();
+        $adminRole = 'admin';
+
+
+        $messages = Message::where('is_group_chat', false)
+            ->where(function ($query) use ($authId, $adminRole) {
+                $query->where(function ($subQuery) use ($authId, $adminRole) {
+                    $subQuery->where('receiver_id', $authId)
+                        ->whereHas('sender', function ($query) use ($adminRole) {
+                            $query->where('role', $adminRole);
+                        });
+                })
+                    ->orWhere(function ($subQuery) use ($authId, $adminRole) {
+                        $subQuery->where('sender_id', $authId)
+                            ->whereHas('receiver', function ($query) use ($adminRole) {
+                                $query->where('role', $adminRole);
+                            });
+                    });
+            })
+            ->oldest('created_at')
+            ->with('sender', 'receiver')
+            ->get()
+            ->groupBy(function ($message) {
+                return $message->created_at->format('Y-m-d');
+            });
+
+        return $messages;
     }
 
-    public function message(){
-        $message = Message::create([
-            'user_id' => 12,
-            'type' => 'admin',
-            'text' => "abc",
-        ]);
-        SendMessage::dispatch($message);
+    public function group()
+    {
+
+        $messages = Message::where('is_group_chat', true)
+            ->oldest('created_at')
+            ->with('sender')
+            ->get()
+            ->groupBy(function ($message) {
+                return $message->created_at->format('Y-m-d');
+            });
+
+        return $messages;
+    }
+
+
+    public function sendMessage()
+    {
+        if (empty($this->message)) {
+            return;
+        }
+
+        try {
+            if ($this->display == 'group') {
+                $message = Message::create([
+                    'sender_id' => Auth::id(),
+                    'message' => $this->message,
+                    'is_group_chat' => true,
+                ]);
+            } else {
+                $message = Message::create([
+                    'sender_id' => Auth::id(),
+                    'receiver_id' => 1,
+                    'message' => $this->message,
+                    'is_group_chat' => false,
+                ]);
+            }
+
+            SendMessage::dispatch($message);
+        } catch (\Exception $e) {
+            throw ValidationException::withMessages([
+                'message' => 'Pesan gagal dikirim.',
+            ]);
+        }
+
+        $this->message = '';
     }
 
     public function render()
     {
-        return view('livewire.user.chat');
+        $chat = $this->group();
+        $group = $this->chat();
+        return view('livewire.user.chat', ['chat' => $chat, 'group' => $group]);
     }
 }

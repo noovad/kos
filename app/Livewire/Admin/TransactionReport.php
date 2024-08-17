@@ -17,7 +17,7 @@ class TransactionReport extends Component
     public $display = 'monthly';
     public $year;
     public $month;
-    public $paginate = 10; 
+    public $paginate = 10;
 
     public function mount()
     {
@@ -27,17 +27,18 @@ class TransactionReport extends Component
 
     public function monthly()
     {
-        $data = Transaction::whereYear('period', '=', $this->year)
+        $data = Transaction::selectRaw("*, SUM(amount) AS total_amount")
+            ->whereYear('period', '=', $this->year)
             ->where('status', '!=', 'draft')
             ->whereMonth('period', '=', $this->month)
-            ->orderBy('status', 'desc');
+            ->orderBy('status', 'desc')
+            ->groupBy('id');
 
         return $data;
     }
 
     public function yearly()
     {
-
         $data = Transaction::selectRaw("DATE_FORMAT(period, '%Y-%m') AS period, 
             COUNT(*) AS jumlah_tagihan,
             SUM(amount) AS total_tagihan,
@@ -54,13 +55,16 @@ class TransactionReport extends Component
     public function export()
     {
         if ($this->display == 'monthly') {
-            $data = $this->monthly();
+            $data = $this->monthly()->get();
+            $totalAmount = $data->sum('amount');
             $fileName = 'report-monthly-' . $this->month . '-' . $this->year . '.xlsx';
-        } else {
+        } elseif ($this->display == 'yearly') {
             $data = $this->yearly();
+            $totalAmount = $data->sum('total_terbayar');
             $fileName = 'report-yearly-' . $this->year . '.xlsx';
         }
-        return Excel::download(new TransactionExport($data, $this->display), $fileName . '.xlsx');
+
+        return Excel::download(new TransactionExport($data, $this->display, $totalAmount), $fileName . '.xlsx');
     }
 
     public function render()
@@ -68,7 +72,18 @@ class TransactionReport extends Component
         $data = ($this->monthly())->paginate($this->paginate);
         $yearly = $this->yearly();
         $starting_number = ($data->currentPage() - 1) * $data->perPage() + 1;
-        
-        return view('livewire.admin.transaction-report', ['data' => $data, 'starting_number' => $starting_number, 'yearly' => $yearly]);
+
+        if ($this->display == 'monthly') {
+            $totalAmount = $data->sum('amount');
+        } elseif ($this->display == 'yearly') {
+            $totalAmount = $yearly->sum('total_terbayar');
+        }
+
+        return view('livewire.admin.transaction-report', [
+            'data' => $data,
+            'starting_number' => $starting_number,
+            'yearly' => $yearly,
+            'totalAmount' => $totalAmount
+        ]);
     }
 }

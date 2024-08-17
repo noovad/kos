@@ -1,6 +1,5 @@
 <div>
     @section('title', $title ?? '')
-
     
     <div class="flex justify-center">
         <img src="https://picsum.photos/200" class="" alt="">
@@ -13,7 +12,7 @@
     <div class="flex justify-center px-4 pt-4 text-black">
         <div class="grid grid-cols-2 gap-6">
             <div class="card">
-                <a href="{{ route('admin.transaction-room') }}">
+                <a href="{{ route('user.room-index') }}">
                     <div class="card bg-gray-200 shadow-xl p-8"
                         style="aspect-ratio: 1/1; display: flex; justify-content: center;">
                         <div class="stat-title text-blue font-semibold text-left">Tagihan Bulan Ini</div>
@@ -23,7 +22,7 @@
                 </a>
             </div>
             <div class="card">
-                <a href="{{ route('admin.transaction-report') }}">
+                <a href="{{ route('user.room-detail') }}">
                     <div class="card bg-gray-200 shadow-xl p-8"
                         style="aspect-ratio: 1/1; display: flex; justify-content: center;">
                         <div class="stat-title text-blue font-semibold text-left">Pemasukan Bulan Ini</div>

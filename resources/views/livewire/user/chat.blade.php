@@ -1,7 +1,6 @@
 <div>
     @section('title', $title ?? '')
 
-    {{-- <button wire:click='message' class="bg-blue hover:bg-blue text-white font-bold py-2 px-4 rounded">Click Me</button> --}}
     <div class="mx-auto text-center fixed top-0 left-0 right-0 mt-20 max-w-2xl z-50">
         <div x-data="{ selected: 'group' }" class="w-full">
             <div class="relative w-full rounded-md border h-10 p-1 bg-gray-200">
@@ -24,25 +23,11 @@
         </div>
     </div>
 
-
-    <div class="px-2 pt-16">
-        @for ($i = 0; $i < 10; $i++)
-            <div class="chat chat-end">
-                <div class="chat-header">
-                    <small>Me</small>
-                </div>
-                <div class="chat-bubble">
-                    <p>You were the Chose One!</p>
-                    <small class="opacity-50">12:45</small>
-                </div>
-            </div>
-        @endfor
-        <div id="endOfChat"></div>
+    <div class="mt-16">
+        @if ($display == 'kamar')
+            @include('components.chat', ['title' => $title, 'chat' => $chat])
+        @else
+            @include('components.chat', ['title' => $title, 'chat' => $group])
+        @endif
     </div>
-
-    <script>
-        window.onload = function() {
-            document.getElementById('endOfChat').scrollIntoView();
-        };
-    </script>
 </div>
