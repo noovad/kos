@@ -17,30 +17,17 @@ class Chat extends Component
 
     public function chat()
     {
-        $authId = Auth::id();
-        $adminRole = 'admin';
-
-        $messages = Message::where('is_group_chat', false)
-            ->where(function ($query) use ($authId, $adminRole) {
-                $query->where(function ($subQuery) use ($authId, $adminRole) {
-                    $subQuery->where('receiver_id', $authId)
-                        ->whereHas('sender', function ($query) use ($adminRole) {
-                            $query->where('role', $adminRole);
-                        });
+        $messages = Message::where('is_admin', false)
+                ->where('is_group_chat', false)
+                ->where(function ($query) {
+                    $query->where('sender_id', Auth::id())
+                        ->orWhere('receiver_id', Auth::id());
                 })
-                    ->orWhere(function ($subQuery) use ($authId, $adminRole) {
-                        $subQuery->where('sender_id', $authId)
-                            ->whereHas('receiver', function ($query) use ($adminRole) {
-                                $query->where('role', $adminRole);
-                            });
-                    });
-            })
-            ->oldest('created_at')
-            ->with('sender', 'receiver')
-            ->get()
-            ->groupBy(function ($message) {
-                return $message->created_at->format('Y-m-d');
-            });
+                ->oldest('created_at')
+                ->get()
+                ->groupBy(function ($message) {
+                    return $message->created_at->format('Y-m-d');
+                });
 
         return $messages;
     }
@@ -48,8 +35,8 @@ class Chat extends Component
     public function group()
     {
         $messages = Message::where('is_group_chat', true)
+            ->where('is_admin', false)
             ->oldest('created_at')
-            ->with('sender')
             ->get()
             ->groupBy(function ($message) {
                 return $message->created_at->format('Y-m-d');

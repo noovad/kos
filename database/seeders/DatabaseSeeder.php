@@ -2,10 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Room;
-use App\Models\User;
-use App\Models\RoomType;
-use App\Models\Transaction;
 use Illuminate\Database\Seeder;
 use Faker\Factory as FakerFactory;
 use Illuminate\Support\Facades\DB;
@@ -33,5 +29,8 @@ class DatabaseSeeder extends Seeder
 
         // ----------------- Message Seeder -----------------
         $this->call(MessageSeeder::class);
+
+        // ----------------- Profile Seeder -----------------
+        $this->call(SettingSeeder::class);
     }
 }

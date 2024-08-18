@@ -37,27 +37,18 @@
     <style>
         ul {
             list-style-type: disc;
-            /* Bullet points sebagai disc */
             margin-left: 20px;
-            /* Menambahkan margin kiri untuk indentasi */
             padding-left: 20px;
-            /* Menambahkan padding kiri */
         }
 
-        /* Numbered list style */
         ol {
             list-style-type: decimal;
-            /* Numbered list */
             margin-left: 20px;
-            /* Menambahkan margin kiri untuk indentasi */
             padding-left: 20px;
-            /* Menambahkan padding kiri */
         }
 
-        /* Style untuk teks yang ada di dalam list */
         li {
-            margin-bottom: 10px;
-            /* Menambahkan jarak antar item */
+            margin-bottom: 0px;
         }
     </style>
 </head>
@@ -97,7 +88,6 @@
         @show
         @endif
     </div>
-
     </div>
     @livewireScripts
 </body>

@@ -47,17 +47,70 @@ class UserSeeder extends Seeder
         // Masukkan user admin ke dalam database
         DB::table('users')->insert($users);
 
+        // Buat 15 user dengan room_id
+        $namesWithRoom = [
+            'Bagas',
+            'Cipto',
+            'Dimas',
+            'Erlangga',
+            'Farhan',
+            'Gunawan',
+            'Hafiz',
+            'Ilham',
+            'Jefri',
+            'Kusuma',
+            'Lazuardi',
+            'Mulyadi',
+            'Narendra',
+            'Pratama',
+            'Rafli'
+        ];
+
+        $usersWithRoom = [];
+        for ($i = 4; $i <= 18; $i++) { // Loop dari 4 hingga 18 (total 15 pengguna)
+            $roomId = ($i - 3); // Mengatur room_id mulai dari 1 hingga 15
+            if (in_array($roomId, [9, 10])) { // Room ID 9 dan 10 diatur menjadi null
+                $roomId = null;
+            }
+            $usersWithRoom[] = [
+                'id' => $i,
+                'name' => $namesWithRoom[$i - 4], // Menyesuaikan indeks dengan loop
+                'room_id' => $roomId,
+                'role' => 'user',
+                'password' => Hash::make('12312344'),
+            ];
+        }
+        DB::table('users')->insert($usersWithRoom);
+
         // Buat 20 user tanpa room_id
-        $name = [
-            'Andi', 'Budi', 'Cahyo', 'Dani', 'Eko', 'Fajar', 'Gilang', 'Hendra', 'Indra', 'Joko',
-            'Kurniawan', 'Lutfi', 'Mahendra', 'Nugroho', 'Oka', 'Pandu', 'Rizki', 'Setiawan', 'Taufik', 'Wawan'
+        $namesWithoutRoom = [
+            'Andi',
+            'Budi',
+            'Cahyo',
+            'Dani',
+            'Eko',
+            'Fajar',
+            'Gilang',
+            'Hendra',
+            'Indra',
+            'Joko',
+            'Kurniawan',
+            'Lutfi',
+            'Mahendra',
+            'Nugroho',
+            'Oka',
+            'Pandu',
+            'Rizki',
+            'Setiawan',
+            'Taufik',
+            'Wawan'
         ];
 
         $usersWithoutRoom = [];
-        for ($i = 4; $i <= 23; $i++) {
+        for ($i = 19; $i <= 38; $i++) { // Loop dari 19 hingga 38 (total 20 pengguna)
             $usersWithoutRoom[] = [
                 'id' => $i,
-                'name' => $name[$i - 4],
+                'name' => $namesWithoutRoom[$i - 19], // Menyesuaikan indeks dengan loop
                 'room_id' => null,
                 'role' => 'user',
                 'password' => Hash::make('12312344'),
@@ -66,29 +119,5 @@ class UserSeeder extends Seeder
 
         // Masukkan user tanpa room_id ke dalam database
         DB::table('users')->insert($usersWithoutRoom);
-
-
-        // Buat 15 user dengan room_id
-        $name = [
-            'Bagas', 'Cipto', 'Dimas', 'Erlangga', 'Farhan', 'Gunawan', 'Hafiz', 'Ilham', 'Jefri', 'Kusuma',
-            'Lazuardi', 'Mulyadi', 'Narendra', 'Pratama', 'Rafli'
-        ];
-        $usersWithRoom = [];
-        for ($i = 24; $i <= 38; $i++) {
-            $roomId = ($i - 23);
-            if (in_array($roomId, [9, 10])) {
-                $roomId = null;
-            }
-            $usersWithRoom[] = [
-                'id' => $i,
-                'name' => $name[$i - 24],
-                'room_id' => $roomId, 
-                'role' => 'user',
-                'password' => Hash::make('12312344'),
-            ];
-        }
-
-        // Masukkan user dengan room_id ke dalam database
-        DB::table('users')->insert($usersWithRoom);
     }
 }

@@ -11,6 +11,11 @@ $scrollIntoViewJsSnippet = ($scrollTo !== false)
 @endphp
 
 <div>
+    <style>
+        ul {
+            list-style-type: none;
+        }
+    </style>
     @if ($paginator->hasPages())
         <nav role="navigation" aria-label="Pagination Navigation" class="flex items-center justify-end">
             <div class="flex justify-between items-center">

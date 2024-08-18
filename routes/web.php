@@ -10,6 +10,9 @@ Route::middleware('guest')->group(function () {
 
 Route::view('/home', 'layouts.pages')->name('user.home');
 Route::view('/room-index', 'layouts.pages')->name('user.room-index');
+Route::view('/fasilitas', 'layouts.pages')->name('user.facility');
+Route::view('/aturan', 'layouts.pages')->name('user.rule');
+Route::view('/about', 'layouts.pages')->name('user.about');
 Route::get('/room-detail/{roomType}', function ($roomType) {
     return view('layouts.pages', ['roomType' => $roomType]);
 })->name('user.room-detail');

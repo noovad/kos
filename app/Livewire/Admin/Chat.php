@@ -19,31 +19,46 @@ class Chat extends Component
     public function mount(string $name): void
     {
         $this->title = 'Chat - ' . $name;
-        $this->receiver = User::where('name', $name)->first()->id;
+        if ($name != 'admin' && $name != 'group') {
+            $user = User::where('name', $name)->first();
+            if ($user) {
+                $this->receiver = $user->id;
+            }
+        } else {
+            $this->receiver = $name;
+        }
     }
 
     public function messages()
     {
-        $authId = Auth::id();
-        $userId = $this->receiver;
-
-        $messages = Message::where('is_group_chat', false)
-            ->where(function ($query) use ($authId, $userId) {
-                $query->where(function ($subQuery) use ($authId, $userId) {
-                    $subQuery->where('receiver_id', $authId)
-                        ->where('sender_id', $userId);
+        if ($this->receiver == 'group') {
+            $messages = Message::where('is_group_chat', true)
+                ->where('is_admin', false)
+                ->oldest('created_at')
+                ->get()
+                ->groupBy(function ($message) {
+                    return $message->created_at->format('Y-m-d');
+                });
+        } elseif ($this->receiver == 'admin') {
+            $messages = Message::where('is_admin', true)
+                ->oldest('created_at')
+                ->get()
+                ->groupBy(function ($message) {
+                    return $message->created_at->format('Y-m-d');
+                });
+        } else {
+            $messages = Message::where('is_admin', false)
+                ->where('is_group_chat', false)
+                ->where(function ($query) {
+                    $query->where('sender_id', $this->receiver)
+                        ->orWhere('receiver_id', $this->receiver);
                 })
-                    ->orWhere(function ($subQuery) use ($authId, $userId) {
-                        $subQuery->where('sender_id', $authId)
-                            ->where('receiver_id', $userId);
-                    });
-            })
-            ->oldest('created_at')
-            ->with('sender', 'receiver')
-            ->get()
-            ->groupBy(function ($message) {
-                return $message->created_at->format('Y-m-d');
-            });
+                ->oldest('created_at')
+                ->get()
+                ->groupBy(function ($message) {
+                    return $message->created_at->format('Y-m-d');
+                });
+        }
 
         return $messages;
     }
@@ -58,13 +73,29 @@ class Chat extends Component
         GotMessage::dispatch($this->message);
 
         try {
-            Message::create([
-                'sender_id' => Auth::id(),
-                'receiver_id' => $this->receiver,
-                'message' => $this->message,
-                'is_group_chat' => false,
-            ]);
-
+            if ($this->receiver == 'group') {
+                Message::create([
+                    'sender_id' => Auth::id(),
+                    'message' => $this->message,
+                    'is_group_chat' => true,
+                    'is_admin' => false,
+                ]);
+            } elseif ($this->receiver == 'admin') {
+                Message::create([
+                    'sender_id' => Auth::id(),
+                    'message' => $this->message,
+                    'is_group_chat' => false,
+                    'is_admin' => true,
+                ]);
+            } else {
+                Message::create([
+                    'sender_id' => Auth::id(),
+                    'receiver_id' => $this->receiver,
+                    'message' => $this->message,
+                    'is_group_chat' => false,
+                    'is_admin' => false,
+                ]);
+            }
         } catch (\Exception $e) {
             throw ValidationException::withMessages([
                 'message' => 'Pesan gagal dikirim.',
@@ -78,6 +109,6 @@ class Chat extends Component
     public function render()
     {
         $chat = $this->messages();
-        return view('livewire.admin.chat', ['chat' => $chat]);
+        return view('livewire.admin.chat', ['chat' => $chat, 'user' => $this->receiver]);
     }
 }

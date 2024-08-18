@@ -1,35 +1,42 @@
 <div>
     @section('title', $title ?? '')
     <div class="card border border-grey text-black mt-4 mb-4">
-        <a href="{{ route('admin.chat-group') }}">
+        <a href="{{ route('admin.chat', ['name' => 'group']) }}">
             <div class="grid grid-cols-7 gap-2 p-2">
                 <div class="col-span-6 rounded-lg">
                     <p class="pl-3 ">Group</p>
                 </div>
-                <small class="text-xs flex items-center">27-03-2024</small>
+            </div>
+        </a>
+    </div>
+
+    <div class="card border border-grey text-black mt-4 mb-4">
+        <a href="{{ route('admin.chat', ['name' => 'admin']) }}">
+            <div class="grid grid-cols-7 gap-2 p-2">
+                <div class="col-span-6 rounded-lg">
+                    <p class="pl-3 ">Admin Group</p>
+                </div>
             </div>
         </a>
     </div>
 
     @foreach ($chat as $item)
         <div class="card border border-grey text-black mt-4 mb-4">
-            @if ($item->receiver->id == auth()->id())
-                <a href="{{ route('admin.chat', ['name' => $item->sender->name]) }}">
-                @else
-                    <a href="{{ route('admin.chat', ['name' => $item->receiver->name]) }}">
-            @endif
-            <div class="grid grid-cols-7 gap-2 p-2">
-                <div class="col-span-6 rounded-lg">
-                    <p class="pl-3">
-                        @if ($item->receiver->id == auth()->id())
-                            {{ $item->sender->name }}
+            <a href="{{ route('admin.chat', ['name' => $item['user']]) }}">
+                <div class="grid grid-cols-7 gap-2 p-2">
+                    <div class="col-span-6 rounded-lg">
+                        <p class="pl-3">{{ $item['user'] }}</p>
+                    </div>
+                    @if ($item['message'] != null)
+                        @if ($item['message']->created_at->isToday())
+                            <small
+                                class="text-xs flex items-center">{{ $item['message']->created_at->format('H:i') }}</small>
                         @else
-                            {{ $item->receiver->name }}
+                            <small
+                                class="text-xs flex items-center">{{ $item['message']->created_at->format('d-m-Y') }}</small>
                         @endif
-                    </p>
+                    @endif
                 </div>
-                <small class="text-xs flex items-center">{{ $item->created_at->format('d-m-Y') }}</small>
-            </div>
             </a>
         </div>
     @endforeach

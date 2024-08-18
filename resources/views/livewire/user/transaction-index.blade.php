@@ -29,7 +29,7 @@
     <div class="card border border-grey text-black mt-4 mb-4">
         <div class="grid grid-cols-7 gap-2 p-2">
             <div class="col-span-6 rounded-lg">
-                <p class="pl-3 -mb-1">{{ $item->user->name }}</p>
+                <p class="pl-3 -mb-1">{{ $item->user->name }} - {{ \Carbon\Carbon::parse($item->period)->format('m-Y') }}</p>
                 @if ($item->status == 'Belum Dibayar')
                 <small class="text-green-600 pl-3">Belum Dibayar</small>
                 @elseif ($item->status == 'Sudah Dibayar')

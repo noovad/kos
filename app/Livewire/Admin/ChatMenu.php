@@ -5,6 +5,7 @@ namespace App\Livewire\Admin;
 use App\Models\Message;
 use Livewire\Component;
 use App\Jobs\SendMessage;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class ChatMenu extends Component
@@ -12,45 +13,32 @@ class ChatMenu extends Component
     public $title = 'Chat';
     public $display = 'group';
 
-    public function messages()
-    {
-        $messages = Message::with('user')->get()->append('time');
-    }
-
-    public function message()
-    {
-        $message = Message::create([
-            'user_id' => 12,
-            'type' => 'admin',
-            'text' => "abc",
-        ]);
-        SendMessage::dispatch($message);
-    }
-
     public function messageIndex()
     {
-        $userId = auth()->id();
+        $users = User::where('role', 'user')->has('room')->get();
 
-        $chats = Message::select('id', 'sender_id', 'receiver_id', 'message', 'created_at')
-        ->where(function ($query) use ($userId) {
-            $query->where('receiver_id', $userId)
-                  ->orWhere('sender_id', $userId);
-        })
-        ->where('is_group_chat', false)
-        ->whereIn('id', function ($query) use ($userId) {
-            $query->select(DB::raw('MAX(id)'))
-                ->from('messages')
-                ->where(function ($query) use ($userId) {
-                    $query->where('receiver_id', $userId)
-                          ->orWhere('sender_id', $userId);
+        $userChats = $users->map(function ($user) {
+            $lastMessage = Message::where('is_admin', false)
+                ->where('is_group_chat', false)
+                ->where(function ($query) use ($user) {
+                    $query->where('sender_id', $user->id)
+                          ->orWhere('receiver_id', $user->id);
                 })
-                ->groupBy(DB::raw('CASE WHEN sender_id = ' . $userId . ' THEN receiver_id ELSE sender_id END'));
-        })
-        ->latest('created_at')
-        ->with(['receiver', 'sender']) // Ensure relationships are eager-loaded
-        ->get();
-
-        return $chats;
+                ->latest('created_at') // Mengambil pesan terbaru
+                ->first();
+        
+            return [
+                'user' => $user->name,
+                'message' => $lastMessage
+            ];
+        });
+        
+        // Urutkan hasil berdasarkan waktu pesan terbaru
+        $userChats = $userChats->sortByDesc(function ($chat) {
+            return $chat['message'] ? $chat['message']->created_at : null;
+        })->values();
+        
+        return $userChats;
     }
 
     public function render()
