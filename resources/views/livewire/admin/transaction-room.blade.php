@@ -1,5 +1,12 @@
 <div>
     @section('title', $title ?? '')
+    <div class="ps-8 flex justify-end">
+        <ul class="list-disc list-inside">
+            <li><small>Biru : Sudah Bayar</small></li>
+            <li><small>Abu-abu : Belum Bayar</small></li>
+            <li><small>Putih : Kamar Kosong</small></li>
+        </ul>
+    </div>
     @foreach ($data as $item)
     <div class="m-2 border">
         <div class="m-2 mb-0 p-2 rounded-md bg-blue text-white text-center">

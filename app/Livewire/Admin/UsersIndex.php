@@ -54,15 +54,27 @@ class UsersIndex extends Component
     {
         $users = User::query();
 
+        $users = User::query(); // Mulai query untuk pengguna
+
+
         if ($this->filter == '1') {
-            $users->whereNotNull('room_id')->Where('room_id', '!=', 0)->with('room')
-                ->where('name', 'like', '%' . $this->search . '%');
+            $users->whereNotNull('room_id')
+                ->where('room_id', '!=', 0)
+                ->where(function ($query) {
+                    $query->where('users.name', 'like', '%' . $this->search . '%')
+                          ->orWhereHas('room', function ($q) {
+                              $q->where('rooms.name', 'like', '%' . $this->search . '%');
+                          });
+                })
+                ->join('rooms', 'users.room_id', '=', 'rooms.id')
+                ->orderBy('rooms.name')
+                ->select('users.*', 'rooms.name as room_name');
         } elseif ($this->filter == '0') {
             $users->whereNull('room_id')->orWhere('room_id', 0);
         }
-
-        $users = $users->where('role', 'user')
-            ->orderBy('name')->paginate($this->pagination);
+        
+         $users = $users->paginate($this->pagination);
+        
         $starting_number = ($users->currentPage() - 1) * $users->perPage() + 1;
 
         return view('livewire.admin.users-index', [

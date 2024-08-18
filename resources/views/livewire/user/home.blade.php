@@ -2,7 +2,7 @@
     @section('title', $title ?? '')
 
     <div class="flex justify-center" style="scale: 1/1">
-        <img src="{{ asset('asset/icon_login.png') }}" class="px-40" alt="">
+        <img src="{{ asset('asset/icon_login.png') }}" class="lg:px-40 px-14" alt="">
     </div>
     <p class="p-5 pb-8">
         Selamat datang di kos-kosan pusat kota kami! Fasilitas modern, furnitur lengkap, koneksi internet cepat,
@@ -23,11 +23,12 @@
                             <path d="M12 4v6" />
                             <path d="M2 18h20" />
                         </svg>
+                        <small class="text-center text-blue">Kamar</small>
                     </div>
                 </a>
             </div>
             <div class="card">
-                <a href="{{ route('user.room-detail') }}">
+                <a href="}}">
                     <div class="card bg-gray-200 shadow-xl p-8"
                         style="aspect-ratio: 1/1; display: flex; justify-content: center;">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -41,6 +42,7 @@
                             <path
                                 d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
                         </svg>
+                        <small class="text-center text-blue">Fasilitas</small>
                     </div>
                 </a>
             </div>
@@ -55,6 +57,7 @@
                             <path
                                 d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" />
                         </svg>
+                        <small class="text-center text-blue">Aturan</small>
                     </div>
                 </a>
             </div>
@@ -70,6 +73,7 @@
                             <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                         </svg>
+                        <small class="text-center text-blue">Tentang Kami</small>
                     </div>
                 </a>
             </div>

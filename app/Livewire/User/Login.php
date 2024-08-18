@@ -17,17 +17,17 @@ class Login extends Component
         $this->form->validate();
         if (Auth::attempt(['name' => $this->form->name, 'password' => $this->form->password])) {
             Session::regenerate();
-
-            if (auth()->user()->role == 'admin') {
-                return redirect()->intended('admin/dashboard');
-            }
-
-            return redirect()->intended('/');
+        } else {
+            throw ValidationException::withMessages([
+                'login' => 'Login failed, please check your username and password.',
+            ]);
         }
 
-        throw ValidationException::withMessages([
-            'login' => 'Login failed, please check your username and password.',
-        ]);
+        if (auth()->user()->role == 'admin') {
+            return redirect()->intended('admin/dashboard');
+        } else {
+            return redirect()->intended('/');
+        }
     }
 
     public function render()

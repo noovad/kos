@@ -1,52 +1,47 @@
 <div>
-    <div class="swiper mySwiper h-52 mt-4">
+    @section('title', $title ?? '')
+
+    <div class="swiper mySwiper mt-4">
         <div class="swiper-wrapper">
-            <div class="swiper-slide size-44">
-                <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-            </div>
-            <div class="swiper-slide size-44">
-                <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-            </div>
-            <div class="swiper-slide size-44">
-                <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-            </div>
+            @if ($roomType->photos->isEmpty())
+                <div class="swiper-slide size-96">
+                    <img src="{{ asset('asset/dummy.jpg') }}" class="w-full" alt="Gambar">
+                </div>
+            @endif
+            @foreach ($roomType->photos as $item)
+                <div class="swiper-slide size-96">
+                    <img src="{{ asset('storage/photos/' . $item->url) }}" class="w-full" alt="Gambar">
+                </div>
+            @endforeach
         </div>
         <div class="swiper-pagination"></div>
     </div>
     <div class="mt-2 mb-2 text-center">
-        <h3 class="text-xl font-semibold text-blue">Nama Tipe Kamar</h3>
-        <small class="-m-1 mb-4">Rp. 239.0390</small>
+        <h3 class="text-xl font-semibold text-blue">{{ $roomType->name }}</h3>
+        <small class="-m-1 mb-4">Rp. {{ number_format($roomType->price, 0, ',', '.') }}</small>
+    </div>
+    <div class="ps-8 flex justify-end">
+        <ul class="list-disc list-inside">
+            <li><small>Biru : Tersedia</small></li>
+            <li><small>Abu-abu : Tidak Tersedia</small></li>
     </div>
     <div class="flex justify-center px-20 py-5 text-black">
         <div class="grid grid-cols-4 gap-3">
-            <div class="size-16 rounded-md bg-blue text-white flex justify-center items-center">
-                <span class="text-2xl font-bold">1</span>
-            </div>
-            <div class="size-16 rounded-md bg-bluebg text-white flex justify-center items-center">
-                <span class="text-2xl font-bold">1</span>
-            </div>
-            <div class="size-16 rounded-md bg-blue text-white flex justify-center items-center">
-                <span class="text-2xl font-bold">1</span>
-            </div>
-            <div class="size-16 rounded-md bg-blue text-white flex justify-center items-center">
-                <span class="text-2xl font-bold">1</span>
-            </div>
-            <div class="size-16 rounded-md bg-blue text-white flex justify-center items-center">
-                <span class="text-2xl font-bold">1</span>
-            </div>
-            <div class="size-16 rounded-md bg-blue text-white flex justify-center items-center">
-                <span class="text-2xl font-bold">1</span>
-            </div>
-            <div class="size-16 rounded-md bg-blue text-white flex justify-center items-center">
-                <span class="text-2xl font-bold">1</span>
-            </div>
+            @foreach ($room as $item)
+                @if ($item->user == null)
+                    <div class="size-16 rounded-md bg-blue text-white flex justify-center items-center">
+                        <span class="text-lg text-center font-bold">{{ $item->name }}</span>
+                    </div>
+                @else
+                    <div class="size-16 rounded-md bg-gray-200 text-white flex justify-center items-center">
+                        <span class="text-lg text-center font-bold">{{ $item->name }}</span>
+                    </div>
+                @endif
+            @endforeach
         </div>
     </div>
-    <div class="flex flex-col w-full p-3 pb-40 bg-blue drop-shadow-up text-white">
-        <p class="pl-5 text-left">Fasilitas :</p>
-        <small class=" pl-5 text-left">Fasilitas 1</small>
-        <small class=" pl-5 text-left">Fasilitas 1</small>
-        <small class=" pl-5 text-left">Fasilitas 1</small>
+    <div class="p-8 drop-shadow-up border-4 border-blue rounded-lg">
+        <p class="text-left"> {{ $roomType->description }} </p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

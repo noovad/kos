@@ -10,7 +10,9 @@ Route::middleware('guest')->group(function () {
 
 Route::view('/home', 'layouts.pages')->name('user.home');
 Route::view('/room-index', 'layouts.pages')->name('user.room-index');
-Route::view('/room-detail', 'layouts.pages')->name('user.room-detail');
+Route::get('/room-detail/{roomType}', function ($roomType) {
+    return view('layouts.pages', ['roomType' => $roomType]);
+})->name('user.room-detail');
 
 // user
 Route::middleware(['auth', 'isUser'])->group(function () {
@@ -19,8 +21,7 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-
-Route::view('/profile', 'layouts.pages')->name('user.profile');
+    Route::view('/profile', 'layouts.pages')->name('user.profile');
 });
 
 //admin
@@ -37,7 +38,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::view('/admin/transaction-list', 'layouts.pages')->name('admin.transaction-index');
     Route::view('/admin/transaction-report', 'layouts.pages')->name('admin.transaction-report');
     Route::view('/admin/users', 'layouts.pages')->name('admin.users-index');
-    
+
     Route::view('/admin/chat', 'layouts.pages')->name('admin.chat-menu');
     Route::get('/admin/chat/{name}', function ($name) {
         return view('layouts.pages', ['name' => $name]);

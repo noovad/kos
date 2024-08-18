@@ -45,7 +45,10 @@
                 @foreach ($users as $key => $item)
                     <tr class="hover">
                         <th>{{ $starting_number + $key }}</th>
-                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->name }}
+                            <br>
+                            <small>{{ $item->room->name }}</small>
+                        </td>
                         <td class="text-center">
                             @if ($item->room_id)
                                 <small class="text-green-600">Aktif</small>

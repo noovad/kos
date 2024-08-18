@@ -15,7 +15,7 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 
@@ -25,26 +25,28 @@
 
 <body class="font-sans antialiased">
 
-    @if (Route::currentRouteName() == 'user.login')
-        <div class="mx-auto max-w-2xl">
-            @yield('content')
-        </div>
-    @else
-        <div class="fixed w-full z-50">
-            @include('components.header')
-        </div>
-        @if (Route::currentRouteName() == 'admin.chat-group' ||
-                Route::currentRouteName() == 'admin.chat' ||
-                Route::currentRouteName() == 'user.chat')
-            <div class="mx-auto min-h-screen">
+    <div class="overflow-x">
+        <div class="min-w-[360px]">
+            @if (Route::currentRouteName() == 'user.login')
+                <div class="mx-auto max-w-2xl">
+                    @yield('content')
+                </div>
             @else
-                <div class="mx-auto max-w-2xl min-h-screen">
-        @endif
-        <div class="pt-16">
-            <div class="pb-20 m-2 mt-4">
-                @yield('content')
-            </div>
-        </div>
+                <div class="fixed w-full z-50">
+                    @include('components.header')
+                </div>
+                @if (Route::currentRouteName() == 'admin.chat-group' ||
+                        Route::currentRouteName() == 'admin.chat' ||
+                        Route::currentRouteName() == 'user.chat')
+                    <div class="mx-auto min-h-screen">
+                    @else
+                        <div class="mx-auto max-w-2xl min-h-screen">
+                @endif
+                <div class="pt-16">
+                    <div class="pb-20 m-2 mt-4">
+                        @yield('content')
+                    </div>
+                </div>
         </div>
 
         @section('bottombar')
@@ -54,8 +56,10 @@
                 @include('components.bottom-nav-user')
             @endif
         @show
-    @endif
+        @endif
+    </div>
 
+    </div>
     @livewireScripts
 </body>
 

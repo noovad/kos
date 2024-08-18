@@ -22,7 +22,7 @@ class RoomTypeSeeder extends Seeder
         $roomTypes = [
             ['id' => 1, 'name' => 'Tipe A', 'price' => 1250000, 'description' => 'Deskripsi untuk Tipe 1'],
             ['id' => 2, 'name' => 'Tipe B', 'price' => 100000, 'description' => 'Deskripsi untuk Tipe 2'],
-            ['id' => 3, 'name' => 'Tipe C ', 'price' => 750000, 'description' => 'Deskripsi untuk Tipe 3'],
+            ['id' => 3, 'name' => 'Tipe C', 'price' => 750000, 'description' => 'Deskripsi untuk Tipe 3'],
         ];
 
         foreach ($roomTypes as $roomType) {
