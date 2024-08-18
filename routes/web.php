@@ -28,8 +28,8 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::view('/admin', 'layouts.pages')->name('admin.dashboard');
     Route::view('/admin/dashboard', 'layouts.pages')->name('admin.dashboard');
-    Route::view('/admin/room', 'layouts.pages')->name('admin.room');
-    Route::view('/admin/room-type', 'layouts.pages')->name('admin.room-type');
+    Route::view('/admin/room', 'layouts.pages')->name('admin.room-index');
+    Route::view('/admin/room-type', 'layouts.pages')->name('admin.room-type-index');
     Route::view('/admin/room-type/create', 'layouts.pages')->name('admin.room-type-posts');
     Route::view('/admin/transaction', 'layouts.pages')->name('admin.transaction');
     Route::view('/admin/transaction-draft', 'layouts.pages')->name('admin.transaction-post');
@@ -49,7 +49,4 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin/room-type/update/{id}', function ($id) {
         return view('layouts.pages', ['id' => $id]);
     })->name('admin.room-type-update');
-    Route::get('/admin/room-type/detail/{id}', function ($id) {
-        return view('layouts.pages', ['id' => $id]);
-    })->name('admin.room-type-detail');
 });

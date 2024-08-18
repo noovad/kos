@@ -41,10 +41,8 @@
         </div>
     </div>
     <div class="p-8 drop-shadow-up border-4 border-blue rounded-lg">
-        <p class="text-left"> {{ $roomType->description }} </p>
+        {!! $roomType->description !!}
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
         var swiper = new Swiper(".mySwiper", {

@@ -1,5 +1,26 @@
 <div>
     @section('title', $title ?? '')
+
+    <div class="mx-auto text-center">
+        <div x-data="{ selected: 'kamar' }" class="w-full my-4">
+            <div class="relative w-full rounded-md border h-10 p-1 bg-gray-200">
+                <div class="relative w-full h-full flex items-center">
+                    <div class="w-1/2 flex justify-center text-gray-400 cursor-pointer">
+                        <a @click="selected = 'kamar'" href="{{ route('admin.room-index') }}">Kamar</a>
+                    </div>
+                    <div class="w-1/2 flex justify-center text-gray-400 cursor-pointer">
+                        <a @click="selected = 'tipe kamar'" href="{{ route('admin.room-type-index') }}">Tipe Kamar</a>
+                    </div>
+                </div>
+                <span :class="{
+                    'left-1 text-blue font-semibold': selected === 'kamar',
+                    'left-1/2 -ml-1 text-blue font-semibold': selected === 'tipe kamar'
+                }"
+                    x-text="selected.charAt(0).toUpperCase() + selected.slice(1)"
+                    class="bg-white shadow text-sm flex items-center justify-center w-1/2 rounded h-[1.88rem] transition-all duration-150 ease-linear top-[4px] absolute"></span>
+            </div>
+        </div>
+    </div>
     <livewire:admin.room-post>
         <hr>
         <div class="mt-4 mb-4">
@@ -130,7 +151,7 @@
 
                 <div class="modal-action pt-4 m-0">
                     <a class="btn btn-sm bg-blue text-white border-none"
-                        href="{{ route('admin.room-type-detail', ['id' => $item->roomType->id]) }}">Detail Tipe
+                        href="{{ route('user.room-detail', str_replace(' ', '_', $item->roomType->name)) }}">Detail Tipe
                         Kamar</a>
                     <form method="dialog">
                         <button class="btn btn-sm bg-blue text-white border-none">Tutup</button>

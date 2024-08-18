@@ -20,7 +20,46 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @trixassets
     @livewireStyles
+
+    <style>
+        .trix-button--icon-link,
+        .trix-button--icon-heading-1,
+        .trix-button--icon-code,
+        .trix-button--icon-attach,
+        .trix-button--icon-decrease-nesting-level,
+        .trix-button--icon-increase-nesting-level {
+            display: none;
+        }
+    </style>
+
+    <style>
+        ul {
+            list-style-type: disc;
+            /* Bullet points sebagai disc */
+            margin-left: 20px;
+            /* Menambahkan margin kiri untuk indentasi */
+            padding-left: 20px;
+            /* Menambahkan padding kiri */
+        }
+
+        /* Numbered list style */
+        ol {
+            list-style-type: decimal;
+            /* Numbered list */
+            margin-left: 20px;
+            /* Menambahkan margin kiri untuk indentasi */
+            padding-left: 20px;
+            /* Menambahkan padding kiri */
+        }
+
+        /* Style untuk teks yang ada di dalam list */
+        li {
+            margin-bottom: 10px;
+            /* Menambahkan jarak antar item */
+        }
+    </style>
 </head>
 
 <body class="font-sans antialiased">

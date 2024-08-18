@@ -51,9 +51,8 @@ class RoomTypeUpdate extends Component
             });
 
             $this->reset(['selectedPhoto']);
+            redirect(route('admin.room-type-index'));
             noty()->timeout(1000)->progressBar(false)->addSuccess('Data berhasil diperbarui.');
-
-            redirect(route('admin.room'));
         } catch (\Exception $e) {
             noty()->timeout(1000)->progressBar(false)->warning('Data gagal diperbarui.');
         }

@@ -23,7 +23,7 @@
                 <a href="{{ route('admin.dashboard') }}" class="m-2 font-semibold">
                     <small>Dashboard</small>
                 </a>
-                <a href="{{ route('admin.room') }}" class="m-2 font-semibold">
+                <a href="{{ route('admin.room-index') }}" class="m-2 font-semibold">
                     <small>Kamar</small>
                 </a>
                 <a href="{{ route('admin.transaction') }}" class="m-2 font-semibold">

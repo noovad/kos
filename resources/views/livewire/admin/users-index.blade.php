@@ -47,7 +47,7 @@
                         <th>{{ $starting_number + $key }}</th>
                         <td>{{ $item->name }}
                             <br>
-                            <small>{{ $item->room->name }}</small>
+                            <small>{{ $item->room->name ?? ""}}</small>
                         </td>
                         <td class="text-center">
                             @if ($item->room_id)

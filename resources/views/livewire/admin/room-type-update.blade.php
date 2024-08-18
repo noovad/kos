@@ -1,13 +1,13 @@
 <div>
     @section('title', $title ?? '')
     <input wire:model='form.name' type="text" placeholder="Type here"
-        class="input input-sm input-bordered w-full mb-2" />
+        class="input input-sm input-bordered w-full mb-4" />
     <div class="flex">
         <span class="input-sm">Rp</span>
-        <input wire:model='formattedValue' type="text" id="priceInput" class="input input-sm input-bordered w-full mb-2"
+        <input wire:model='formattedValue' type="text" id="priceInput" class="input input-sm input-bordered w-full mb-8"
             placeholder="0" oninput="formatRupiah(this)">
     </div>
-    <textarea wire:model='form.description' class="textarea textarea-bordered w-full mb-2" placeholder="Bio"></textarea>
+    <trix-editor wire:model='form.description' class="textarea textarea-bordered w-full" ></trix-editor>
     <div>
         @if ($errors->any())
         @foreach ($errors->all() as $error)

@@ -7,8 +7,7 @@
         <input wire:ignore wire:model='formattedValue' type="text" id="priceInput" class="input input-sm input-bordered w-full mb-2"
             placeholder="0" oninput="formatRupiah(this)">
     </div>
-    <textarea wire:model='form.description' class="textarea textarea-bordered w-full mb-2" placeholder="Deskripsi"></textarea>
-
+    <trix-editor wire:model='form.description' class="textarea textarea-bordered w-full mb-2" placeholder="Deskripsi" ></trix-editor>
     <input wire:model='photo' type="file" accept="image/jpeg, image/png" multiple
         class="file-input file-input-sm file-input-bordered w-full max-w-xs mt-2" />
     <div>
@@ -19,6 +18,7 @@
         @endforeach
         @endif
     </div>
+
     <div>
         <div class="flex justify-center mt-4">
             <button wire:click='store' wire:loading.attr='disabled' wire:target='photo'

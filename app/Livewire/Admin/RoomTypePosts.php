@@ -37,8 +37,8 @@ class RoomTypePosts extends Component
                     ]);
                 }
             });
+            redirect(route('admin.room-type-index'));
             noty()->timeout(1000)->progressBar(false)->addSuccess('Tipe kamar berhasil dibuat.');
-            redirect(route('admin.room'));
         } catch (\Exception $e) {
             noty()->timeout(1000)->progressBar(false)->warning('Tipe kamar gagal dibuat.');
         }
