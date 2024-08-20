@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Livewire\User;
+namespace App\Livewire\Admin;
 
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,8 @@ class Profile extends Component
 {
     public $title = 'Profil';
 
+    public $notif;
+
     public string $phone = '';
 
     public string $password = '';
@@ -19,7 +22,8 @@ class Profile extends Component
 
     public function mount()
     {
-        $this->phone = preg_replace('/\+62(\d{3})(\d{4})(\d{4})/', '$1-$2-$3', Auth::user()->phone) ?? '';
+        $phone = Setting::where('name', 'telepon')->select('value')->first();
+        $this->phone = preg_replace('/\+62(\d{3})(\d{4})(\d{4})/', '$1-$2-$3', $phone->value) ?? '';
     }
 
     public function logout(Request $request)
@@ -37,12 +41,15 @@ class Profile extends Component
             'phone' => ['required', 'regex:/\d{3}-\d{4}-\d{4}/'],
         ]);
 
-        $user = Auth::user();
-        $user->phone = '+62'.preg_replace('/-/', '', $this->phone);
-        if ($user instanceof User) {
-            $user->save();
-        }
+        Setting::where('name', 'telepon')->update(['value' => $this->phone]);
         session()->flash('message', 'Nomor telepon berhasil diubah');
+        $this->closeModal();
+    }
+
+    public function updateNotif()
+    {
+        Setting::where('name', 'notifikasi')->update(['value' => $this->notif]);
+        session()->flash('message', 'Waktu notifikasi berhasil diubah');
         $this->closeModal();
     }
 
@@ -66,14 +73,17 @@ class Profile extends Component
     {
         $this->dispatch('close-modal-update-phone');
         $this->dispatch('close-modal-update-password');
+        $this->dispatch('close-modal-update-notif');
     }
 
     public function render()
     {
         $user = Auth::user();
+        $this->notif = (Setting::where('name', 'notifikasi')->first())->value;
 
-        return view('livewire.user.profile', [
+        return view('livewire.admin.profile', [
             'user' => $user,
+            'notif' => $this->notif,
         ]);
     }
 }

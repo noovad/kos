@@ -7,7 +7,7 @@
 
     @if ($routeName == 'admin.room-type-update' || $routeName == 'admin.room-type-detail')
         @livewire($routeName, ['id' => $id])
-    @elseif ($routeName == 'admin.chat')
+    @elseif ($routeName == 'admin.chat' || $routeName == 'admin.system-setting')
         @livewire($routeName, ['name' => $name])
     @elseif ($routeName == 'user.room-detail')
         @livewire($routeName, ['roomType' => $roomType])

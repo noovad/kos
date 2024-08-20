@@ -13,8 +13,11 @@ class TransactionIndex extends Component
     use WithoutUrlPagination, WithPagination;
 
     public $title = 'Transaksi';
+
     public $filter = 'belum dibayar';
+
     public $search;
+
     public $pagination = 20;
 
     public function update($id)
@@ -42,7 +45,7 @@ class TransactionIndex extends Component
     #[On('transaction-updated')]
     public function render()
     {
-        $transaction = Transaction::orderBy('due_date')->with('user')->where('user_name', 'like', '%' . $this->search . '%');
+        $transaction = Transaction::orderBy('due_date')->with('user')->where('user_name', 'like', '%'.$this->search.'%');
 
         if ($this->filter) {
             $transaction = $transaction->where('status', $this->filter);

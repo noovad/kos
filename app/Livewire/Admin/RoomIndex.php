@@ -46,7 +46,7 @@ class RoomIndex extends Component
     #[On('room-updated')]
     public function render()
     {
-        $data = Room::orderBy('name')->with('roomType')->with('user')->where('name', 'like', '%' . $this->search . '%');
+        $data = Room::orderBy('name')->with('roomType')->with('user')->where('name', 'like', '%'.$this->search.'%');
 
         if ($this->filter) {
             $data->where('room_type_id', $this->filter);

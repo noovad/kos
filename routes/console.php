@@ -1,8 +1,6 @@
 <?php
 
 use App\Jobs\CreateTransactionJob;
-use App\Jobs\ReminderTransactionJob;
-use App\Jobs\SendWhatsappJob;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;

@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Seeder;
 use Faker\Factory as FakerFactory;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -63,7 +63,7 @@ class UserSeeder extends Seeder
             'Mulyadi',
             'Narendra',
             'Pratama',
-            'Rafli'
+            'Rafli',
         ];
 
         $usersWithRoom = [];
@@ -103,7 +103,7 @@ class UserSeeder extends Seeder
             'Rizki',
             'Setiawan',
             'Taufik',
-            'Wawan'
+            'Wawan',
         ];
 
         $usersWithoutRoom = [];

@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Setting;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class SettingSeeder extends Seeder
 {
@@ -18,7 +17,7 @@ class SettingSeeder extends Seeder
         DB::table('settings')->insert([
             [
                 'name' => 'facility',
-                'value' => " <p>
+                'value' => ' <p>
         Kos Kami berkomitmen untuk menyediakan fasilitas terbaik yang dirancang untuk menunjang kenyamanan dan kebutuhan Anda selama tinggal di sini. Kami memahami bahwa setiap penghuni memiliki kebutuhan yang berbeda, oleh karena itu kami menawarkan berbagai tipe kamar dengan fasilitas yang disesuaikan. Di bawah ini, Anda akan menemukan penjelasan mengenai fasilitas yang tersedia di kos kami, baik untuk fasilitas umum yang bisa dinikmati oleh semua penghuni, maupun fasilitas khusus yang tergantung pada tipe kamar yang Anda pilih.
     </p>
 
@@ -69,11 +68,11 @@ class SettingSeeder extends Seeder
 
     <p>
         Kami berharap dengan penjelasan ini, Anda dapat memilih tipe kamar yang paling sesuai dengan kebutuhan dan preferensi Anda. Setiap tipe kamar dirancang untuk memberikan kenyamanan terbaik bagi Anda selama tinggal di Kos Kami. Jika Anda memiliki pertanyaan lebih lanjut tentang fasilitas yang tersedia, jangan ragu untuk menghubungi kami. Kami siap membantu Anda menemukan kamar yang paling cocok dengan kebutuhan Anda.
-    </p>",
+    </p>',
             ],
             [
                 'name' => 'rule',
-                'value' => "<ul>
+                'value' => '<ul>
         <li>
             <strong>Jam Malam:</strong> Penghuni diharapkan sudah berada di dalam kos sebelum jam 22:00. Pintu kos akan dikunci pada jam tersebut, dan tidak diperkenankan untuk keluar masuk setelah jam tersebut kecuali dalam keadaan darurat.
         </li>
@@ -104,11 +103,11 @@ class SettingSeeder extends Seeder
         <li>
             <strong>Pelaporan Masalah:</strong> Jika terjadi masalah atau kerusakan di kos, penghuni diharapkan segera melaporkan kepada pengelola untuk penanganan lebih lanjut. Pengelola kos berkomitmen untuk menindaklanjuti setiap laporan secepat mungkin.
         </li>
-    </ul>",
+    </ul>',
             ],
             [
                 'name' => 'about',
-                'value' => "    <p>
+                'value' => '    <p>
         Selamat datang di Kos Kami, sebuah tempat tinggal yang nyaman dan aman untuk Anda yang sedang mencari hunian sementara di kota ini. Kos Kami berdiri sejak tahun 2010 dan telah menjadi pilihan utama bagi banyak mahasiswa, pekerja, dan profesional muda yang membutuhkan tempat tinggal yang tenang dan terjangkau. Dengan lokasi yang strategis di pusat kota, Kos Kami menawarkan akses mudah ke berbagai fasilitas umum seperti kampus, pusat perbelanjaan, dan transportasi umum.
     </p>
 
@@ -138,11 +137,11 @@ class SettingSeeder extends Seeder
 
     <p>
         Terima kasih telah mempertimbangkan Kos Kami sebagai tempat tinggal Anda. Kami berharap bisa menjadi rumah kedua yang nyaman dan aman untuk Anda selama berada di kota ini. Jika Anda memiliki pertanyaan lebih lanjut atau ingin melihat langsung fasilitas yang kami tawarkan, jangan ragu untuk menghubungi kami atau datang langsung ke Kos Kami. Kami dengan senang hati akan membantu Anda menemukan kamar yang paling sesuai dengan kebutuhan dan preferensi Anda.
-    </p>",
+    </p>',
             ],
             [
                 'name' => 'telepon',
-                'value' => "+6281234567890",
+                'value' => '+6281234567890',
             ],
             [
                 'name' => 'description',

@@ -2,15 +2,14 @@
 
 namespace Database\Seeders;
 
-use DateTime;
-use DatePeriod;
-use DateInterval;
 use App\Models\Room;
-use App\Models\User;
 use App\Models\Transaction;
-use Illuminate\Database\Seeder;
+use App\Models\User;
+use DateInterval;
+use DatePeriod;
+use DateTime;
 use Faker\Factory as FakerFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
 class TransactionSeeder extends Seeder
 {
@@ -24,7 +23,7 @@ class TransactionSeeder extends Seeder
         Transaction::truncate();
         $start = '2024-01-01';
         $end = date('Y-m-d', strtotime('-1 day'));
-        
+
         $start = new DateTime('2024-01-01');
         $end = (new DateTime(date('Y-m-d')))->modify('-1 month');
         $interval = new DateInterval('P1M');
@@ -51,7 +50,7 @@ class TransactionSeeder extends Seeder
             $user = User::find($i);
             $status = $faker->randomElement(['Belum Dibayar', 'Draft', 'Sudah Dibayar']);
             $date = $faker->dateTimeBetween(date('Y-m-01'), date('Y-m-t'))->format('Y-m-d');
-            
+
             if ($user->room_id) {
                 $room = Room::find($user->room_id);
                 $this->createData($user, $status, $room, $date);
@@ -71,7 +70,7 @@ class TransactionSeeder extends Seeder
             'room_id' => $room->id,
             'room' => $room->name,
             'status' => $status,
-            'description' => 'Pembayaran bulan ' . dateNow(),
+            'description' => 'Pembayaran bulan '.dateNow(),
             'payment_code' => $faker->randomNumber(8),
             'order_id' => $faker->randomNumber(8),
         ];

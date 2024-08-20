@@ -2,11 +2,11 @@
 
 namespace App\Livewire\User;
 
-use Livewire\Component;
 use App\Livewire\Forms\LoginForm;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
+use Livewire\Component;
 
 class Login extends Component
 {

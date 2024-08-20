@@ -2,32 +2,34 @@
 
 namespace App\Livewire\User;
 
-use App\Models\Message;
-use Livewire\Component;
 use App\Events\GotMessage;
-use Livewire\Attributes\On;
+use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\On;
+use Livewire\Component;
 
 class Chat extends Component
 {
     public $title = 'Chat';
+
     public $display = 'group';
+
     public $message;
 
     public function chat()
     {
         $messages = Message::where('is_admin', false)
-                ->where('is_group_chat', false)
-                ->where(function ($query) {
-                    $query->where('sender_id', Auth::id())
-                        ->orWhere('receiver_id', Auth::id());
-                })
-                ->oldest('created_at')
-                ->get()
-                ->groupBy(function ($message) {
-                    return $message->created_at->format('Y-m-d');
-                });
+            ->where('is_group_chat', false)
+            ->where(function ($query) {
+                $query->where('sender_id', Auth::id())
+                    ->orWhere('receiver_id', Auth::id());
+            })
+            ->oldest('created_at')
+            ->get()
+            ->groupBy(function ($message) {
+                return $message->created_at->format('Y-m-d');
+            });
 
         return $messages;
     }
@@ -82,6 +84,7 @@ class Chat extends Component
     {
         $chat = $this->group();
         $group = $this->chat();
+
         return view('livewire.user.chat', ['chat' => $chat, 'group' => $group]);
     }
 }

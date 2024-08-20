@@ -4,7 +4,6 @@ namespace App\Livewire\Admin;
 
 use App\Enums\TransactionStatus;
 use App\Jobs\ReminderTransactionJob;
-use App\Jobs\SendWhatsappJob;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Services\PaymentService;
@@ -17,6 +16,7 @@ class TransactionPost extends Component
     use WithoutUrlPagination, WithPagination;
 
     public $title = 'Transaksi';
+
     public array $selected_items;
 
     public string $user_selected = '';
@@ -70,7 +70,7 @@ class TransactionPost extends Component
             $data->each(function ($transaction) {
                 ReminderTransactionJob::dispatch($transaction->id);
             });
-            
+
             noty()->timeout(1000)->progressBar(false)->addSuccess('Berhasil mengubah data.');
         } catch (\Throwable $th) {
             dd($th);
@@ -84,6 +84,7 @@ class TransactionPost extends Component
     {
         if (empty($this->selected_items)) {
             noty()->timeout(1000)->progressBar(false)->addError('Tidak ada data yang dipilih.');
+
             return;
         }
 

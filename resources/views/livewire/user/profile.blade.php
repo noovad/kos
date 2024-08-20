@@ -1,7 +1,7 @@
 <div>
     @section('title', $title ?? '')
     <div class="flex justify-center bg-white drop-shadow-2xl mx-10 rounded-lg mt-4">
-        <div class="card p-2 flex flex-col justify-center items-center">
+        <div class="card p-2 flex flex-col justify-center items-center max-w-md">
             <div class="avatar placeholder mb">
                 <div class="bg-gray-200 text-neutral-content rounded-full w-24">
                     <span class="text-5xl font-bold text-blue">{{ substr($user->name, 0, 1) }}</span>
@@ -11,12 +11,12 @@
             <small class="-m-1 mb-4">{{ $user->start_date ?? 'Tidak Aktif' }}</small>
             <div>
                 <div class="card border border-grey text-black mt-4 mb-4">
-                    <p class="p-2 text-center font-bold text-blue">{{ $user->room->name ?? ""}}</p>
+                    <p class="p-2 text-center font-bold text-blue">{{ $user->room->name ?? '' }}</p>
                 </div>
                 <div class="card border border-grey text-black mt-4 mb-4">
                     <div class="grid grid-cols-7 gap-2 p-2">
                         <div class="col-span-6 rounded-lg">
-                            <p class="pl-3 -mb-1">{{ $user->phone ?? "" }}</p>
+                            <p class="pl-3 -mb-1">{{ $user->phone ?? '' }}</p>
 
                         </div>
                         <div class="col-span-1 flex flex-col justify-center">
@@ -46,8 +46,8 @@
                 class="input input-sm input-bordered w-full" />
         </div>
         <div class="flex justify-center items-center">
-            <button wire:click='updatePhone'
-                class="btn mb-2 w-full bg-blue text-white btn-sm max-w-sm">Ubah</button>
+            <button wire:click='updatePhone' class="btn btn-sm bg-blue text-white me-2 border-none">Ubah</button>
+            <button wire:click='closeModal' class="btn btn-sm bg-blue text-white ms-2 border-none">Batal</button>
         </div>
     </div>
 </dialog>
@@ -67,8 +67,8 @@
     <input wire:model='password_confirmation' type="password" id="password_confirmation"
         placeholder="Password Confirmation" class="input input-sm input-bordered w-full mb-8" />
     <div class="flex justify-center items-center">
-        <button wire:click='updatePassword'
-            class="btn mb-2 w-full bg-blue text-white btn-sm max-w-sm">Ubah</button>
+        <button wire:click='updatePassword' class="btn btn-sm bg-blue text-white ms-2 border-none">Ubah</button>
+        <button wire:click='closeModal' class="btn btn-sm bg-blue text-white ms-2 border-none">Batal</button>
     </div>
 </div>
 </dialog>

@@ -2,7 +2,7 @@
 <div class="navbar max-h-16 bg-blue drop-shadow-down text-white hidden lg:flex">
     <div class="navbar-start">
         @if (auth() && auth()->user() && auth()->user()->role == 'admin')
-            <a href='{{ route('user.profile') }}' class="m-2 font-semibold">
+            <a href='{{ route('admin.profile') }}' class="m-2 font-semibold">
                 <small>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -40,7 +40,7 @@
                     <small>Home</small>
                 </a>
                 <a href="{{ route('user.transaction-index') }}" class="m-2 font-semibold">
-                    <small>Transaksi</small>
+                    <small>Tagihan</small>
                 </a>
                 <a href="{{ route('user.chat') }}" class="m-2 font-semibold">
                     <small>Chat</small>

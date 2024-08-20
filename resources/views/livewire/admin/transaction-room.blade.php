@@ -4,7 +4,6 @@
         <ul class="list-disc list-inside">
             <li><small>Biru : Sudah Bayar</small></li>
             <li><small>Abu-abu : Belum Bayar</small></li>
-            <li><small>Putih : Kamar Kosong</small></li>
         </ul>
     </div>
     @foreach ($data as $item)
@@ -38,7 +37,7 @@
 
                 {{-- Modal Detail --}}
                 <dialog wire:ignore.self id="modalDetail{{ $room['room'] }}" class="modal">
-                    <div class="modal-box w-5/12 max-w-5xl">
+                    <div class="modal-box w-5/12 max-w-5xl min-w-[500px]">
                         <h3 class="font-bold text-lg text-center text-blue">Nama Kamar</h3>
 
                         <div class="card border border-grey text-black mt-2 mb-2">

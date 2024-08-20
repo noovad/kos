@@ -20,7 +20,7 @@ class Transaction extends Model
         'room_id',
         'room',
         'order_id',
-        'period'
+        'period',
     ];
 
     public function user()

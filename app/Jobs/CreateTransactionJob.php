@@ -30,7 +30,7 @@ class CreateTransactionJob implements ShouldQueue
     public function handle(): void
     {
         $users = User::has('room')->with('room')->get();
-        
+
         $users->each(function ($user) {
             if (compareDate($user->start_date)) {
                 $payload = [

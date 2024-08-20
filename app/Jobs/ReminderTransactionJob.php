@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Enums\TransactionStatus;
 use App\Models\Transaction;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -40,7 +39,7 @@ class ReminderTransactionJob implements ShouldQueue
         );
 
         // validasi phone number
-        if (!preg_match('/^\+628\d{10}$/', $transaction->user->phone)) {
+        if (! preg_match('/^\+628\d{10}$/', $transaction->user->phone)) {
             throw new \Exception('Invalid phone number format');
         }
 

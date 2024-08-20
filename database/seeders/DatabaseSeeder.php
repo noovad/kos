@@ -3,10 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Faker\Factory as FakerFactory;
-use Illuminate\Support\Facades\DB;
-use Database\Seeders\RoomTypeSeeder;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoomSeeder::class);
 
         // ----------------- User Seeder -----------------
-       $this->call(UserSeeder::class);
+        $this->call(UserSeeder::class);
 
         // ----------------- Transaction Seeder -----------------
         $this->call(TransactionSeeder::class);

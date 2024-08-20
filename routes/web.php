@@ -21,10 +21,9 @@ Route::get('/room-detail/{roomType}', function ($roomType) {
 Route::middleware(['auth', 'isUser'])->group(function () {
     Route::view('/chat', 'layouts.pages')->name('user.chat');
     Route::view('/transaction', 'layouts.pages')->name('user.transaction-index');
-});
-
-Route::middleware(['auth'])->group(function () {
-    Route::view('/profile', 'layouts.pages')->name('user.profile');
+    Route::middleware(['auth'])->group(function () {
+        Route::view('/profile', 'layouts.pages')->name('user.profile');
+    });
 });
 
 //admin
@@ -41,7 +40,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::view('/admin/transaction-list', 'layouts.pages')->name('admin.transaction-index');
     Route::view('/admin/transaction-report', 'layouts.pages')->name('admin.transaction-report');
     Route::view('/admin/users', 'layouts.pages')->name('admin.users-index');
-
+    Route::view('/admin/profile', 'layouts.pages')->name('admin.profile');
     Route::view('/admin/chat', 'layouts.pages')->name('admin.chat-menu');
     Route::get('/admin/chat/{name}', function ($name) {
         return view('layouts.pages', ['name' => $name]);
@@ -52,4 +51,9 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin/room-type/update/{id}', function ($id) {
         return view('layouts.pages', ['id' => $id]);
     })->name('admin.room-type-update');
+
+    Route::get('/admin/system/{name}', function ($name) {
+        return view('layouts.pages', ['name' => $name]);
+    })->name('admin.system-setting');
+
 });

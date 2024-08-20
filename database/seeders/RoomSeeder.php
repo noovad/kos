@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Room;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class RoomSeeder extends Seeder
 {

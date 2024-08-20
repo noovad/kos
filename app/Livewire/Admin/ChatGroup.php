@@ -2,19 +2,17 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Message;
-use Livewire\Component;
-use App\Jobs\SendMessage;
 use App\Events\GotMessage;
-use Livewire\Attributes\On;
+use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-
+use Livewire\Attributes\On;
+use Livewire\Component;
 
 class ChatGroup extends Component
 {
-
     public $title = 'Chat - Group';
+
     public $message;
 
     public function messages()
@@ -25,9 +23,9 @@ class ChatGroup extends Component
             ->groupBy(function ($date) {
                 return $date->created_at->format('Y-m-d');
             });
+
         return $messages;
     }
-
 
     public function sendMessage()
     {
@@ -56,6 +54,7 @@ class ChatGroup extends Component
     public function render()
     {
         $chat = $this->messages();
+
         return view('livewire.admin.chat-group', ['chat' => $chat]);
     }
 }

@@ -3,20 +3,24 @@
 namespace App\Livewire\Admin;
 
 use App\Exports\TransactionExport;
-use Livewire\Component;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Transaction;
-use Livewire\WithPagination;
+use Livewire\Component;
 use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionReport extends Component
 {
     use WithoutUrlPagination, WithPagination;
 
     public $title = 'Transaksi';
+
     public $display = 'monthly';
+
     public $year;
+
     public $month;
+
     public $paginate = 10;
 
     public function mount()
@@ -27,7 +31,7 @@ class TransactionReport extends Component
 
     public function monthly()
     {
-        $data = Transaction::selectRaw("*, SUM(amount) AS total_amount")
+        $data = Transaction::selectRaw('*, SUM(amount) AS total_amount')
             ->whereYear('period', '=', $this->year)
             ->where('status', '!=', 'draft')
             ->whereMonth('period', '=', $this->month)
@@ -57,14 +61,14 @@ class TransactionReport extends Component
         if ($this->display == 'monthly') {
             $data = $this->monthly()->get();
             $totalAmount = $data->sum('amount');
-            $fileName = 'report-monthly-' . $this->month . '-' . $this->year . '.xlsx';
+            $fileName = 'report-monthly-'.$this->month.'-'.$this->year.'.xlsx';
         } elseif ($this->display == 'yearly') {
             $data = $this->yearly();
             $totalAmount = $data->sum('total_terbayar');
-            $fileName = 'report-yearly-' . $this->year . '.xlsx';
+            $fileName = 'report-yearly-'.$this->year.'.xlsx';
         }
 
-        return Excel::download(new TransactionExport($data, $this->display, $totalAmount), $fileName . '.xlsx');
+        return Excel::download(new TransactionExport($data, $this->display, $totalAmount), $fileName.'.xlsx');
     }
 
     public function render()
@@ -83,7 +87,7 @@ class TransactionReport extends Component
             'data' => $data,
             'starting_number' => $starting_number,
             'yearly' => $yearly,
-            'totalAmount' => $totalAmount
+            'totalAmount' => $totalAmount,
         ]);
     }
 }

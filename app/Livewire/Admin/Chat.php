@@ -2,23 +2,25 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\User;
-use App\Models\Message;
-use Livewire\Component;
 use App\Events\GotMessage;
-use Livewire\Attributes\On;
+use App\Models\Message;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\On;
+use Livewire\Component;
 
 class Chat extends Component
 {
     public $title;
+
     public $message;
+
     public $receiver;
 
     public function mount(string $name): void
     {
-        $this->title = 'Chat - ' . $name;
+        $this->title = 'Chat - '.$name;
         if ($name != 'admin' && $name != 'group') {
             $user = User::where('name', $name)->first();
             if ($user) {
@@ -62,7 +64,6 @@ class Chat extends Component
 
         return $messages;
     }
-
 
     public function sendMessage()
     {
@@ -109,6 +110,7 @@ class Chat extends Component
     public function render()
     {
         $chat = $this->messages();
+
         return view('livewire.admin.chat', ['chat' => $chat, 'user' => $this->receiver]);
     }
 }

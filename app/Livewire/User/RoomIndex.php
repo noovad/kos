@@ -7,10 +7,10 @@ use Livewire\Component;
 
 class RoomIndex extends Component
 {
-
     public $title = 'Tipe Kamar';
 
-    public function roomType(){
+    public function roomType()
+    {
         $roomtype = RoomType::has('rooms')->with('rooms.user')->get();
 
         foreach ($roomtype as $type) {
@@ -23,14 +23,13 @@ class RoomIndex extends Component
         return $roomtype;
     }
 
-
     public function render()
     {
         $roomtype = $this->roomType();
 
         // dd($roomtype);
         return view('livewire.user.room-index', [
-            'roomtype' => $roomtype
+            'roomtype' => $roomtype,
         ]);
     }
 }

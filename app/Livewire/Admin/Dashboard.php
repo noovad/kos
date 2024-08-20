@@ -3,15 +3,16 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Room;
-use Livewire\Component;
 use App\Models\RoomType;
 use App\Models\Transaction;
+use Livewire\Component;
 
 class Dashboard extends Component
 {
-
     public $img = 1;
+
     public $title = 'Dashboard';
+
     public function monthlyFinancial()
     {
         $year = date('Y');
@@ -57,7 +58,7 @@ class Dashboard extends Component
 
     public function transaction()
     {
-        $transactions = Transaction::selectRaw("status, COUNT(*) as count")
+        $transactions = Transaction::selectRaw('status, COUNT(*) as count')
             ->where('status', '!=', 'draft')
             ->whereMonth('period', '=', date('m'))
             ->groupBy('status')
@@ -95,7 +96,7 @@ class Dashboard extends Component
             'transaction' => $transaction,
             'room' => $room,
             'percentage' => $percentage[0]['persentase_pembayaran'],
-            'income' => $income / 1000000
+            'income' => $income / 1000000,
         ]);
     }
 }

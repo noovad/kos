@@ -28,9 +28,6 @@
             @include('components.search-bar')
         </div>
         <hr class="my-4">
-
-
-
         <table class="table">
             <thead>
                 <tr>

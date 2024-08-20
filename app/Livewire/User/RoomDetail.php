@@ -3,13 +3,13 @@
 namespace App\Livewire\User;
 
 use App\Models\Room;
-use Livewire\Component;
 use App\Models\RoomType;
+use Livewire\Component;
 
 class RoomDetail extends Component
 {
-
     public $title = 'Detail Kamar';
+
     public $roomTypeId;
 
     public function mount($roomType)
@@ -18,13 +18,17 @@ class RoomDetail extends Component
         $this->roomTypeId = RoomType::where('name', $roomType)->first()->id;
     }
 
-    public function room() {
+    public function room()
+    {
         $room = Room::where('room_type_id', $this->roomTypeId)->with('user')->get();
+
         return $room;
     }
 
-    public function roomType() {
+    public function roomType()
+    {
         $roomType = RoomType::with('photos')->find($this->roomTypeId);
+
         return $roomType;
     }
 
@@ -32,10 +36,11 @@ class RoomDetail extends Component
     {
         $room = $this->room();
         $roomType = $this->roomType();
+
         // dd($roomType);
         return view('livewire.user.room-detail', [
             'room' => $room,
-            'roomType' => $roomType
+            'roomType' => $roomType,
         ]);
     }
 }

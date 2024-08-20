@@ -7,7 +7,7 @@
         <input wire:model='formattedValue' type="text" id="priceInput" class="input input-sm input-bordered w-full mb-8"
             placeholder="0" oninput="formatRupiah(this)">
     </div>
-    <trix-editor wire:model='form.description' class="textarea textarea-bordered w-full" ></trix-editor>
+    <trix-editor wire:model='form.description' class="textarea textarea-bordered w-full max-h-[calc(75vh)] overflow-y-auto" ></trix-editor>
     <div>
         @if ($errors->any())
         @foreach ($errors->all() as $error)

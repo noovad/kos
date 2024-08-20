@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Admin;
 
-use Livewire\Component;
 use App\Models\Transaction as TransactionModel;
+use Livewire\Component;
 
 class Transaction extends Component
 {
     public $title = 'Transaksi';
+
     public $page;
 
     public function monthlyFinancial()
@@ -29,7 +30,7 @@ class Transaction extends Component
 
     public function transaction()
     {
-        $transactions = TransactionModel::selectRaw("status, COUNT(*) as count")
+        $transactions = TransactionModel::selectRaw('status, COUNT(*) as count')
             ->where('status', '!=', 'draft')
             ->whereMonth('period', '=', date('m'))
             ->groupBy('status')
@@ -46,7 +47,7 @@ class Transaction extends Component
 
     public function render()
     {
-        return view('livewire.admin.transaction', 
+        return view('livewire.admin.transaction',
             [
                 'yearly' => $this->monthlyFinancial(),
                 'transaction' => $this->transaction(),
