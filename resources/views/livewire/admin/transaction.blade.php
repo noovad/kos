@@ -6,7 +6,7 @@
         ['title' => 'Status Pembayaran (Kamar)', 'route' => 'admin.transaction-room'],
         ['title' => 'Laporan Keuangan', 'route' => 'admin.transaction-report'],
         ['title' => 'Daftar Transaksi', 'route' => 'admin.transaction-index'],
-        ['title' => 'Transaksi', 'route' => 'admin.transaction-post'],
+        ['title' => 'Buat Tagihan', 'route' => 'admin.transaction-post'],
     ];
     @endphp
 

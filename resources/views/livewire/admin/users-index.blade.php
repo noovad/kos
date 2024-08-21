@@ -151,7 +151,7 @@
         </table>
         <div class="flex justify-between items-center pt-2">
             <div>
-                <select wire:model.lazy="paginate" class="select select-sm text-xs border-black-500">
+                <select wire:model.lazy="pagination" class="select select-sm text-xs border-black-500">
                     <option value="20">20</option>
                     <option value="50">50</option>
                     <option value="75">75</option>

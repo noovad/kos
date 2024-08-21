@@ -35,6 +35,10 @@ class PaymentService
             'customer_details' => $customerDetails,
             'payment_type' => 'bank_transfer',
             'enabled_payments' => ['bsi'],
+            'custom_expiry' => [
+                'expiry_duration' => 7,
+                'unit' => 'day',
+            ],
         ];
 
         try {

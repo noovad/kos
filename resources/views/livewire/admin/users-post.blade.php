@@ -4,6 +4,7 @@
         <button class="btn btn-xs bg-blue text-white border-none" onclick="modalCreate.showModal()">
             + TambahPengguna
         </button>
+        <a href="{{ route('admin.users-admin') }}" class="btn btn-xs bg-blue text-white border-none">Admin</a>
     </div>
 
     {{-- Modal Create --}}
@@ -85,13 +86,6 @@
             @endif
         </div>
 
-
-
-
-
-
-
-
         <div class="flex justify-center items-center">
             <div class="modal-action mx-4">
                 @if ($update_data === true)
@@ -103,8 +97,6 @@
                 <button wire:click='closeModal' class="btn btn-xs bg-blue text-white border-none">Batal</button>
             </div>
         </div>
-
-
 </dialog>
 
 <script>

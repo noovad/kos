@@ -24,15 +24,25 @@ class TransactionIndex extends Component
 
     public function render()
     {
-        // where user_id = auth()->id()
         $transaction = Transaction::where('user_id', auth()->id())->orderBy('due_date')->with('user');
 
         if ($this->filter) {
             $transaction = $transaction->where('status', $this->filter);
         }
 
+        $not = Transaction::where('user_id', auth()->id())->where('status', 'tidak dibayar')->count();
+        $notYet = Transaction::where('user_id', auth()->id())->where('status', 'belum dibayar')->count();
+
+        if ($not > 0) {
+            $indicator = 'danger';
+        } elseif ($notYet > 0) {
+            $indicator = 'warning';
+        } else {
+            $indicator = 'success';
+        }
+        
         $transaction = $transaction->paginate($this->pagination);
 
-        return view('livewire.user.transaction-index', ['transaction' => $transaction]);
+        return view('livewire.user.transaction-index', ['transaction' => $transaction, 'indicator' => $indicator]);
     }
 }

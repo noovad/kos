@@ -36,11 +36,11 @@
                     <p class="pl-3 -mb-1">{{ $item->user->name }} -
                         {{ \Carbon\Carbon::parse($item->period)->format('m-Y') }}</p>
                     @if ($item->status == 'Belum Dibayar')
-                        <small class="text-green-600 pl-3">Belum Dibayar</small>
+                        <small class="text-yellow-500 pl-3">Belum Dibayar</small>
                     @elseif ($item->status == 'Sudah Dibayar')
-                        <small class=" pl-3">Sudah Dibayar</small>
+                        <small class="text-green-500 pl-3">Sudah Dibayar</small>
                     @elseif ($item->status == 'Tidak Dibayar')
-                        <small class="text-red-600 pl-3">Tidak Dibayar</small>
+                        <small class="text-red-500 pl-3">Tidak Dibayar</small>
                     @endif
                 </div>
                 <div class="col-span-1 flex flex-col justify-center">
@@ -150,7 +150,7 @@
     @endforeach
     <div class="flex justify-between items-center pt-2">
         <div>
-            <select wire:model.lazy="paginate" class="select select-sm text-xs border-black-500">
+            <select wire:model.lazy="pagination" class="select select-sm text-xs border-black-500">
                 <option value="20">20</option>
                 <option value="50">50</option>
                 <option value="75">75</option>

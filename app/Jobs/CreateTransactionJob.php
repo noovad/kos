@@ -46,16 +46,17 @@ class CreateTransactionJob implements ShouldQueue
                         'user_id' => $user->id,
                         'user_name' => $user->name,
                         'amount' => $user->room->roomType->price,
+                        'period' => date('Y-m-d', strtotime($payment['expiry_time'])),
                         'due_date' => generateDueDate($user->room->start_date),
                         'status' => TransactionStatus::DRAFT,
-                        'description' => 'Pembayaran bulan '.dateNow(),
+                        'description' => 'Pembayaran bulan ' . dateNow(),
                         'payment_code' => $payment['permata_va_number'],
                         'order_id' => $payment['order_id'],
                         'room' => $user->room->name,
                     ]
                 );
 
-                // if transaction success, send reminder
+                // if transaction success, send reminder with whatsapp
             }
         });
     }

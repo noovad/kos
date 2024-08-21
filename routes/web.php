@@ -34,13 +34,14 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::view('/admin/room-type', 'layouts.pages')->name('admin.room-type-index');
     Route::view('/admin/room-type/create', 'layouts.pages')->name('admin.room-type-posts');
     Route::view('/admin/transaction', 'layouts.pages')->name('admin.transaction');
-    Route::view('/admin/transaction-draft', 'layouts.pages')->name('admin.transaction-post');
+    Route::view('/admin/transaction-create', 'layouts.pages')->name('admin.transaction-post');
     Route::view('/admin/transaction-room', 'layouts.pages')->name('admin.transaction-room');
     Route::view('/admin/transaction-user', 'layouts.pages')->name('admin.transaction-user');
     Route::view('/admin/transaction-list', 'layouts.pages')->name('admin.transaction-index');
     Route::view('/admin/transaction-report', 'layouts.pages')->name('admin.transaction-report');
     Route::view('/admin/users', 'layouts.pages')->name('admin.users-index');
     Route::view('/admin/profile', 'layouts.pages')->name('admin.profile');
+    Route::view('/admin/profile-admin', 'layouts.pages')->name('admin.users-admin');
     Route::view('/admin/chat', 'layouts.pages')->name('admin.chat-menu');
     Route::get('/admin/chat/{name}', function ($name) {
         return view('layouts.pages', ['name' => $name]);

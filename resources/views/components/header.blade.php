@@ -36,18 +36,7 @@
                     <small>Pengguna</small>
                 </a>
             @elseif (auth() && auth()->user() && auth()->user()->role == 'user')
-                <a href="{{ route('user.home') }}" class="m-2 font-semibold">
-                    <small>Home</small>
-                </a>
-                <a href="{{ route('user.transaction-index') }}" class="m-2 font-semibold">
-                    <small>Tagihan</small>
-                </a>
-                <a href="{{ route('user.chat') }}" class="m-2 font-semibold">
-                    <small>Chat</small>
-                </a>
-                <a href="{{ route('user.profile') }}" class="m-2 font-semibold">
-                    <small>Profil</small>
-                </a>
+               <livewire:components.header-user />
             @else
                 <a href="{{ route('user.login') }}" class="m-2 font-semibold">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"

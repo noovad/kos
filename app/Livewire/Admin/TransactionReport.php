@@ -21,7 +21,7 @@ class TransactionReport extends Component
 
     public $month;
 
-    public $paginate = 10;
+    public $pagination = 20;
 
     public function mount()
     {
@@ -73,7 +73,7 @@ class TransactionReport extends Component
 
     public function render()
     {
-        $data = ($this->monthly())->paginate($this->paginate);
+        $data = ($this->monthly())->paginate($this->pagination);
         $yearly = $this->yearly();
         $starting_number = ($data->currentPage() - 1) * $data->perPage() + 1;
 

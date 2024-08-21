@@ -15,14 +15,25 @@ class TransactionPost extends Component
 {
     use WithoutUrlPagination, WithPagination;
 
-    public $title = 'Transaksi';
+    public $title = 'Buat Tagihan';
 
     public array $selected_items;
 
     public string $user_selected = '';
 
+    public $price;
+
+    public $description;
+
     public function create()
     {
+        $this->validate([
+            'user_selected' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+        ]);
+
+
         $user = User::has('room')->where('id', $this->user_selected)->with('room')->first();
 
         $payload = [
@@ -31,87 +42,45 @@ class TransactionPost extends Component
             'gross_amount' => $user->room->roomType->price,
         ];
 
+        $price = str_replace(['.', ','], '', $this->price);
         $payment = json_decode((new PaymentService())->createTransaction($payload)->getContent(), true);
 
-        // update start date dan description
+
         try {
             Transaction::create(
                 [
                     'user_id' => $user->id,
                     'user_name' => $user->name,
-                    'amount' => $user->room->roomType->price,
-                    'due_date' => generateDueDate($user->start_date),
+                    'amount' => $price,
+                    'period' => null,
+                    'due_date' => $payment['expiry_time'],
                     'status' => TransactionStatus::PENDING,
-                    'description' => 'Pembayaran bulan '.dateNow(),
+                    'description' => $this->description,
                     'payment_code' => $payment['permata_va_number'],
                     'order_id' => $payment['order_id'],
                     'room' => $user->room->name,
                     'room_id' => $user->room->id,
                 ]
             );
+
             noty()->timeout(1000)->progressBar(false)->addSuccess('Data berhasil dibuat.');
             $this->dispatch('transaction-created');
             $this->dispatch('close-modal-create');
+
+            $this->reset();
         } catch (\Throwable $th) {
             noty()->timeout(1000)->progressBar(false)->addError('Data gagal dibuat.');
         }
     }
 
-    public function closeModal()
-    {
-        $this->dispatch('close-modal-create');
-        $this->user_selected = '';
-    }
 
-    public function updateToUnpaid()
-    {
-        try {
-            $data = Transaction::where('status', TransactionStatus::DRAFT)->update(['status' => TransactionStatus::PENDING]);
-            $data->each(function ($transaction) {
-                ReminderTransactionJob::dispatch($transaction->id);
-            });
-
-            noty()->timeout(1000)->progressBar(false)->addSuccess('Berhasil mengubah data.');
-        } catch (\Throwable $th) {
-            dd($th);
-            noty()->timeout(1000)->progressBar(false)->addError('Gagal mengubah data.');
-        }
-
-        $this->dispatch('close-modal-update-all');
-    }
-
-    public function updateToUnpaidSelected()
-    {
-        if (empty($this->selected_items)) {
-            noty()->timeout(1000)->progressBar(false)->addError('Tidak ada data yang dipilih.');
-
-            return;
-        }
-
-        try {
-            $data = Transaction::whereIn('id', $this->selected_items)->update(['status' => TransactionStatus::PENDING]);
-            $data->each(function ($transaction) {
-                ReminderTransactionJob::dispatch($transaction->id);
-            });
-
-            noty()->timeout(1000)->progressBar(false)->addSuccess('Berhasil mengubah data.');
-        } catch (\Throwable $th) {
-            noty()->timeout(1000)->progressBar(false)->addError('Gagal mengubah data.');
-        }
-
-        $this->selected_items = [];
-        $this->dispatch('close-modal-update');
-    }
-
+   
     public function render()
     {
 
         $user = User::has('room')->where('id', $this->user_selected)->with('room')->first();
         $users = User::has('room')->get();
 
-        $transaction = Transaction::orderBy('due_date')->where('status', TransactionStatus::DRAFT)->paginate(20);
-        $starting_number = ($transaction->currentPage() - 1) * $transaction->perPage() + 1;
-
-        return view('livewire.admin.transaction-post', ['users' => $users, 'user' => $user, 'transaction' => $transaction, 'starting_number' => $starting_number]);
+        return view('livewire.admin.transaction-post', ['users' => $users, 'user' => $user]);
     }
 }

@@ -26,11 +26,6 @@ class RoomIndex extends Component
 
     public RoomForm $form;
 
-    public function update($id)
-    {
-        $this->dispatch('update-room', id: $id);
-    }
-
     public function delete($roomId)
     {
         try {
