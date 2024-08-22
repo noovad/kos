@@ -17,9 +17,13 @@ class TransactionPost extends Component
 
     public $title = 'Buat Tagihan';
 
+    public $display = 'buat';
+
     public array $selected_items;
 
     public string $user_selected = '';
+
+    public string $transaction_selected = '';
 
     public $price;
 
@@ -73,14 +77,46 @@ class TransactionPost extends Component
         }
     }
 
+    public function updateTransaction(){
+        $this->validate([
+            'transaction_selected' => 'required',
+        ]);
 
-   
+        $transaction = Transaction::with('user')->where('id', $this->transaction_selected)->first();
+
+        $payload = [
+            'name' => $transaction->user_name,
+            'phone' => $transaction->user->phone,
+            'gross_amount' => $transaction->amount,
+        ];
+
+        $payment = json_decode((new PaymentService())->createTransaction($payload)->getContent(), true);
+
+        $transaction->update([
+            'status' => TransactionStatus::PENDING,
+            'payment_code' => $payment['permata_va_number'],
+            'order_id' => $payment['order_id'],
+        ]);
+
+        noty()->timeout(1000)->progressBar(false)->addSuccess('Data berhasil diperbarui.');
+        $this->reset();
+        $this->display = 'perbarui';
+    }
+
+
+
     public function render()
     {
-
         $user = User::has('room')->where('id', $this->user_selected)->with('room')->first();
+        $transaction = Transaction::where('id', $this->transaction_selected)->first();
+        $expire = Transaction::where('status', 'tidak dibayar')->latest()->get();
         $users = User::has('room')->get();
 
-        return view('livewire.admin.transaction-post', ['users' => $users, 'user' => $user]);
+        return view('livewire.admin.transaction-post', [
+            'users' => $users,
+            'user' => $user,
+            'expire' => $expire,
+            'transaction' => $transaction,
+        ]);
     }
 }

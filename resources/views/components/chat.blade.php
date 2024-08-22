@@ -4,52 +4,54 @@
         <div class="px-2 pt-1 flex flex-col-reverse h-[calc(100vh-215px)] lg:h-[calc(100vh-170px)] overflow-y-auto">
 @endif
 
-@section('title', $title ?? '')
-
 <div class="max-w-2xl mx-auto min-w-[500px]">
     @foreach ($chat as $date => $dayMessages)
-    <!-- Display date header -->
-    <div class="date-header text-center text-gray-500">
-        <small>{{ \Carbon\Carbon::parse($date)->format('d-m-Y') }}</small>
-    </div>
+        <!-- Display date header -->
+        <div class="date-header text-center text-gray-500">
+            <small>{{ \Carbon\Carbon::parse($date)->format('d-m-Y') }}</small>
+        </div>
 
-    @foreach ($dayMessages as $item)
-        @if ($item->sender_id == auth()->id())
-            <!-- Message from the current user -->
-            <div class="chat chat-end">
-                <div class="chat-header">
-                    <small>Me</small>
-                    <small class="opacity-50">{{ $item->created_at->format('H:i') }}</small>
+        @foreach ($dayMessages as $item)
+            @if ($item->sender_id == auth()->id())
+                <!-- Message from the current user -->
+                <div class="chat chat-end">
+                    <div class="chat-header">
+                        <small>Me</small>
+                        <small class="opacity-50">{{ $item->created_at->format('H:i') }}</small>
+                    </div>
+                    <div class="chat-bubble bg-blue">
+                        <p class="text">{{ $item->message }}</p>
+                    </div>
                 </div>
-                <div class="chat-bubble bg-blue">
-                    <p class="text">{{ $item->message }}</p>
+            @elseif ($item->sender_id == ($user ?? ''))
+                <!-- Message from the specific user -->
+                <div class="chat chat-start">
+                    <div class="chat-header">
+                        <small>{{ $item->sender->name }}</small>
+                        <small class="opacity-50">{{ $item->created_at->format('H:i') }}</small>
+                    </div>
+                    <div class="chat-bubble bg-gray-500">
+                        <p class="text">{{ $item->message }}</p>
+                    </div>
                 </div>
-            </div>
-        @elseif ($item->sender_id == ($user ?? ""))
-            <!-- Message from the specific user -->
-            <div class="chat chat-start">
-                <div class="chat-header">
-                    <small>{{ $item->sender->name }}</small>
-                    <small class="opacity-50">{{ $item->created_at->format('H:i') }}</small>
+            @else
+                <!-- Message from another user -->
+                <div class="chat chat-start">
+                    <div class="chat-header">
+                        @if (Auth::user()->role == 'user')
+                            <small>Admin</small>
+                        @else
+                            <small>{{ $item->sender->name }}</small>
+                        @endif
+                        <small class="opacity-50">{{ $item->created_at->format('H:i') }}</small>
+                    </div>
+                    <div class="chat-bubble">
+                        <p class="text">{{ $item->message }}</p>
+                    </div>
                 </div>
-                <div class="chat-bubble bg-gray-500">
-                    <p class="text">{{ $item->message }}</p>
-                </div>
-            </div>
-        @else
-            <!-- Message from another user -->
-            <div class="chat chat-start">
-                <div class="chat-header">
-                    <small>{{ $item->sender->name }}</small>
-                    <small class="opacity-50">{{ $item->created_at->format('H:i') }}</small>
-                </div>
-                <div class="chat-bubble">
-                    <p class="text">{{ $item->message }}</p>
-                </div>
-            </div>
-        @endif
+            @endif
+        @endforeach
     @endforeach
-@endforeach
 
 </div>
 </div>

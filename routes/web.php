@@ -47,8 +47,6 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
         return view('layouts.pages', ['name' => $name]);
     })->name('admin.chat');
 
-    Route::view('/chat-group', 'layouts.pages')->name('admin.chat-group');
-
     Route::get('/admin/room-type/update/{id}', function ($id) {
         return view('layouts.pages', ['id' => $id]);
     })->name('admin.room-type-update');

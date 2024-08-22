@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('email')->nullable()->change();
-            $table->string('role')->default('user');
+            $table->enum('role', ['admin', 'user'])->default('user');
             $table->foreignId('room_id')->nullable()->constrained('rooms')->onDelete('set null');
             $table->date('start_date')->nullable();
             $table->string('phone')->nullable();

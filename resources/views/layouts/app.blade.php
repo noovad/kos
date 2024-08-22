@@ -32,6 +32,13 @@
         .trix-button--icon-increase-nesting-level {
             display: none;
         }
+
+        .truncate {
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     </style>
 
     <style>
@@ -63,7 +70,7 @@
                 </div>
             @else
                 <div class="fixed w-full z-50">
-                    @include('components.header')
+                    <livewire:components.header />
                 </div>
                 @if (Route::currentRouteName() == 'admin.chat-group' ||
                         Route::currentRouteName() == 'admin.chat' ||
@@ -80,11 +87,7 @@
         </div>
 
         @section('bottombar')
-            @if (auth() && auth()->user() && auth()->user()->role == 'admin')
-                @include('components.bottom-nav-admin')
-            @elseif(auth() && auth()->user())
-                @include('components.bottom-nav-user')
-            @endif
+            <livewire:components.bottom-nav />
         @show
         @endif
     </div>

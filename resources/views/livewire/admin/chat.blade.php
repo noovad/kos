@@ -1,3 +1,4 @@
 <div>
-    @include('components.chat', ['title' => $title, 'chat' => $chat])
+    @section('title', $title ?? '')
+    @include('components.chat', ['chat' => $chat])
 </div>

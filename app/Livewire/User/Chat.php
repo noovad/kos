@@ -2,49 +2,43 @@
 
 namespace App\Livewire\User;
 
-use App\Events\GotMessage;
 use App\Models\Message;
+use Livewire\Component;
+use App\Events\GotMessage;
+use App\Models\GroupAccess;
+use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-use Livewire\Attributes\On;
-use Livewire\Component;
 
 class Chat extends Component
 {
     public $title = 'Chat';
-
-    public $display = 'group';
-
+    public $display;
     public $message;
 
-    public function chat()
+    protected function getMessages($isGroup = false)
     {
-        $messages = Message::where('is_admin', false)
-            ->where('is_group_chat', false)
-            ->where(function ($query) {
-                $query->where('sender_id', Auth::id())
-                    ->orWhere('receiver_id', Auth::id());
+        return Message::where('is_group', $isGroup)
+            ->where('is_admin', false)
+            ->when(!$isGroup, function ($query) {
+                $query->where(function ($query) {
+                    $query->where('sender_id', Auth::id())
+                        ->orWhere('receiver_id', Auth::id());
+                });
             })
             ->oldest('created_at')
             ->get()
-            ->groupBy(function ($message) {
-                return $message->created_at->format('Y-m-d');
-            });
+            ->groupBy(fn($message) => $message->created_at->format('Y-m-d'));
+    }
 
-        return $messages;
+    public function chat()
+    {
+        return $this->getMessages(false);
     }
 
     public function group()
     {
-        $messages = Message::where('is_group_chat', true)
-            ->where('is_admin', false)
-            ->oldest('created_at')
-            ->get()
-            ->groupBy(function ($message) {
-                return $message->created_at->format('Y-m-d');
-            });
-
-        return $messages;
+        return $this->getMessages(true);
     }
 
     public function sendMessage()
@@ -56,35 +50,68 @@ class Chat extends Component
         GotMessage::dispatch($this->message);
 
         try {
-            if ($this->display == 'group') {
-                Message::create([
-                    'sender_id' => Auth::id(),
-                    'message' => $this->message,
-                    'is_group_chat' => true,
-                ]);
-            } else {
-                Message::create([
-                    'sender_id' => Auth::id(),
-                    'receiver_id' => 1,
-                    'message' => $this->message,
-                    'is_group_chat' => false,
-                ]);
-            }
-        } catch (\Exception $e) {
-            throw ValidationException::withMessages([
-                'message' => 'Pesan gagal dikirim.',
+            Message::create([
+                'sender_id' => Auth::id(),
+                'receiver_id' => null,
+                'message' => $this->message,
+                'is_group' => $this->display == 'group',
             ]);
+        } catch (\Exception $e) {
+            throw ValidationException::withMessages(['message' => 'Pesan gagal dikirim.']);
         }
 
         $this->message = '';
     }
 
+    public function update($display)
+    {
+        $this->display = $display;
+
+        if ($display == 'group') {
+            GroupAccess::updateOrCreate([
+                'type' => 'group',
+                'user_id' => Auth::id(),
+            ], [
+                'last_access' => now(),
+            ]);
+        } else {
+            $chat = $this->chat();
+            $lastMessage = $chat->last()?->last();
+
+            if ($lastMessage && $lastMessage->receiver_id == Auth::id()) {
+                $lastMessage->update(['is_read' => true]);
+            }
+        }
+    }
+
     #[On('echo:chatroom,GotMessage')]
     public function render()
     {
-        $chat = $this->group();
-        $group = $this->chat();
+        $chat = $this->chat();
+        $group = $this->group();
 
-        return view('livewire.user.chat', ['chat' => $chat, 'group' => $group]);
+        $lastMessage = $chat->last()?->last();
+        $isReadChat = $lastMessage && (
+            $lastMessage->sender_id == Auth::id() || $lastMessage->is_read
+        );
+
+        $lastGroupMessage = Message::where('is_admin', false)
+            ->where('is_group', true)
+            ->latest('created_at')
+            ->first();
+
+        $groupIndicator = false;
+        if ($groupAccess = GroupAccess::where('user_id', Auth::id())->where('type', 'group')->first()) {
+            if ($lastGroupMessage && $lastGroupMessage->sender_id != Auth::id()) {
+                $groupIndicator = $lastGroupMessage->created_at > $groupAccess->last_access;
+            }
+        }
+
+        return view('livewire.user.chat', [
+            'chat' => $chat,
+            'group' => $group,
+            'is_read_chat' => $isReadChat,
+            'group_indicator' => $groupIndicator,
+        ]);
     }
 }

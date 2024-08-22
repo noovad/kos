@@ -12,14 +12,12 @@ class GotMessage implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public string $message;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(string $message)
+    public function __construct(public string $message)
     {
-        $this->message = $message;
     }
 
     /**

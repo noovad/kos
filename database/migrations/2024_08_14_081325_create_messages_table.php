@@ -16,8 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('sender_id');
             $table->unsignedBigInteger('receiver_id')->nullable();
             $table->text('message');
-            $table->boolean('is_group_chat')->default(false);
+            $table->boolean('is_group')->default(false);
             $table->boolean('is_admin')->default(false);
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
     }

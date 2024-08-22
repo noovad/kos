@@ -12,7 +12,7 @@ class Message extends Model
 
     public $table = 'messages';
 
-    protected $fillable = ['id', 'sender_id', 'receiver_id', 'message', 'is_group_chat', 'is_admin'];
+    protected $fillable = ['id', 'sender_id', 'receiver_id', 'message', 'is_group', 'is_admin', 'is_read'];
 
     public function sender(): BelongsTo
     {
