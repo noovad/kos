@@ -44,7 +44,7 @@
                         <th>{{ $starting_number + $key }}</th>
                         <td>{{ $item->name }}
                             <br>
-                            <small>{{ $item->room->name ?? ""}}</small>
+                            <small>{{ $item->room->name ?? '' }}</small>
                         </td>
                         <td class="text-center">
                             @if ($item->room_id)
@@ -130,7 +130,7 @@
                                 <div class="card border border-grey text-black mt-2 mb-2">
                                     <div class="grid grid-cols-7 pl-2">
                                         <div class="col-span-3 rounded-lg">
-                                            <p class="p-1 mb-0">Tanggal Mulai</p>
+                                            <p class="p-1 mb-0">Tanggal Masuk</p>
                                         </div>
                                         <div class="expand-button col-span-4 flex flex-col justify-center">
                                             <p>: {{ $item->start_date ?? '' }}</p>
@@ -141,7 +141,7 @@
 
                             <div class="modal-action pt-4 m-0">
                                 <form method="dialog">
-                                    <button class="btn btn-sm bg-blue text-white border-none">Close</button>
+                                    <button class="btn btn-sm bg-blue text-white border-none">Tutup</button>
                                 </form>
                             </div>
                         </div>
@@ -162,4 +162,10 @@
             </div>
         </div>
 </div>
+
+<script>
+    window.addEventListener('close-modal-delete', event => {
+        document.getElementById('modalDelete').close();
+    })
+</script>
 </div>

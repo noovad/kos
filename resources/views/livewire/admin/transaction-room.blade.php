@@ -38,7 +38,7 @@
                 {{-- Modal Detail --}}
                 <dialog wire:ignore.self id="modalDetail{{ $room['room'] }}" class="modal">
                     <div class="modal-box w-5/12 max-w-5xl min-w-[500px]">
-                        <h3 class="font-bold text-lg text-center text-blue">Nama Kamar</h3>
+                        <h3 class="font-bold text-lg text-center text-blue">{{ $room['room'] }}</h3>
 
                         <div class="card border border-grey text-black mt-2 mb-2">
                             <div class="grid grid-cols-7 pl-2">
@@ -84,7 +84,7 @@
 
                         <div class="modal-action pt-4 m-0">
                             <form method="dialog">
-                                <button class="btn btn-sm bg-blue text-white border-none">Close</button>
+                                <button class="btn btn-sm bg-blue text-white border-none">Tutup</button>
                             </form>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 <div>
-    @section('title', $title ?? '')
+    @section('title', 'Chat')
     <div class="mx-auto text-center fixed top-0 left-0 right-0 mt-20 max-w-2xl z-50">
         <div x-data="{ selected: null }" class="w-full">
             <div class="relative w-full rounded-md border h-10 p-1 bg-gray-200">
@@ -34,9 +34,9 @@
 
     <div class="mt-16">
         @if ($display == 'admin')
-            @include('components.chat', ['title' => $title, 'chat' => $chat])
+            @include('components.chat', ['chat' => $chat])
         @elseif ($display == 'group')
-            @include('components.chat', ['title' => $title, 'chat' => $group])
+            @include('components.chat', ['chat' => $group])
         @else
             <div class="mt-20 text-center">
                 <small class="text-blue font-bold">

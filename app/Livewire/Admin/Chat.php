@@ -8,18 +8,17 @@ use Livewire\Component;
 use App\Events\GotMessage;
 use App\Models\GroupAccess;
 use Livewire\Attributes\On;
+use App\Events\IndicatorEvent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class Chat extends Component
 {
-    public $title;
     public $message;
     public $receiver;
 
     public function mount(string $name): void
     {
-        $this->title = 'Chat - ' . $name;
         $this->receiver = $name;
 
         if (!in_array($name, ['admin', 'group'])) {
@@ -69,6 +68,7 @@ class Chat extends Component
             return;
         }
 
+        IndicatorEvent::dispatch('Perbarui Indicator');
         GotMessage::dispatch($this->message);
 
         try {

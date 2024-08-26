@@ -85,44 +85,46 @@
                         </div>
                     </div>
                 </div>
-                {{-- // jika sudah dibayar, maka tidak muncul --}}
-                <div class="card border border-grey text-black mt-2">
-                    <div class="grid grid-cols-7 pl-2">
-                        <div class="col-span-3 rounded-lg">
-                            <p class="p-1 mb-0">Kode Pembayaran</p>
-                        </div>
-                        <div class="expand-button col-span-3 flex flex-col justify-center">
-                            <p>: {{ $item->payment_code }}</p>
-                        </div>
-                        <div class="expand-button col-span-1 flex flex-col justify-center">
+
+                @if ($item->status != 'Sudah Dibayar')
+                    <div class="card border border-grey text-black mt-2">
+                        <div class="grid grid-cols-7 pl-2">
+                            <div class="col-span-3 rounded-lg">
+                                <p class="p-1 mb-0">Kode Pembayaran</p>
+                            </div>
+                            <div class="expand-button col-span-3 flex flex-col justify-center">
+                                <p>: {{ $item->payment_code }}</p>
+                            </div>
+                            {{-- <div class="expand-button col-span-1 flex flex-col justify-center">
                             <button class="btn btn-xs bg-blue  text-white w-fit">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-clipboard-copy size-5">
-                                    <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
-                                    <path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
-                                    <path d="M16 4h2a2 2 0 0 1 2 2v4" />
-                                    <path d="M21 14H11" />
-                                    <path d="m15 10-4 4 4 4" />
-                                </svg>
-                            </button>
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-clipboard-copy size-5">
+                                <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+                                <path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+                                <path d="M16 4h2a2 2 0 0 1 2 2v4" />
+                                <path d="M21 14H11" />
+                                <path d="m15 10-4 4 4 4" />
+                            </svg>
+                        </button>
+                    </div> --}}
                         </div>
                     </div>
-                </div>
+                    <div class="card border border-grey text-black mt-2">
+                        <div class="grid grid-cols-7 pl-2">
+                            <div class="col-span-3 rounded-lg">
+                                <p class="p-1 mb-0">Tenggat Pembayaran</p>
+                            </div>
+                            <div class="expand-button col-span-4 flex flex-col justify-center">
+                                <p>: {{ $item->due_date }}</p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="card border border-grey text-black mt-2">
                     <div class="grid grid-cols-7 pl-2">
                         <div class="col-span-3 rounded-lg">
-                            <p class="p-1 mb-0">Tenggat Pembayaran</p>
-                        </div>
-                        <div class="expand-button col-span-4 flex flex-col justify-center">
-                            <p>: {{ $item->due_date }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card border border-grey text-black mt-2">
-                    <div class="grid grid-cols-7 pl-2">
-                        <div class="col-span-3 rounded-lg">
-                            <p class="p-1 mb-0">status</p>
+                            <p class="p-1 mb-0">Status</p>
                         </div>
                         <div class="expand-button col-span-4 flex flex-col justify-center">
                             <p>: {{ $item->status }}</p>
@@ -142,7 +144,7 @@
 
                 <div class="modal-action pt-4 m-0">
                     <form method="dialog">
-                        <button class="btn btn-sm bg-blue text-white border-none">Close</button>
+                        <button class="btn btn-sm bg-blue text-white border-none">Tutup</button>
                     </form>
                 </div>
             </div>

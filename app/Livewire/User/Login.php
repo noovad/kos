@@ -19,7 +19,7 @@ class Login extends Component
             Session::regenerate();
         } else {
             throw ValidationException::withMessages([
-                'login' => 'Login failed, please check your username and password.',
+                'login' => 'Gagal login, silakan periksa username dan password Anda.',
             ]);
         }
 

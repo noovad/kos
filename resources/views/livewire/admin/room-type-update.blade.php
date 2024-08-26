@@ -1,20 +1,16 @@
-<div>
+<div class="mt-8">
     @section('title', $title ?? '')
+    <label for="" class="text-sm my-2">Nama Kamar :</label>
     <input wire:model='form.name' type="text" placeholder="Type here"
         class="input input-sm input-bordered w-full mb-4" />
+    <label for="" class="text-sm my-2 mb-4">Harga :</label>
     <div class="flex">
         <span class="input-sm">Rp</span>
         <input wire:model='formattedValue' type="text" id="priceInput" class="input input-sm input-bordered w-full mb-8"
             placeholder="0" oninput="formatRupiah(this)">
     </div>
+    <label for="" class="text-sm mb-2">Deskripsi Kamar :</label>
     <trix-editor wire:model='form.description' class="textarea textarea-bordered w-full max-h-[calc(75vh)] overflow-y-auto" ></trix-editor>
-    <div>
-        @if ($errors->any())
-        @foreach ($errors->all() as $error)
-        <small class="text-error">{{ $error }}</small><br>
-        @endforeach
-        @endif
-    </div>
     <div class="my-4">
         <p>Daftar photo</p>
 
@@ -54,8 +50,16 @@
         @endif
         <hr class="m-2">
     </div>
-    <input wire:model='selectedPhoto' type="file" multiple
+    <input wire:model='selectedPhoto' type="file" accept="image/jpeg, image/png, image/jpg" multiple
         class="file-input file-input-sm file-input-bordered w-full max-w-xs" />
+    <br><small class="text-green-500">*Ukuran maksimal 2MB (jpeg, png, jpg).</small>
+    <div>
+        @if ($errors->any())
+        @foreach ($errors->all() as $error)
+        <small class="text-error">{{ $error }}</small><br>
+        @endforeach
+        @endif
+    </div>
 
     <div class="flex justify-center mt-4">
         <button wire:click="update( {{ $data['id'] }} )"

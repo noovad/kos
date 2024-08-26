@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Components;
 
+use App\Models\User;
 use App\Models\Message;
 use Livewire\Component;
 use App\Models\GroupAccess;
@@ -20,52 +21,78 @@ class Header extends Component
         $this->checkPaymentStatus();
     }
 
+    #[On('echo:indicator,IndicatorEvent')]
     public function checkUnreadMessages()
     {
+        $this->indicator = false; // Reset indicator setiap kali melakukan pengecekan
+
         // Cek Pesan Grup
         $lastGroupMessage = Message::where('is_admin', false)
             ->where('is_group', true)
             ->latest('created_at')
             ->first();
-    
+
         if ($lastGroupMessage && $groupAccess = GroupAccess::where('user_id', Auth::id())->where('type', 'group')->first()) {
-            if ($lastGroupMessage->sender_id != Auth::id()
-                && $lastGroupMessage->created_at > $groupAccess->last_access) {
+            if (
+                $lastGroupMessage->sender_id != Auth::id()
+                && $lastGroupMessage->created_at > $groupAccess->last_access
+            ) {
                 $this->indicator = true;
-                return; // Keluar jika indikator sudah true, tidak perlu cek lebih lanjut
             }
         }
-    
+
         // Cek Pesan Admin
-        if (Auth::user()->role === 'admin') {
+        if (auth()->check() && Auth::user()->role === 'admin') {
             $lastAdminMessage = Message::where('is_admin', true)
                 ->where('is_group', false)
                 ->latest('created_at')
                 ->first();
-    
+
             if ($lastAdminMessage && $adminAccess = GroupAccess::where('user_id', Auth::id())->where('type', 'admin')->first()) {
-                if ($lastAdminMessage->sender_id != Auth::id()
-                    && $lastAdminMessage->created_at > $adminAccess->last_access) {
+                if (
+                    $lastAdminMessage->sender_id != Auth::id()
+                    && $lastAdminMessage->created_at > $adminAccess->last_access
+                ) {
                     $this->indicator = true;
-                    return; // Keluar jika indikator sudah true, tidak perlu cek lebih lanjut
                 }
             }
         }
-    
+
+        $userOnAdmin = User::where('role', 'user')
+            ->has('room')
+            ->get()
+            ->contains(function ($user) {
+                $lastMessage = Message::where('is_admin', false)
+                    ->where('is_group', false)
+                    ->where(function ($query) use ($user) {
+                        $query->where('sender_id', $user->id)
+                            ->orWhere('receiver_id', $user->id);
+                    })
+                    ->latest('created_at')
+                    ->first();
+
+                return $lastMessage ? ($lastMessage->sender_id == $user->id && !$lastMessage->is_read) : false;
+            });
+
+        if ($userOnAdmin) {
+            $this->indicator = true;
+        }
+
         // Cek Pesan Pribadi untuk User
         $lastMessage = Message::where('is_admin', false)
             ->where('is_group', false)
             ->where(function ($query) {
                 $query->where('sender_id', Auth::id())
-                      ->orWhere('receiver_id', Auth::id());
+                    ->orWhere('receiver_id', Auth::id());
             })
             ->latest('created_at')
             ->first();
-    
+
         if ($lastMessage && $lastMessage->sender_id != Auth::id() && !$lastMessage->is_read) {
             $this->indicator = true;
         }
     }
+
     public function checkPaymentStatus()
     {
         $not = Transaction::where('user_id', auth()->id())->where('status', 'tidak dibayar')->count();

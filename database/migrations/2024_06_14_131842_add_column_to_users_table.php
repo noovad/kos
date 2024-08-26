@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('room_id')->nullable()->constrained('rooms')->onDelete('set null');
             $table->date('start_date')->nullable();
             $table->string('phone')->nullable();
+            $table->softDeletes();
         });
     }
 
@@ -28,7 +29,6 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('email')->nullable(false)->change();
             $table->dropForeign(['role_id']);
-            $table->dropColumn('role_id');
             $table->dropColumn('room_id');
             $table->dropColumn('start_date');
             $table->dropColumn('phone');

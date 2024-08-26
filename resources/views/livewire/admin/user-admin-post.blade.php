@@ -2,7 +2,7 @@
     @section('title', $title ?? '')
     <div class="flex justify-between mt-4 mb-4">
         <button class="btn btn-xs bg-blue text-white border-none" onclick="modalCreate.showModal()">
-            + Tambah Pengguna
+            + Tambah Admin
         </button>
         <a href="{{ route('admin.users-admin') }}" class="btn btn-xs bg-blue text-white border-none">Admin</a>
     </div>
@@ -22,36 +22,7 @@
             <input wire:model='name' type="text" id="name" placeholder="Nama"
                 class="input input-sm input-bordered w-full mb-2" />
 
-            <label for="phoneInput" class="block mb-2 text-xs">No Telepon</label>
-            <div class="flex">
-                <span class="input input-sm">+62</span>
-                <input wire:model='phone_format' type="text" id="phoneInput" placeholder="No Telepon"
-                    class="input input-sm input-bordered w-full mb-2" />
-            </div>
-
-            <label for="room_id" class="block mb-2 text-xs">Nama Kamar</label>
-            <select wire:model.lazy="room_id" id="room_id"
-                class="select select-sm text-xs select-bordered w-full max-w-xs mb-2">
-                <option selected value="0">Tidak aktif</option>
-                @if (($room_id_update || $room_name_update) != '')
-                    <option value=" {{ $room_id_update }} " selected class="text-green-600"> {{ $room_name_update }}
-                    </option>
-                @endif
-                @foreach ($tipe as $itemType)
-                    <option value="{{ $itemType->id }}">{{ $itemType->name }}</option>
-                @endforeach
-            </select>
-
-            <label for="date" class="block mb-2 text-xs">Tanggal Masuk</label>
-            <input wire:model='start_date' type="date" id="date" placeholder="Tanggal"
-                class="input input-sm input-bordered w-full mb-2" @if (trim($room_id) === '' || trim($room_id) === '0') disabled @endif />
-
-
-
-
-
-
-
+        
             @if ($update_data === true)
                 <label for="room_id" class="block mb-2 text-xs">
                     <input wire:model.lazy="update_password" type="checkbox" id="checklist" class="mr-2">

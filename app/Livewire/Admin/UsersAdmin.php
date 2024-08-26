@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Illuminate\Validation\Rule;
+use Illuminate\Auth\Events\Registered;
 
 use Illuminate\Validation\Rules;
 use Livewire\WithoutUrlPagination;
@@ -31,36 +32,11 @@ class UsersAdmin extends Component
 
     public $update_password = false;
 
+    public $userId;
 
     public function openUpdate($id)
     {
-        $user = User::find($id);
-        $this->name = $user->name;
-        $this->dispatch('open-modal');
-    }
-
-    public function update($id)
-    {
-        if ($this->update_password) {
-            $this->validate([
-                'name' => ['required', 'string', 'max:255',  Rule::unique(User::class)->ignore($id)],
-                'password' => ['required', 'string', 'confirmed', 'min:8', Rules\Password::defaults()],
-            ]);
-        } else {
-            $this->validate([
-                'name' => ['required', 'string', 'max:255',  Rule::unique(User::class)->ignore($id)],
-            ]);
-        }
-
-        $user = User::find($id);
-        $user->name = $this->name;
-        if ($this->update_password) {
-            $user->password = Hash::make($this->password);
-        }
-        $user->save();
-
-        noty()->timeout(1000)->progressBar(false)->addSuccess('Data berhasil diupdate.');
-        $this->dispatch('close-modal');
+        $this->dispatch('update-admin', id: $id);
     }
 
     public function delete($userId)
@@ -75,6 +51,8 @@ class UsersAdmin extends Component
         }
     }
 
+    #[On('admin-created')]
+    #[On('admin-updated')]
     public function render()
     {
         $users = User::query();

@@ -139,7 +139,7 @@
 
                 <div class="modal-action pt-4 m-0">
                     <form method="dialog">
-                        <button class="btn btn-sm bg-blue text-white border-none">Close</button>
+                        <button class="btn btn-sm bg-blue text-white border-none">Tutup</button>
                     </form>
                 </div>
             </div>

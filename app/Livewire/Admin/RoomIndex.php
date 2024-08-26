@@ -37,11 +37,16 @@ class RoomIndex extends Component
         }
     }
 
+    public function update($id)
+    {
+        $this->dispatch('update-room', $id);
+    }
+
     #[On('room-created')]
     #[On('room-updated')]
     public function render()
     {
-        $data = Room::orderBy('name')->with('roomType')->with('user')->where('name', 'like', '%'.$this->search.'%');
+        $data = Room::orderBy('name')->with('roomType')->with('user')->where('name', 'like', '%' . $this->search . '%');
 
         if ($this->filter) {
             $data->where('room_type_id', $this->filter);

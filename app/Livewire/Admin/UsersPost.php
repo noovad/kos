@@ -47,22 +47,20 @@ class UsersPost extends Component
         $this->room_id == '0' ? $this->room_id = null : $this->room_id;
         $this->phone = '+62'.preg_replace('/-/', '', $this->phone_format);
         $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:'.User::class],
+            'name' => ['required', 'string', 'max:255', 'unique:'.User::class, 'regex:/^[a-zA-Z0-9_]+$/'],
             'phone' => ['required', 'string', 'max:14', 'min:14', 'unique:'.User::class],
             'password' => ['required', 'string', 'confirmed', 'min:8', Rules\Password::defaults()],
             'room_id' => ['nullable'],
             'start_date' => $this->room_id ? ['required', 'date_format:Y-m-d'] : ['nullable'],
         ], [
-            'phone.max' => 'Invalid phone number',
-            'phone.min' => 'Invalid phone number',
+            'phone.max' => 'Nomor telepon tidak valid',
+            'phone.min' => 'Nomor telepon tidak valid',
 
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
 
         event(new Registered($user = User::create($validated)));
-
-        Auth::login($user);
 
         noty()->timeout(1000)->progressBar(false)->addSuccess('Data berhasil dibuat.');
         $this->dispatch('user-created');
@@ -94,7 +92,7 @@ class UsersPost extends Component
         $validated = [];
 
         $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255', Rule::unique(User::class)->ignore($this->userId)],
+            'name' => ['required', 'string', 'max:255', Rule::unique(User::class)->ignore($this->userId), 'regex:/^[a-zA-Z0-9_]+$/'],
             'phone' => ['required', 'string', 'max:14', 'min:14', Rule::unique(User::class)->ignore($this->userId)],
             'room_id' => ['nullable'],
         ], [

@@ -5,6 +5,7 @@ namespace App\Livewire\User;
 use App\Models\Message;
 use Livewire\Component;
 use App\Events\GotMessage;
+use App\Events\IndicatorEvent;
 use App\Models\GroupAccess;
 use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,6 @@ use Illuminate\Validation\ValidationException;
 
 class Chat extends Component
 {
-    public $title = 'Chat';
     public $display;
     public $message;
 
@@ -43,10 +43,12 @@ class Chat extends Component
 
     public function sendMessage()
     {
+        
         if (empty($this->message)) {
             return;
         }
-
+        
+        IndicatorEvent::dispatch('Perbarui Indicator');
         GotMessage::dispatch($this->message);
 
         try {
@@ -65,6 +67,7 @@ class Chat extends Component
 
     public function update($display)
     {
+        IndicatorEvent::dispatch('Perbarui Indicator');
         $this->display = $display;
 
         if ($display == 'group') {

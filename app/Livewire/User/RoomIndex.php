@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class RoomIndex extends Component
 {
-    public $title = 'Tipe Kamar';
+    public $title = 'Daftar Tipe Kamar';
 
     public function roomType()
     {

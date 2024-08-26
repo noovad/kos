@@ -41,7 +41,7 @@
                         @if (Auth::user()->role == 'user')
                             <small>Admin</small>
                         @else
-                            <small>{{ $item->sender->name }}</small>
+                            <small>{{ $item->sender->name ?? ""}}</small>
                         @endif
                         <small class="opacity-50">{{ $item->created_at->format('H:i') }}</small>
                     </div>

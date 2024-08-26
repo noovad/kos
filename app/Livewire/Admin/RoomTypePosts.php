@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Admin;
 
-use App\Livewire\Forms\RoomTypeForm;
 use App\Models\Photo;
-use App\Models\RoomType;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use App\Models\RoomType;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\DB;
+use App\Livewire\Forms\RoomTypeForm;
 
 class RoomTypePosts extends Component
 {
@@ -44,7 +45,7 @@ class RoomTypePosts extends Component
         }
     }
 
-    public function render(): \Illuminate\View\View
+    public function render()
     {
         return view('livewire.admin.room-type-posts');
     }

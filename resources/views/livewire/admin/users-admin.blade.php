@@ -1,6 +1,6 @@
 <div>
     <div>
-
+        <livewire:admin.user-admin-post>
         @section('title', $title ?? '')
 
         <div class="flex justify-end">
