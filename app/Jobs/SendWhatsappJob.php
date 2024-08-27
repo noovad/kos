@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Setting;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -27,7 +28,8 @@ class SendWhatsappJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $token = config('app.fonnte.token');
+
+        $token = Setting::where('name', 'whatsapp_token')->select('value')->first()->value;
         $curl = curl_init();
 
         curl_setopt_array($curl, [
@@ -44,9 +46,18 @@ class SendWhatsappJob implements ShouldQueue
                 'message' => "$this->message",
             ],
             CURLOPT_HTTPHEADER => [
-                'Authorization: '.$token,
+                'Authorization: ' . $token,
             ],
         ]);
-        curl_exec($curl);
+        $response = curl_exec($curl);
+        if (curl_errno($curl)) {
+            $error_msg = curl_error($curl);
+        }
+        curl_close($curl);
+
+        if (isset($error_msg)) {
+            echo $error_msg;
+        }
+        echo $response;
     }
 }

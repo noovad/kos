@@ -2,14 +2,15 @@
 
 namespace App\Livewire\Admin;
 
-use App\Enums\TransactionStatus;
-use App\Jobs\ReminderTransactionJob;
-use App\Models\Transaction;
 use App\Models\User;
-use App\Services\PaymentService;
 use Livewire\Component;
-use Livewire\WithoutUrlPagination;
+use App\Models\Transaction;
 use Livewire\WithPagination;
+use App\Jobs\ReminderCreateJob;
+use App\Enums\TransactionStatus;
+use App\Services\PaymentService;
+use Livewire\WithoutUrlPagination;
+use App\Jobs\ReminderTransactionJob;
 
 class TransactionPost extends Component
 {
@@ -51,7 +52,7 @@ class TransactionPost extends Component
 
 
         try {
-            Transaction::create(
+            $transaction = Transaction::create(
                 [
                     'user_id' => $user->id,
                     'user_name' => $user->name,
@@ -66,6 +67,7 @@ class TransactionPost extends Component
                     'room_id' => $user->room->id,
                 ]
             );
+            dispatch(new ReminderCreateJob($transaction));
 
             noty()->timeout(1000)->progressBar(false)->addSuccess('Data berhasil dibuat.');
             $this->dispatch('transaction-created');
@@ -97,6 +99,7 @@ class TransactionPost extends Component
             'payment_code' => $payment['permata_va_number'],
             'order_id' => $payment['order_id'],
         ]);
+        dispatch(new ReminderTransactionJob($transaction));
 
         noty()->timeout(1000)->progressBar(false)->addSuccess('Data berhasil diperbarui.');
         $this->reset();

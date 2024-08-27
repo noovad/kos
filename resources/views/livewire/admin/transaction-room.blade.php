@@ -71,6 +71,7 @@
                                 </div>
                             </div>
                         </div>
+                        @if ($room['transaction_status'] != 'Sudah Dibayar')
                         <div class="card border border-grey text-black mt-2">
                             <div class="grid grid-cols-7 pl-2">
                                 <div class="col-span-3 rounded-lg">
@@ -81,6 +82,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
 
                         <div class="modal-action pt-4 m-0">
                             <form method="dialog">

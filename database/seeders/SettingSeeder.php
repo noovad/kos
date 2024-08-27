@@ -155,6 +155,10 @@ class SettingSeeder extends Seeder
                 'name' => 'notifikasi',
                 'value' => '07:00',
             ],
+            [
+                'name' => 'whatsapp_token',
+                'value' => 'CZhmUQYTK_Qk83vte1XL',
+            ]
         ]);
     }
 }

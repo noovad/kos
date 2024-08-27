@@ -26,7 +26,7 @@
                 <div class="card border border-grey text-black mt-4 mb-4">
                     <div class="grid grid-cols-7 gap-2 p-2">
                         <div class="col-span-6 rounded-lg">
-                            <p class="pl-3 -mb-1">Notifikasi : {{ $notif ?? '' }}</p>
+                            <p class="pl-3 -mb-1">Generate Tagihan : {{ $notif ?? '' }}</p>
 
                         </div>
                         <div class="col-span-1 flex flex-col justify-center">
@@ -80,7 +80,7 @@
         @endforeach
     @endif
     <div class="flex mb-8">
-        <span class="input input-sm">Notifikasi</span>
+        <span class="input input-sm">Waktu :</span>
         <input wire:model='notif' type="time" placeholder="No Telepon"
             class="input input-sm input-bordered w-full" />
     </div>
