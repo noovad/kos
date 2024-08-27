@@ -28,10 +28,6 @@ class Profile extends Component
         $this->phone = preg_replace('/\+62(\d{3})(\d{4})(\d{4})/', '$1-$2-$3', $phone->value) ?? '';
     }
 
-    public function trans() {
-        CreateTransactionJob::dispatch();
-    }
-
     public function logout(Request $request)
     {
         Auth::guard('web')->logout();

@@ -47,8 +47,6 @@
                 <button class="btn  w-full text-white bg-blue btn-sm mt-4"
                     onclick="document.getElementById('modalUpdatePassword').showModal()">Ganti Password</button>
                 <button wire:click='logout' class="btn mb-2 mt-2 w-full bg-blue text-white btn-sm">Logout</button>
-                <button wire:click='trans' class="btn mb-2 mt-2 w-full bg-blue text-white btn-sm">Test</button>
-
             </div>
         </div>
     </div>
