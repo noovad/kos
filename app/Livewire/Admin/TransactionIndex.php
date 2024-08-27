@@ -45,7 +45,7 @@ class TransactionIndex extends Component
     #[On('transaction-updated')]
     public function render()
     {
-        $transaction = Transaction::orderBy('due_date')->with('user')->where('user_name', 'like', '%'.$this->search.'%');
+        $transaction = Transaction::orderBy('period', 'desc')->with('user')->where('user_name', 'like', '%'.$this->search.'%');
 
         if ($this->filter) {
             $transaction = $transaction->where('status', $this->filter);

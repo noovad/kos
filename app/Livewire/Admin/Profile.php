@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Admin;
 
+use App\Jobs\CreateTransactionJob;
 use App\Models\Setting;
 use App\Models\User;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -24,6 +26,10 @@ class Profile extends Component
     {
         $phone = Setting::where('name', 'telepon')->select('value')->first();
         $this->phone = preg_replace('/\+62(\d{3})(\d{4})(\d{4})/', '$1-$2-$3', $phone->value) ?? '';
+    }
+
+    public function trans() {
+        CreateTransactionJob::dispatch();
     }
 
     public function logout(Request $request)

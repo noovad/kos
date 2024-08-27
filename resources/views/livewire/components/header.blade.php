@@ -17,7 +17,14 @@
             @endif
         </div>
         <div class="navbar-center hidden lg:flex">
-            <p class="btn btn-ghost text-xl">@yield('title')</p>
+            @php
+                $routeName = Route::currentRouteName();
+            @endphp
+            @if ($routeName == 'livewire.update')
+                <p class="btn btn-ghost text-xl">Chat</p>
+            @else
+                <p class="btn btn-ghost text-xl">@yield('title')</p>
+            @endif
         </div>
         <div class="navbar-end">
             <div>
@@ -92,7 +99,7 @@
     <div class="navbar max-h-16 bg-blue drop-shadow-down text-white justify-center lg:hidden">
         <div class="navbar-start">
             @if (auth()->check() && auth()->user()->role == 'admin')
-                <a href='{{ route('user.profile') }}' class="m-2 font-semibold">
+                <a href='{{ route('admin.profile') }}' class="m-2 font-semibold">
                     <small>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -105,7 +112,11 @@
             @endif
         </div>
         <div class="navbar-center text-white">
-            <p class="btn btn-ghost text-xl">@yield('title')</p>
+            @if ($routeName == 'livewire.update')
+                <p class="btn btn-ghost text-xl">Chat</p>
+            @else
+                <p class="btn btn-ghost text-xl">@yield('title')</p>
+            @endif
         </div>
         <div class="navbar-end">
             @guest

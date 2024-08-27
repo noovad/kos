@@ -153,7 +153,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'name' => 'notifikasi',
-                'value' => '07.00',
+                'value' => '07:00',
             ],
         ]);
     }

@@ -39,6 +39,8 @@ class BottomNav extends Component
             ) {
                 $this->indicator = true;
             }
+        } else {
+            $this->indicator = true;
         }
 
         // Cek Pesan Admin
@@ -55,6 +57,8 @@ class BottomNav extends Component
                 ) {
                     $this->indicator = true;
                 }
+            } else {
+                $this->indicator = true;
             }
         }
 

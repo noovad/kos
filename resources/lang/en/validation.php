@@ -7,7 +7,7 @@ return [
     'max' => [
         'string' => 'Kolom :attribute tidak boleh lebih dari :max karakter.',
     ],
-    'unique' => 'Kolom :attribute sudah terdaftar, silakan pilih yang lain.',
+    'unique' => 'Kolom :attribute sudah terdaftar, silahkan pilih yang lain.',
     'regex' => 'Kolom :attribute hanya boleh mengandung huruf, angka, dan underscore (_).',
     'invalid' => 'Kolom :attribute tidak valid.',
 

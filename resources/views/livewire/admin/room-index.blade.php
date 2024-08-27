@@ -56,9 +56,9 @@
                 <div class="col-span-5 rounded-lg">
                     <p class="pl-3 -mb-2">{{ $item->name }}</p>
                     @if (!$item->user)
-                    <small class="text-red-600 pl-3">Tidak Terisi</small>
+                    <small class="text-red-500 pl-3">Tidak Terisi</small>
                     @else
-                    <small class="text-green-600 pl-3">Terisi</small>
+                    <small class="text-green-500 pl-3">Terisi</small>
                     @endif
                 </div>
                 <div class="expand-button col-span-2 flex flex-col justify-center">
@@ -73,7 +73,7 @@
                         </svg></button>
                 </div>
                 <div class="expand-button col-span-2 flex flex-col justify-center">
-                    <button class="btn btn-xs bg-red-600 text-white border-none"
+                    <button class="btn btn-xs bg-red-500 text-white border-none"
                         onclick="document.getElementById('modalDelete{{ $item->id }}').showModal()"><svg
                             xmlns="http://www.w3.org/2000/svg" width="16" height="16" color="white"
                             fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">

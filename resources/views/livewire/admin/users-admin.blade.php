@@ -1,7 +1,7 @@
 <div>
     <div>
-        <livewire:admin.user-admin-post>
         @section('title', $title ?? '')
+        <livewire:admin.user-admin-post>
 
         <div class="flex justify-end">
             @include('components.search-bar')

@@ -4,7 +4,6 @@
         <button class="btn btn-xs bg-blue text-white border-none" onclick="modalCreate.showModal()">
             + Tambah Admin
         </button>
-        <a href="{{ route('admin.users-admin') }}" class="btn btn-xs bg-blue text-white border-none">Admin</a>
     </div>
 
     {{-- Modal Create --}}
@@ -12,9 +11,9 @@
         <div class="modal-box">
             <h3 class="font-bold text-lg text-center text-blue">
                 @if ($update_data === true)
-                    Perbarui Data Pengguna
+                    Perbarui Data Admin
                 @else
-                    Tambah Pengguna
+                    Tambah Admin
                 @endif
             </h3>
 

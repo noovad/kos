@@ -41,14 +41,14 @@ class CreateTransactionJob implements ShouldQueue
 
                 $payment = json_decode((new PaymentService())->createTransaction($payload)->getContent(), true);
 
-                Transaction::create(
+                $transaction = Transaction::create(
                     [
                         'user_id' => $user->id,
                         'user_name' => $user->name,
                         'amount' => $user->room->roomType->price,
-                        'period' => date('Y-m-d', strtotime($payment['expiry_time'])),
-                        'due_date' => generateDueDate($user->room->start_date),
-                        'status' => TransactionStatus::DRAFT,
+                        'period' => date('Y-m-d'),
+                        'due_date' => date('Y-m-d', strtotime($payment['expiry_time'])),
+                        'status' => TransactionStatus::PENDING,
                         'description' => 'Pembayaran bulan ' . dateNow(),
                         'payment_code' => $payment['permata_va_number'],
                         'order_id' => $payment['order_id'],
@@ -56,7 +56,9 @@ class CreateTransactionJob implements ShouldQueue
                     ]
                 );
 
-                // if transaction success, send reminder with whatsapp
+                dispatch(new ReminderTransactionJob($transaction));
+
+                sleep(1);
             }
         });
     }

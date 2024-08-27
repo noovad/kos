@@ -42,7 +42,7 @@
     @foreach ($transaction as $item)
         <div class="card border border-grey text-black mt-4 mb-4">
             <div class="grid grid-cols-7 gap-2 p-2">
-                <div class="col-span-6 rounded-lg">
+                <div class="col-span-5 rounded-lg">
                     <p class="pl-3 -mb-1 truncate">{{ $item->user->name }} -
                         {{ $item->period ? date('m-Y', strtotime($item->period)) : $item->description }}</p>
                     @if ($item->status == 'Belum Dibayar')
@@ -54,11 +54,43 @@
                     @endif
                 </div>
                 <div class="col-span-1 flex flex-col justify-center">
-                    <button class="btn btn-xs bg-blue text-white border-none"
-                        onclick="document.getElementById('modalDetail{{ $item->id }}').showModal()">Detail</button>
+                    @if ($item->status == 'Tidak Dibayar')
+                        <button class="btn btn-xs bg-red-500 text-white border-none"
+                            onclick="document.getElementById('modalDelete{{ $item->id }}').showModal()"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" color="white"
+                                fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                <path
+                                    d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+                            </svg></button>
+                    @endif
+                </div>
+                <div class="col-span-1 flex flex-col justify-center">
+                    <button class="btn btn-xs bg-blue text-red border-none"
+                        onclick="document.getElementById('modalDetail{{ $item->id }}').showModal()"><svg
+                            xmlns="http://www.w3.org/2000/svg" color="white" width="16" height="16"
+                            fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
+                            <path fill-rule="evenodd"
+                                d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                        </svg></button>
                 </div>
             </div>
         </div>
+
+        {{-- -- Modal Delete-- --}}
+        <dialog wire:ignore.self id="modalDelete{{ $item->id }}" class="modal">
+            <div class="modal-box">
+                <p class="text-center">Hapus Data???</p>
+                <div class="modal-action">
+                    <button class="btn btn-xs bg-red-600 text-white border-none"
+                        wire:click='delete({{ $item->id }})'>Hapus</button>
+                    <form method="dialog">
+                        <button class="btn btn-xs bg-blue text-white border-none">Batal</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
 
         {{-- Modal Detail --}}
         <dialog wire:ignore.self id="modalDetail{{ $item->id }}" class="modal">
@@ -96,26 +128,30 @@
                     </div>
                 </div>
                 {{-- // jika sudah dibayar, maka tidak muncul --}}
-                <div class="card border border-grey text-black mt-2">
-                    <div class="grid grid-cols-7 pl-2">
-                        <div class="col-span-3 rounded-lg">
-                            <p class="p-1 mb-0">Kode Pembayaran</p>
+                @if ($item->status != 'Sudah Dibayar')
+                    @if ($item->status != 'Tidak Dibayar')
+                        <div class="card border border-grey text-black mt-2">
+                            <div class="grid grid-cols-7 pl-2">
+                                <div class="col-span-3 rounded-lg">
+                                    <p class="p-1 mb-0">Kode Pembayaran</p>
+                                </div>
+                                <div class="expand-button col-span-4 flex flex-col justify-center">
+                                    <p>: {{ $item->payment_code }}</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="expand-button col-span-4 flex flex-col justify-center">
-                            <p>: {{ $item->payment_code }}</p>
+                    @endif
+                    <div class="card border border-grey text-black mt-2">
+                        <div class="grid grid-cols-7 pl-2">
+                            <div class="col-span-3 rounded-lg">
+                                <p class="p-1 mb-0">Tenggat Pembayaran</p>
+                            </div>
+                            <div class="expand-button col-span-4 flex flex-col justify-center">
+                                <p>: {{ $item->due_date ? date('d-m-Y', strtotime($item->due_date)) : '' }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card border border-grey text-black mt-2">
-                    <div class="grid grid-cols-7 pl-2">
-                        <div class="col-span-3 rounded-lg">
-                            <p class="p-1 mb-0">Tenggat Pembayaran</p>
-                        </div>
-                        <div class="expand-button col-span-4 flex flex-col justify-center">
-                            <p>: {{ $item->due_date }}</p>
-                        </div>
-                    </div>
-                </div>
+                @endif
                 <div class="card border border-grey text-black mt-2">
                     <div class="grid grid-cols-7 pl-2">
                         <div class="col-span-3 rounded-lg">

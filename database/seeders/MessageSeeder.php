@@ -98,7 +98,7 @@ class MessageSeeder extends Seeder
             [
                 'sender_id' => 1,
                 'receiver_id' => null,
-                'message' => 'Selamat datang di grup chat! Silakan berbagi informasi atau pertanyaan di sini.',
+                'message' => 'Selamat datang di grup chat! Silahkan berbagi informasi atau pertanyaan di sini.',
                 'is_group' => true,
                 'is_admin' => false,
                 'created_at' => Carbon::now(),
@@ -239,7 +239,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Amin. Semangat semua!',
                 'is_group' => false,
                 'is_admin' => true,
-                'created_at' => Carbon::now()->addDay(),
+                'created_at' => Carbon::now(),
             ],
         ]);
     }
