@@ -5,7 +5,7 @@ return [
     'manifest' => [
         'name' => env('APP_NAME', 'My PWA App'),
         'short_name' => 'PWA',
-        'start_url' => 'https://skripsi-app.test',
+        'start_url' => 'http://127.0.0.1:8000/',
         'background_color' => '#ffffff',
         'theme_color' => '#000000',
         'display' => 'standalone',
@@ -61,7 +61,7 @@ return [
             [
                 'name' => 'Shortcut Link 1',
                 'description' => 'Shortcut Link 1 Description',
-                'url' => 'https://skripsi-app.test/',
+                'url' => 'http://127.0.0.1:8000//',
                 'icons' => [
                     "src" => "/images/icons/icon-96x96.png",
                     "purpose" => "any"
@@ -70,7 +70,7 @@ return [
             [
                 'name' => 'Shortcut Link 2',
                 'description' => 'Shortcut Link 2 Description',
-                'url' => 'https://skripsi-app.test/',
+                'url' => 'http://127.0.0.1:8000//',
                 'icons' => [
                     "src" => "/images/icons/icon-96x96.png",
                     "purpose" => "any"

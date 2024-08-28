@@ -53,6 +53,7 @@ class CreateTransactionJob implements ShouldQueue
                         'payment_code' => $payment['permata_va_number'],
                         'order_id' => $payment['order_id'],
                         'room' => $user->room->name,
+                        'room_id' => $user->room->id,
                     ]
                 );
 

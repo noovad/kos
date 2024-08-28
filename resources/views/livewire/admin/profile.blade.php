@@ -80,7 +80,6 @@
         @endforeach
     @endif
     <div class="flex mb-8">
-        <span class="input input-sm">Waktu :</span>
         <input wire:model='notif' type="time" placeholder="No Telepon"
             class="input input-sm input-bordered w-full" />
     </div>

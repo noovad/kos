@@ -12,7 +12,7 @@ enum TransactionStatus
 
     const DENY = 'Ditolak';
 
-    const EXPIRE = 'Kadaluarasa';
+    const EXPIRE = 'Tidak Dibayar';
 
     const CANCEL = 'Dibatalakan';
 
