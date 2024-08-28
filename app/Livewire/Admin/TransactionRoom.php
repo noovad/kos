@@ -20,9 +20,12 @@ class TransactionRoom extends Component
             $rooms = [];
 
             foreach ($roomType->rooms as $room) {
-                $transaction = Transaction::select('status', 'due_date')
-                    ->where('due_date', '>=', Carbon::now())
+                $transaction = Transaction::select('status', 'due_date', 'period')
                     ->where('room_id', $room->id)
+                    ->where(function ($query) {
+                        $query->where('period', '<=', Carbon::now())
+                            ->where('period', '>=', Carbon::now()->subMonth());
+                    })
                     ->first();
 
                 $rooms[] = [
@@ -30,7 +33,7 @@ class TransactionRoom extends Component
                     'user' => $room->user ? $room->user->name : null,
                     'due_date' => $transaction ? $transaction->due_date : null,
                     'status' => $room->user ? 'active' : null,
-                    'transaction_status' => $transaction ? $transaction->status : 'Sudah Dibayar',
+                    'transaction_status' => $transaction ? $transaction->status : 'Belum Ada Tagihan',
                 ];
             }
 

@@ -25,7 +25,7 @@ class Profile extends Component
     public function mount()
     {
         $phone = Setting::where('name', 'telepon')->select('value')->first();
-        $this->phone = preg_replace('/\+62(\d{3})(\d{4})(\d{4})/', '$1-$2-$3', $phone->value) ?? '';
+        $this->phone = preg_replace('/\+62(\d{3})(\d{4})(\d{3,4})/', '$1-$2-$3', $phone->value) ?? '';
     }
 
     public function logout(Request $request)
@@ -40,7 +40,7 @@ class Profile extends Component
     public function updatePhone()
     {
         $this->validate([
-            'phone' => ['required', 'regex:/\d{3}-\d{4}-\d{4}/'],
+            'phone' => ['required', 'regex:/\d{3}-\d{4}-\d{3,4}/'],
         ]);
 
         Setting::where('name', 'telepon')->update(['value' => $this->phone]);

@@ -19,7 +19,7 @@ class Profile extends Component
 
     public function mount()
     {
-        $this->phone = preg_replace('/\+62(\d{3})(\d{4})(\d{4})/', '$1-$2-$3', Auth::user()->phone) ?? '';
+        $this->phone = preg_replace('/\+62(\d{3})(\d{4})(\d{3,4})/', '$1-$2-$3', Auth::user()->phone) ?? '';
     }
 
     public function logout(Request $request)
@@ -34,7 +34,7 @@ class Profile extends Component
     public function updatePhone()
     {
         $this->validate([
-            'phone' => ['required', 'regex:/\d{3}-\d{4}-\d{4}/'],
+            'phone' => ['required', 'regex:/\d{3}-\d{4}-\d{3,4}/'],
         ]);
 
         $user = Auth::user();

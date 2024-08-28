@@ -21,40 +21,38 @@ class TransactionSeeder extends Seeder
         $faker = FakerFactory::create();
 
         Transaction::truncate();
-        $start = '2024-01-01';
-        $end = date('Y-m-d', strtotime('-1 day'));
 
-        $start = new DateTime('2024-01-01');
-        $end = (new DateTime(date('Y-m-d')))->modify('-1 month');
-        $interval = new DateInterval('P1M');
-        $datePeriod = new DatePeriod($start, $interval, $end);
-        $dateArray = [];
-        foreach ($datePeriod as $date) {
-            $dateArray[] = $date->format('Y-m-d');
-        }
-        foreach ($dateArray as $date) {
-            $room = Room::where('id', $faker->numberBetween(1, 15))->with('roomType')->first();
-            for ($i = 1; $i <= 45; $i++) {
-                $status = 'Sudah Dibayar';
-                $user = User::find(rand(1, 30));
-                $this->createData($user, $status, $room, $date);
+        // Bulan 6
+        for ($userId = 4; $userId <= 18; $userId++) {
+            if (in_array($userId, [12, 13])) {
+                continue;
             }
-            for ($i = 1; $i <= 5; $i++) {
-                $status = 'Tidak Dibayar';
-                $user = User::find(rand(1, 30));
-                $this->createData($user, $status, $room, $date);
-            }
+            $status = in_array($userId, [14, 15]) ? 'Tidak Dibayar' : 'Sudah Dibayar';
+            $user = User::find($userId);
+            $date = (new DateTime($user->start_date))->format('Y-m-d');
+            $this->createData($user, $status, $user->room, $date);
         }
 
-        for ($i = 1; $i <= 30; $i++) {
-            $user = User::find($i);
-            $status = $faker->randomElement(['Belum Dibayar', 'Draft', 'Sudah Dibayar']);
-            $date = $faker->dateTimeBetween(date('Y-m-01'), date('Y-m-t'))->format('Y-m-d');
-
-            if ($user->room_id) {
-                $room = Room::find($user->room_id);
-                $this->createData($user, $status, $room, $date);
+        // Bulan 7
+        for ($userId = 4; $userId <= 18; $userId++) {
+            if (in_array($userId, [12, 13])) {
+                continue;
             }
+            $status = in_array($userId, [4, 14]) ? 'Tidak Dibayar' : 'Sudah Dibayar';
+            $user = User::find($userId);
+            $date = (new DateTime($user->start_date))->modify('+1 month')->format('Y-m-d');
+            $this->createData($user, $status, $user->room, $date);
+        }
+
+        // Bulan 8
+        for ($userId = 4; $userId <= 18; $userId++) {
+            if (in_array($userId, [12, 13])) {
+                continue;
+            }
+            $status = in_array($userId, [5, 6]) ? 'Tidak Dibayar' : 'Sudah Dibayar';
+            $user = User::find($userId);
+            $date = (new DateTime($user->start_date))->modify('+2 month')->format('Y-m-d');
+            $this->createData($user, $status, $user->room, $date);
         }
     }
 
@@ -66,11 +64,11 @@ class TransactionSeeder extends Seeder
             'user_name' => $user->name,
             'amount' => $room->roomType->price,
             'period' => $date,
-            'due_date' => generateDueDate($date),
+            'due_date' => date('Y-m-d', strtotime($date . ' +7 day')),
             'room_id' => $room->id,
             'room' => $room->name,
             'status' => $status,
-            'description' => 'Pembayaran bulan '.dateNow(),
+            'description' => 'Pembayaran bulan ' . date('F', strtotime($date)),
             'payment_code' => $faker->randomNumber(8),
             'order_id' => $faker->randomNumber(8),
         ];
@@ -78,3 +76,39 @@ class TransactionSeeder extends Seeder
         Transaction::create($transaction);
     }
 }
+
+    //     $start = '2024-01-01';
+    //     $end = date('Y-m-d', strtotime('-1 day'));
+
+    //     $start = new DateTime('2024-01-01');
+    //     $end = (new DateTime(date('Y-m-d')))->modify('-1 month');
+    //     $interval = new DateInterval('P1M');
+    //     $datePeriod = new DatePeriod($start, $interval, $end);
+    //     $dateArray = [];
+    //     foreach ($datePeriod as $date) {
+    //         $dateArray[] = $date->format('Y-m-d');
+    //     }
+    //     foreach ($dateArray as $date) {
+    //         $room = Room::where('id', $faker->numberBetween(1, 15))->with('roomType')->first();
+    //         for ($i = 1; $i <= 45; $i++) {
+    //             $status = 'Sudah Dibayar';
+    //             $user = User::find(rand(1, 30));
+    //             $this->createData($user, $status, $room, $date);
+    //         }
+    //         for ($i = 1; $i <= 5; $i++) {
+    //             $status = 'Tidak Dibayar';
+    //             $user = User::find(rand(1, 30));
+    //             $this->createData($user, $status, $room, $date);
+    //         }
+    //     }
+
+    //     for ($i = 1; $i <= 30; $i++) {
+    //         $user = User::find($i);
+    //         $status = $faker->randomElement(['Belum Dibayar', 'Draft', 'Sudah Dibayar']);
+    //         $date = $faker->dateTimeBetween(date('Y-m-01'), date('Y-m-t'))->format('Y-m-d');
+
+    //         if ($user->room_id) {
+    //             $room = Room::find($user->room_id);
+    //             $this->createData($user, $status, $room, $date);
+    //         }
+    //     }

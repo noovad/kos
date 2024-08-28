@@ -8,7 +8,7 @@ return [
         'string' => 'Kolom :attribute tidak boleh lebih dari :max karakter.',
     ],
     'unique' => 'Kolom :attribute sudah terdaftar, silahkan pilih yang lain.',
-    'regex' => 'Kolom :attribute hanya boleh mengandung huruf, angka, dan underscore (_).',
+    'regex' => 'Format Kolom :attribute tidak sesuai',
     'invalid' => 'Kolom :attribute tidak valid.',
 
     // Nama-nama Kolom yang diatributkan

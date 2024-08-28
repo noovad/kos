@@ -67,16 +67,20 @@ class UserSeeder extends Seeder
         ];
 
         $usersWithRoom = [];
-        for ($i = 4; $i <= 18; $i++) { // Loop dari 4 hingga 18 (total 15 pengguna)
-            $roomId = ($i - 3); // Mengatur room_id mulai dari 1 hingga 15
-            if (in_array($roomId, [9, 10])) { // Room ID 9 dan 10 diatur menjadi null
+        for ($i = 4; $i <= 18; $i++) { 
+            $roomId = ($i - 3); 
+            $startDate = $faker->dateTimeBetween('2024-06-01', '2024-06-30')->format('Y-m-d');
+            if (in_array($roomId, [9, 10])) { 
                 $roomId = null;
+                $startDate = null;
             }
+
             $usersWithRoom[] = [
                 'id' => $i,
-                'name' => $namesWithRoom[$i - 4], // Menyesuaikan indeks dengan loop
+                'name' => $namesWithRoom[$i - 4], 
                 'room_id' => $roomId,
                 'role' => 'user',
+                'start_date' => $startDate,
                 'password' => Hash::make('12312344'),
             ];
         }

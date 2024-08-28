@@ -36,8 +36,10 @@ class ReminderCreateJob implements ShouldQueue
             $this->transaction->payment_code
         );
 
-        if (preg_match('/^\+628\d{10}$/', $this->transaction->user->phone)) {
+        if (preg_match('/^\+628\d{9,10}$/', $this->transaction->user->phone)) {
             dispatch(new SendWhatsappJob($this->transaction->user->phone, $message));
+        } else {
+            echo "Nomor telepon tidak valid";
         }
     }
 }

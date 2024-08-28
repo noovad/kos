@@ -58,6 +58,7 @@
             margin-bottom: 0px;
         }
     </style>
+    @laravelPWA
 </head>
 
 <body class="font-sans antialiased">

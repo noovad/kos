@@ -16,7 +16,7 @@
                 <div class="card border border-grey text-black mt-4 mb-4">
                     <div class="grid grid-cols-7 gap-2 p-2">
                         <div class="col-span-6 rounded-lg">
-                            <p class="pl-3 -mb-1">{{ $user->phone ?? '' }}</p>
+                            <p class="pl-3 -mb-1">+62 {{ $phone ?? '' }}</p>
 
                         </div>
                         <div class="col-span-1 flex flex-col justify-center">
