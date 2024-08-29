@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'name' => 'LaravelPWA',
+    'name' => 'Kosan',
     'manifest' => [
-        'name' => env('APP_NAME', 'My PWA App'),
-        'short_name' => 'PWA',
-        'start_url' => 'http://127.0.0.1:8000/',
+        'name' => env('APP_NAME', 'Kosan'),
+        'short_name' => 'Kos',
+        'start_url' => 'http://127.0.0.1:8000',
         'background_color' => '#ffffff',
         'theme_color' => '#000000',
         'display' => 'standalone',
@@ -57,26 +57,26 @@ return [
             '1668x2388' => '/images/icons/splash-1668x2388.png',
             '2048x2732' => '/images/icons/splash-2048x2732.png',
         ],
-        'shortcuts' => [
-            [
-                'name' => 'Shortcut Link 1',
-                'description' => 'Shortcut Link 1 Description',
-                'url' => 'http://127.0.0.1:8000//',
-                'icons' => [
-                    "src" => "/images/icons/icon-96x96.png",
-                    "purpose" => "any"
-                ]
-            ],
-            [
-                'name' => 'Shortcut Link 2',
-                'description' => 'Shortcut Link 2 Description',
-                'url' => 'http://127.0.0.1:8000//',
-                'icons' => [
-                    "src" => "/images/icons/icon-96x96.png",
-                    "purpose" => "any"
-                ]
-            ]
-        ],
+        // 'shortcuts' => [
+        //     [
+        //         'name' => 'Kosan',
+        //         'description' => 'Kosan',
+        //         'url' => 'http://127.0.0.1:8000//',
+        //         'icons' => [
+        //             "src" => "/images/icons/icon-96x96.png",
+        //             "purpose" => "any"
+        //         ]
+        //     ],
+        //     [
+        //         'name' => 'Shortcut Link 2',
+        //         'description' => 'Shortcut Link 2 Description',
+        //         'url' => 'http://127.0.0.1:8000//',
+        //         'icons' => [
+        //             "src" => "/images/icons/icon-96x96.png",
+        //             "purpose" => "any"
+        //         ]
+        //     ]
+        // ],
         'custom' => []
     ]
 ];

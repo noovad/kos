@@ -110,7 +110,7 @@
                 </div>
             </div>
         @elseIf($display === 'yearly')
-            <div class="m-2 overflow-auto" style="width: 100%; overflow-x: auto;">
+            <div class="my-2 overflow-auto" style="width: 100%; overflow-x: auto;">
                 <table class="table table-xs">
                     <thead>
                         <tr>

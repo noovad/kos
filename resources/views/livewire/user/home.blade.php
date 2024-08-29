@@ -8,7 +8,7 @@
         {!! $data->value !!}
     </div>
     <div class="flex justify-center px-4 pt-4 text-black">
-        <div class="grid grid-cols-2 gap-6 w-full px-20">
+        <div class="grid grid-cols-2 gap-6 w-full sm:px-20 px-8">
             <div class="card">
                 <a href="{{ route('user.room-index') }}">
                     <div class="card bg-gray-200 shadow-xl p-8"
@@ -71,7 +71,7 @@
                             <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                         </svg>
-                        <small class="text-center text-blue">Tentang Kami</small>
+                        <small class="text-center text-blue truncate">Tentang Kami</small>
                     </div>
                 </a>
             </div>

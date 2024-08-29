@@ -24,6 +24,7 @@
     <livewire:admin.room-post>
         <hr>
         <div class="mt-4 mb-4">
+            <!-- Filter options -->
             <div class="flex flex-row items-center justify-start">
                 <!-- type -->
                 <div class="mr-2">
@@ -34,7 +35,7 @@
                         @endforeach
                     </select>
                 </div>
-
+        
                 <!-- status -->
                 <div class="mr-2">
                     <select wire:model.lazy="empty" class="select select-sm text-xs bg-blue text-white border-none">
@@ -43,13 +44,14 @@
                         <option value="0">Kosong</option>
                     </select>
                 </div>
-
-                <!-- search -->
-                <div class="ml-auto">
-                    @include('components.search-bar')
-                </div>
+            </div>
+        
+            <!-- Search bar in a new line -->
+            <div class="flex justify-end mt-4">
+                @include('components.search-bar')
             </div>
         </div>
+        
         @foreach ($data as $item)
         <div class="card border border-grey text-black mt-4 mb-4">
             <div class="grid grid-cols-11 gap-2 p-2">

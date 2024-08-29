@@ -21,12 +21,24 @@
         <small class="-m-1 mb-4">Rp. {{ number_format($roomType->price, 0, ',', '.') }}</small>
     </div>
     <div class="ps-8 flex justify-end">
-        <ul class="list-disc list-inside">
-            <li><small>Biru : Tersedia</small></li>
-            <li><small>Abu-abu : Tidak Tersedia</small></li>
+        <ul class="list-none space-y-2">
+            <li class="flex items-center text-blue-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#304E6E" class="mr-2">
+                    <rect width="16" height="16" x="0" y="0" rx="2" />
+                </svg>
+                <small>Tersedia</small>
+            </li>
+            <li class="flex items-center text-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#6b7280" class="mr-2">
+                    <rect width="16" height="16" x="0" y="0" rx="2" />
+                </svg>
+                <small>Tidak Tersedia</small>
+            </li>
+        </ul>
     </div>
+
     <div class="flex justify-center px-20 py-5 text-black">
-        <div class="grid grid-cols-4 gap-3">
+        <div class="grid grid-cols-3 sm:grid-cols-4 gap-3">
             @foreach ($room as $item)
                 @if ($item->user == null)
                     <div class="size-16 rounded-md bg-blue text-white flex justify-center items-center">

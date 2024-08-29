@@ -52,49 +52,63 @@
 
         {{-- Modal Detail --}}
         <dialog wire:ignore.self id="modalDetail{{ $item->id }}" class="modal">
-            <div class="modal-box w-5/12 max-w-5xl min-w-[500px]">
-                <h3 class="font-bold text-lg text-center text-blue">Detail Tagihan</h3>
+            <div class="modal-box w-5/12 max-w-5xl min-w-[360px]">
+                <h3 class="font-bold text-base text-center text-blue">Detail Tagihan</h3>
 
                 <div class="card border border-grey text-black mt-2 mb-2">
                     <div class="grid grid-cols-7 pl-2">
                         <div class="col-span-3 rounded-lg">
-                            <p class="p-1 mb-0">Nama</p>
+                            <p class="p-1 mb-0 text-base">Nama</p>
                         </div>
-                        <div class="expand-button col-span-4 flex flex-col justify-center">
-                            <p>: {{ $item->user_name }}</p>
+                        <div class="col-span-4 flex flex-col justify-center">
+                            <div class="flex items-start">
+                                <span class="text-base">:</span>
+                                <p class="text-base ml-2">{{ $item->user_name }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="card border border-grey text-black mt-2 mb-2 ">
+                
+                <div class="card border border-grey text-black mt-2 mb-2">
                     <div class="grid grid-cols-7 pl-2">
                         <div class="col-span-3 rounded-lg">
-                            <p class="p-1 mb-0">Kamar</p>
+                            <p class="p-1 mb-0 text-base">Kamar</p>
                         </div>
-                        <div class="expand-button col-span-4 flex flex-col justify-center">
-                            <p>: {{ $item->room }}</p>
+                        <div class="col-span-4 flex flex-col justify-center">
+                            <div class="flex items-start">
+                                <span class="text-base">:</span>
+                                <p class="text-base ml-2">{{ $item->room }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="card border border-grey text-black mt-2">
                     <div class="grid grid-cols-7 pl-2">
                         <div class="col-span-3 rounded-lg">
-                            <p class="p-1 mb-0">Tagihan</p>
+                            <p class="p-1 mb-0 text-base">Tagihan</p>
                         </div>
-                        <div class="expand-button col-span-4 flex flex-col justify-center">
-                            <p>: Rp {{ number_format($item->amount, 0, ',', '.') }}</p>
+                        <div class="col-span-4 flex flex-col justify-center">
+                            <div class="flex items-start">
+                                <span class="text-base">:</span>
+                                <p class="text-base ml-2">Rp {{ number_format($item->amount, 0, ',', '.') }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-
+                
                 @if ($item->status != 'Sudah Dibayar')
                     @if ($item->status != 'Tidak Dibayar')
                         <div class="card border border-grey text-black mt-2">
                             <div class="grid grid-cols-7 pl-2">
                                 <div class="col-span-3 rounded-lg">
-                                    <p class="p-1 mb-0">Kode Pembayaran</p>
+                                    <p class="p-1 mb-0 text-base">Kode Pembayaran</p>
                                 </div>
-                                <div class="expand-button col-span-3 flex flex-col justify-center">
-                                    <p>: {{ $item->payment_code }}</p>
+                                <div class="col-span-4 flex flex-col justify-center">
+                                    <div class="flex items-start">
+                                        <span class="text-base">:</span>
+                                        <p class="text-base ml-2">{{ $item->payment_code }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -102,34 +116,46 @@
                     <div class="card border border-grey text-black mt-2">
                         <div class="grid grid-cols-7 pl-2">
                             <div class="col-span-3 rounded-lg">
-                                <p class="p-1 mb-0">Tenggat Pembayaran</p>
+                                <p class="p-1 mb-0 text-base">Tenggat Pembayaran</p>
                             </div>
-                            <div class="expand-button col-span-4 flex flex-col justify-center">
-                                <p>: {{ $item->due_date ? date('d-m-Y', strtotime($item->due_date)) : '' }}</p>
+                            <div class="col-span-4 flex flex-col justify-center">
+                                <div class="flex items-start">
+                                    <span class="text-base">:</span>
+                                    <p class="text-base ml-2">{{ $item->due_date ? date('d-m-Y', strtotime($item->due_date)) : '' }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 @endif
+                
                 <div class="card border border-grey text-black mt-2">
                     <div class="grid grid-cols-7 pl-2">
                         <div class="col-span-3 rounded-lg">
-                            <p class="p-1 mb-0">Status</p>
+                            <p class="p-1 mb-0 text-base">Status</p>
                         </div>
-                        <div class="expand-button col-span-4 flex flex-col justify-center">
-                            <p>: {{ $item->status }}</p>
+                        <div class="col-span-4 flex flex-col justify-center">
+                            <div class="flex items-start">
+                                <span class="text-base">:</span>
+                                <p class="text-base ml-2">{{ $item->status }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="card border border-grey text-black mt-2 mb-2">
                     <div class="grid grid-cols-7 pl-2">
                         <div class="col-span-3 rounded-lg">
-                            <p class="p-1 mb-0">Keterangan</p>
+                            <p class="p-1 mb-0 text-base">Keterangan</p>
                         </div>
-                        <div class="expand-button col-span-4 flex flex-col justify-center">
-                            <p>: {{ $item->description }}</p>
+                        <div class="col-span-4 flex flex-col justify-center">
+                            <div class="flex items-start">
+                                <span class="text-base">:</span>
+                                <p class="text-base ml-2">{{ $item->description }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+                
 
                 <div class="modal-action pt-4 m-0">
                     <form method="dialog">

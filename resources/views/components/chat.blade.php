@@ -4,7 +4,7 @@
         <div class="px-2 pt-1 flex flex-col-reverse h-[calc(100vh-215px)] lg:h-[calc(100vh-170px)] overflow-y-auto">
 @endif
 
-<div class="max-w-2xl mx-auto min-w-[500px]">
+<div class="max-w-2xl mx-auto min-w-[360px]">
     @foreach ($chat as $date => $dayMessages)
         <!-- Display date header -->
         <div class="date-header text-center text-gray-500">

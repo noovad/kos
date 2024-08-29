@@ -1,7 +1,7 @@
 <div>
     @section('title', $title ?? '')
     <div class="flex justify-center bg-white drop-shadow-2xl mx-10 rounded-lg mt-4">
-        <div class="card p-2 flex flex-col justify-center items-center max-w-md">
+        <div class="card p-2 flex flex-col justify-center items-center w-[360px] sm:w-md">
             <div class="avatar placeholder mb">
                 <div class="bg-gray-200 text-neutral-content rounded-full w-24">
                     <span class="text-5xl font-bold text-blue">{{ substr($user->name, 0, 1) }}</span>
@@ -33,7 +33,7 @@
     </div>
 
     <dialog wire:ignore.self id="modalUpdatePhone" class="modal">
-        <div class="modal-box w-5/12 max-w-md">
+        <div class="modal-box w-[360px] sm:w-md">
             @if ($errors->any())
                 @foreach ($errors->all() as $error)
                     <small class="text-error">{{ $error }}</small><br>
@@ -53,7 +53,7 @@
 </dialog>
 
 <dialog wire:ignore.self id="modalUpdatePassword" class="modal">
-    <div class="modal-box w-5/12 max-w-md">
+    <div class="modal-box w-[360px] sm:w-md">
         @if ($errors->any())
             @foreach ($errors->all() as $error)
                 <small class="text-error">{{ $error }}</small><br>

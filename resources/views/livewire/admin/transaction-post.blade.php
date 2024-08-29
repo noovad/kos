@@ -27,7 +27,7 @@
     @if ($display == 'buat')
         <label for="User" class="block mt-8 text-sm text-gray-700">Tagihan untuk :</label>
         <select wire:model.lazy='user_selected' id="User"
-            class="select select-md text-sm select-bordered w-full max-w-xs mt-2">
+            class="select select-sm text-xs select-bordered w-full max-w-xs mt-2">
             <option selected>Pilih penghuni</option>
 
             @foreach ($users as $item)
@@ -35,17 +35,17 @@
             @endforeach
         </select>
         <label for="name" class="block text-sm text-gray-700 mt-2">Kamar :</label>
-        <input type="text" id="name" class="input input-md input-bordered w-full text-sm mt-2"
+        <input type="text" id="name" class="input input-sm input-bordered w-full text-sm mt-2"
             @if (trim($user_selected) == '') disabled @endif value="{{ $user->room->name ?? '' }}" disabled />
-        <label for="name" class="block text-sm text-gray-700 mt-2">Tagihan:</label>
+        <label for="tagihan" class="block text-sm text-gray-700 mt-2">Tagihan:</label>
         <div class="flex">
-            <span class="input-md">Rp</span>
+            <span class="input-sm">Rp</span>
             <input wire:ignore wire:model='price' type="text" id="priceInput"
-                class="input input-md input-bordered w-full mb-2" placeholder="0" oninput="formatRupiah(this)">
+                class="input input-sm input-bordered w-full mb-2" placeholder="0" oninput="formatRupiah(this)">
         </div>
-        <label for="name" class="block text-sm text-gray-700 mt-2">Keterangan :</label>
-        <input type="text" id="name" wire:model='description'
-            class="input input-md input-bordered w-full text-sm mt-2" placeholder="Keterangan" />
+        <label for="keterangan" class="block text-sm text-gray-700 mt-2">Keterangan :</label>
+        <input type="text" id="keterangan" wire:model='description'
+            class="input input-sm input-bordered w-full text-sm mt-2" placeholder="Keterangan" />
         <small class="text-green-500">*Tagihan akan kedaluarsa dalam 7 hari.</small>
         <div>
             @if ($errors->any())
@@ -58,13 +58,13 @@
 
     <div class="flex justify-center items-center">
         <div class="modal-action mx-4">
-            <button wire:click='create' class="btn btn-md bg-blue text-white border-none">Simpan</button>
+            <button wire:click='create' class="btn btn-sm bg-blue text-white border-none">Simpan</button>
         </div>
     </div>
 @else
     <label for="Transaction" class="block mt-8 text-sm text-gray-700">Pilih Tagihan :</label>
     <select wire:model.lazy='transaction_selected' id="Transaction"
-        class="select select-md text-sm select-bordered w-full max-w-xs mt-2">
+        class="select select-sm text-xs select-bordered w-full max-w-xs mt-2">
         <option selected>Pilih tagihan</option>
 
         @foreach ($expire as $item)
@@ -73,16 +73,17 @@
         @endforeach
     </select>
     <label for="name" class="block text-sm text-gray-700 mt-2">Nama :</label>
-    <input type="text" id="name" class="input input-md input-bordered w-full text-sm mt-2"
+    <input type="text" id="name" class="input input-sm input-bordered w-full text-sm mt-2"
         @if (trim($transaction_selected) == '') disabled @endif value="{{ $transaction->user_name ?? '' }}" disabled />
     <label for="kamar" class="block text-sm text-gray-700 mt-2">Kamar :</label>
-    <input type="text" id="kamar" class="input input-md input-bordered w-full text-sm mt-2"
+    <input type="text" id="kamar" class="input input-sm input-bordered w-full text-sm mt-2"
         @if (trim($transaction_selected) == '') disabled @endif value="{{ $transaction->room ?? '' }}" disabled />
     <label for="tagihan" class="block text-sm text-gray-700 mt-2">Tagihan:</label>
-    <input type="text" id="tagihan" class="input input-md input-bordered w-full text-sm mt-2"
-        @if (trim($transaction_selected) == '' || is_null($transaction)) disabled @endif value="Rp. {{ number_format(optional($transaction)->amount, 0, ',', '.') ?? '' }}" disabled />
-    <label for="keterangan" class="block text-sm text-gray-700 mt-2">Keterangan:</label>
-    <input type="text" id="keterangan" class="input input-md input-bordered w-full text-sm mt-2"
+    <input type="text" id="tagihan" class="input input-sm input-bordered w-full text-sm mt-2"
+        @if (trim($transaction_selected) == '' || is_null($transaction)) disabled @endif
+        value="Rp. {{ number_format(optional($transaction)->amount, 0, ',', '.') ?? '' }}" disabled />
+    <label for="keterangan1" class="block text-sm text-gray-700 mt-2">Keterangan:</label>
+    <input type="text" id="keterangan1" class="input input-sm input-bordered w-full text-sm mt-2"
         @if (trim($transaction_selected) == '') disabled @endif value="{{ $transaction->description ?? '' }}" disabled />
     <small class="text-green-500">*Tagihan akan kedaluarsa dalam 7 hari.</small>
     <div>
@@ -96,16 +97,11 @@
 
 <div class="flex justify-center items-center">
     <div class="modal-action mx-4">
-        <button wire:click='updateTransaction' class="btn btn-md bg-blue text-white border-none">Perbarui</button>
+        <button wire:click='updateTransaction'
+            class="btn btn-sm bg-blue text-white border-none">Perbarui</button>
     </div>
 </div>
 @endif
-
-<script>
-    window.addEventListener('open-modal-create', event => {
-        document.getElementById('modalCreate').showModal();
-    })
-</script>
 
 <script>
     function formatRupiah(input) {

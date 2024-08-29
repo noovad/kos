@@ -1,6 +1,6 @@
 <div>
     @section('title', 'Chat')
-    <div class="mx-auto text-center fixed top-0 left-0 right-0 mt-20 max-w-2xl z-50">
+    <div class="mx-auto text-center fixed top-0 left-0 right-0 mt-20 max-w-[375px] sm:max-w-2xl z-50">
         <div x-data="{ selected: null }" class="w-full">
             <div class="relative w-full rounded-md border h-10 p-1 bg-gray-200">
                 <div class="relative w-full h-full flex items-center">

@@ -1,9 +1,19 @@
 <div>
     @section('title', $title ?? '')
     <div class="ps-8 flex justify-end">
-        <ul class="list-disc list-inside">
-            <li><small>Biru : Sudah Bayar</small></li>
-            <li><small>Abu-abu : Belum Bayar</small></li>
+        <ul class="list-none space-y-2">
+            <li class="flex items-center text-blue-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#304E6E" class="mr-2">
+                    <rect width="16" height="16" x="0" y="0" rx="2" />
+                </svg>
+                <small>Sudah Dibayar</small>
+            </li>
+            <li class="flex items-center text-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#6b7280" class="mr-2">
+                    <rect width="16" height="16" x="0" y="0" rx="2" />
+                </svg>
+                <small>Belum Dibayar</small>
+            </li>
         </ul>
     </div>
 
@@ -34,7 +44,7 @@
 
                         {{-- Modal Detail --}}
                         <dialog wire:ignore.self id="modalDetail{{ $room['room'] }}" class="modal">
-                            <div class="modal-box w-5/12 max-w-5xl min-w-[500px]">
+                            <div class="modal-box w-5/12 max-w-5xl min-w-[360px]">
                                 <h3 class="font-bold text-lg text-center text-blue">{{ $room['room'] }}</h3>
 
                                 <div class="card border border-grey text-black mt-2 mb-2">
