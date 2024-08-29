@@ -30,7 +30,10 @@
                             if ($room['user']) {
                                 if ($room['transaction_status'] == 'Belum Dibayar') {
                                     $bgColor = 'bg-bluebg text-white';
-                                } elseif ($room['transaction_status'] == 'Belum Ada Tagihan' || $room['transaction_status'] == 'Tidak Dibayar') {
+                                } elseif (
+                                    $room['transaction_status'] == 'Belum Ada Tagihan' ||
+                                    $room['transaction_status'] == 'Tidak Dibayar'
+                                ) {
                                     $bgColor = 'bg-red-100 text-white';
                                 } elseif ($room['transaction_status'] == 'Sudah Dibayar') {
                                     $bgColor = 'bg-blue text-white';
@@ -84,7 +87,8 @@
                                                 <p class="p-1 mb-0">Tenggat Pembayaran</p>
                                             </div>
                                             <div class="expand-button col-span-4 flex flex-col justify-center">
-                                                <p>: {{ $room['due_date'] ?? '' }}</p>
+                                                <p>: {{ $room['due_date'] ? date('d-m-Y', strtotime($room['due_date'])) : '' }}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>

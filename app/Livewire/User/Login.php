@@ -16,6 +16,12 @@ class Login extends Component
     {
         $this->form->validate();
         if (Auth::attempt(['name' => $this->form->name, 'password' => $this->form->password])) {
+            if (Auth::user()->role == 'user' && !Auth::user()->room_id) {
+                Auth::logout();
+                throw ValidationException::withMessages([
+                    'login' => 'Gagal login, akun Anda belum aktif.',
+                ]);
+            }
             Session::regenerate();
         } else {
             throw ValidationException::withMessages([

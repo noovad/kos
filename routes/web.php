@@ -8,6 +8,7 @@ Route::middleware('guest')->group(function () {
     Route::view('/login', 'layouts.pages')->name('user.login');
 });
 
+
 Route::view('/home', 'layouts.pages')->name('user.home');
 Route::view('/room-index', 'layouts.pages')->name('user.room-index');
 Route::view('/fasilitas', 'layouts.pages')->name('user.facility');

@@ -133,7 +133,7 @@
                                             <p class="p-1 mb-0">Tanggal Masuk</p>
                                         </div>
                                         <div class="expand-button col-span-4 flex flex-col justify-center">
-                                            <p>: {{ $item->start_date ?? '' }}</p>
+                                            <p>: {{ $item->start_date ? date('d-m-Y', strtotime($item->start_date)) : '' }}</p>
                                         </div>
                                     </div>
                                 </div>

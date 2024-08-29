@@ -8,7 +8,7 @@
                 </div>
             </div>
             <h3 class="text-xl font-semibold text-blue mb-2">{{ $user->name }}</h3>
-            <small class="-m-1 mb-4">{{ $user->start_date ?? 'Tidak Aktif' }}</small>
+            <small class="-m-1 mb-4">{{ $user->start_date ? date('d-m-Y', strtotime($user->start_date)) : 'Tidak Aktif'}}</small>
             <div>
                 <div class="card border border-grey text-black mt-4 mb-4">
                     <p class="p-2 text-center font-bold text-blue">{{ $user->room->name ?? '' }}</p>

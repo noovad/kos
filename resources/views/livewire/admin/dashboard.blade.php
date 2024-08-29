@@ -10,15 +10,9 @@
             @include('components.chart.room-occupied')
         </div>
     </div>
-    {{-- <div class="carousel-item w-full">
-        <div class="w-full">
-            @include('components.chart.monthly-room-occupancy')
-        </div>
-    </div> --}}
     <div class="flex w-full justify-center gap-2 py-2 pt-10">
         <a class="btn btn-xs bg-gray-200" onclick="showCarousel(1)">1</a>
         <a class="btn btn-xs bg-gray-200" onclick="showCarousel(2)">2</a>
-        {{-- <a class="btn btn-xs bg-gray-200" onclick="showCarousel(3)">3</a> --}}
     </div>
 
     <script>
@@ -49,18 +43,20 @@
         <div class="grid grid-cols-2 gap-6">
             <div class="card">
                 <a href="{{ route('admin.transaction-room') }}">
-                    <div class="card bg-gray-200 shadow-xl p-8" style="aspect-ratio: 1/1; display: flex; justify-content: center;">
+                    <div class="card bg-gray-200 shadow-xl p-8"
+                        style="aspect-ratio: 1/1; display: flex; justify-content: center;">
                         <div class="stat-title text-blue font-semibold text-left">Tagihan Bulan Ini</div>
-                        <div class="stat-value m-4 text-6xl text-blue text-center">{{$percentage}} %</div>
+                        <div class="stat-value m-4 text-6xl text-blue text-center">{{ $percentage }} %</div>
                         <div class="stat-Title text-blue font-semibold text-right">Sudah Dibayar</div>
                     </div>
                 </a>
             </div>
             <div class="card">
                 <a href="{{ route('admin.transaction-report') }}">
-                    <div class="card bg-gray-200 shadow-xl p-8" style="aspect-ratio: 1/1; display: flex; justify-content: center;">
-                        <div class="stat-title text-blue font-semibold text-left">Pemasukan Bulan Ini</div>
-                        <div class="stat-value m-4 text-6xl text-blue text-center">{{$income}}</div>
+                    <div class="card bg-gray-200 shadow-xl p-8"
+                        style="aspect-ratio: 1/1; display: flex; justify-content: center;">
+                        <div class="stat-title text-blue text-sm font-semibold text-left">Pemasukan Bulan Ini</div>
+                        <div class="stat-value my-4 text-5xl text-blue text-center">{{ $income }}</div>
                         <div class="stat-Title text-blue font-semibold text-right">Juta</div>
                     </div>
                 </a>

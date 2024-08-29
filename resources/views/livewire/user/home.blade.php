@@ -2,11 +2,12 @@
     @section('title', $title ?? '')
 
     <div class="flex justify-center" style="scale: 1/1">
-        <img src="{{ asset('asset/icon_login.png') }}" class="lg:px-40 px-14" alt="">
+        <img src="{{ asset('asset/icon_login.png') }}" class="lg:px-40 px-28" alt="">
     </div>
     <div class="p-5 pb-8">
         {!! $data->value !!}
     </div>
+    <button id="install" class="btn mx-5 btn-sm bg-blue text-white" hidden>Install</button>
     <div class="flex justify-center px-4 pt-4 text-black">
         <div class="grid grid-cols-2 gap-6 w-full sm:px-20 px-8">
             <div class="card">
@@ -77,4 +78,37 @@
             </div>
         </div>
     </div>
+
+    <script>
+        let installPrompt = null;
+        const installButton = document.querySelector("#install");
+
+        // Awalnya sembunyikan tombol secara eksplisit untuk menghindari konflik dengan CSS
+        installButton.style.display = "none";
+
+        window.addEventListener("beforeinstallprompt", (event) => {
+            event.preventDefault();
+            installPrompt = event;
+            installButton.removeAttribute("hidden");
+            installButton.style.display = "block"; // Pastikan tombol muncul
+        });
+
+        installButton.addEventListener("click", async () => {
+            if (!installPrompt) {
+                return;
+            }
+            installPrompt.prompt();
+            const {
+                outcome
+            } = await installPrompt.userChoice;
+            console.log(`Install prompt was: ${outcome}`);
+            disableInAppInstallPrompt();
+        });
+
+        function disableInAppInstallPrompt() {
+            installPrompt = null;
+            installButton.setAttribute("hidden", "");
+            installButton.style.display = "none"; // Sembunyikan kembali tombol
+        }
+    </script>
 </div>

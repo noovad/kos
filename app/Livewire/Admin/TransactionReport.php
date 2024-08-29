@@ -61,7 +61,7 @@ class TransactionReport extends Component
         if ($this->display == 'monthly') {
             $data = $this->monthly()->get();
             $totalAmount = $data->sum('amount');
-            $fileName = 'report-monthly-'.$this->month.'-'.$this->year.'.xlsx';
+            $fileName = 'report-monthly-'.$this->month.'-'.$this->year;
         } elseif ($this->display == 'yearly') {
             $data = $this->yearly();
             $totalAmount = $data->sum('total_terbayar');
