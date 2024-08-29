@@ -12,6 +12,8 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/philfung/add-to-homescreen@master/dist/add-to-homescreen.min.css">
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -95,5 +97,24 @@
     </div>
     @livewireScripts
 </body>
+<script src="https://cdn.jsdelivr.net/gh/philfung/add-to-homescreen@master/dist/add-to-homescreen.min.js"></script>
+
+<script>
+    window.addEventListener('load', function() {
+        // Initialize the AddToHomeScreen instance
+        window.AddToHomeScreenInstance = new window.AddToHomeScreen({
+            appName: 'Kosan', // Name of the app [Required]
+            appIconUrl: '/images/empty_image.png', // App icon (at least 40x40 pixels) [Required]
+            assetUrl: 'https://cdn.jsdelivr.net/gh/philfung/add-to-homescreen@1.9/dist/assets/img/'
+        });
+
+        // Add click event listener to the button
+        document.getElementById('addToHomeScreenBtn').addEventListener('click', function() {
+            setTimeout(function() {
+                window.AddToHomeScreenInstance.show('en'); // Show the popup after a short delay
+            }, 100); // Delay of 100 milliseconds
+        });
+    });
+</script>
 
 </html>

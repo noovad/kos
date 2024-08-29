@@ -4,10 +4,11 @@
     <div class="flex justify-center" style="scale: 1/1">
         <img src="{{ asset('asset/icon_login.png') }}" class="lg:px-40 px-28" alt="">
     </div>
-    <div class="p-5 pb-8">
+    <button id="addToHomeScreenBtn" class="btn mx-5 btn-xs bg-blue text-white" hidden>Install on Phone</button>
+    <button id="install" class="btn mx-5 btn-xs bg-blue text-white" hidden>Install</button>
+    <div class="px-5 pb-8">
         {!! $data->value !!}
     </div>
-    <button id="install" class="btn mx-5 btn-sm bg-blue text-white" hidden>Install</button>
     <div class="flex justify-center px-4 pt-4 text-black">
         <div class="grid grid-cols-2 gap-6 w-full sm:px-20 px-8">
             <div class="card">
