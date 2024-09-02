@@ -4,7 +4,7 @@
     <div class="flex justify-center" style="scale: 1/1">
         <img src="{{ asset('asset/icon_login.png') }}" class="lg:px-40 px-28" alt="">
     </div>
-    <button id="addToHomeScreenBtn" class="btn mx-5 btn-xs bg-blue text-white" hidden>Install on Phone</button>
+    <button id="addToHomeScreenBtn" class="btn mx-5 btn-xs bg-blue text-white lg:hidden" en>Install on Phone</button>
     <button id="install" class="btn mx-5 btn-xs bg-blue text-white" hidden>Install</button>
     <div class="px-5 pb-8">
         {!! $data->value !!}
@@ -111,5 +111,23 @@
             installButton.setAttribute("hidden", "");
             installButton.style.display = "none"; // Sembunyikan kembali tombol
         }
+    </script>
+
+    <script>
+        window.addEventListener('load', function() {
+            // Initialize the AddToHomeScreen instance
+            window.AddToHomeScreenInstance = new window.AddToHomeScreen({
+                appName: 'Kosan', // Name of the app [Required]
+                appIconUrl: '/images/empty_image.png', // App icon (at least 40x40 pixels) [Required]
+                assetUrl: 'https://cdn.jsdelivr.net/gh/philfung/add-to-homescreen@1.9/dist/assets/img/'
+            });
+
+            // Add click event listener to the button
+            document.getElementById('addToHomeScreenBtn').addEventListener('click', function() {
+                setTimeout(function() {
+                    window.AddToHomeScreenInstance.show('en'); // Show the popup after a short delay
+                }, 100); // Delay of 100 milliseconds
+            });
+        });
     </script>
 </div>

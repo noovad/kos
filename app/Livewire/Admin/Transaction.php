@@ -14,15 +14,19 @@ class Transaction extends Component
     public function monthlyFinancial()
     {
         $year = date('Y');
+
+        $total_terbayar = array_fill(0, 12, 0);
+
         $yearly = TransactionModel::selectRaw("
-        SUM(CASE WHEN status = 'Sudah Dibayar' THEN amount ELSE 0 END) AS total_terbayar")
+            MONTH(period) as month,
+            SUM(CASE WHEN status = 'Sudah Dibayar' THEN amount ELSE 0 END) AS total_terbayar")
             ->whereYear('period', '=', $year)
-            ->groupByRaw("DATE_FORMAT(period, '%Y-%m')")
+            ->groupByRaw("MONTH(period)")
             ->get();
 
-        $total_terbayar = [];
         foreach ($yearly as $item) {
-            $total_terbayar[] = (int) $item['total_terbayar'];
+            $month = $item->month - 1;
+            $total_terbayar[$month] = (int) $item->total_terbayar;
         }
 
         return $total_terbayar;

@@ -26,7 +26,7 @@ class ReminderTransactionJob implements ShouldQueue
     public function handle(): void
     {
         $message = sprintf(
-            "Kepada Pelanggan: *%s*\n\nKami mengingatkan Anda terkait tagihan kos bulan ini (%s)  sebesar Rp *%s* yang harus dibayarkan. Mohon segera melakukan pembayaran sebelum tanggal jatuh tempo.\n\nDetail Tagihan:\nTanggal Jatuh Tempo: %s\nJumlah Tagihan: %s\nKode Pembayaran: %s\n\nHarap segera lakukan pembayaran melalui pembayaran. Terima kasih atas perhatian dan kerjasamanya.",
+            "Halo *%s*\n\nKami mengingatkan bahwa pembayaran uang kos periode %s, sebesar Rp *%s* yang harus dibayarkan. Mohon segera melakukan pembayaran sebelum tanggal jatuh tempo.\n\nDetail Tagihan:\n\nTanggal Jatuh Tempo: %s\nJumlah Tagihan: %s\nKode Pembayaran: %s\n\nHarap segera lakukan pembayaran melalui pembayaran. Terima kasih atas perhatian dan kerjasamanya.",
             $this->transaction->user_name,
             date('m-Y', strtotime($this->transaction->period)),
             number_format($this->transaction->amount, 0, ',', '.'),

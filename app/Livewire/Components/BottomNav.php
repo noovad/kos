@@ -39,12 +39,10 @@ class BottomNav extends Component
             ) {
                 $this->indicator = true;
             }
-        } else {
-            $this->indicator = true;
         }
 
         // Cek Pesan Admin
-        if (auth()->check() && Auth::user()->role === 'admin') {
+        if (Auth::check() && Auth::user()->role === 'admin') {
             $lastAdminMessage = Message::where('is_admin', true)
                 ->where('is_group', false)
                 ->latest('created_at')
@@ -57,8 +55,6 @@ class BottomNav extends Component
                 ) {
                     $this->indicator = true;
                 }
-            } else {
-                $this->indicator = true;
             }
         }
 
@@ -86,8 +82,8 @@ class BottomNav extends Component
         $lastMessage = Message::where('is_admin', false)
             ->where('is_group', false)
             ->where(function ($query) {
-                $query->where('sender_id', Auth::id())
-                    ->orWhere('receiver_id', Auth::id());
+            $query->where('sender_id', Auth::id())
+                ->orWhere('receiver_id', Auth::id());
             })
             ->latest('created_at')
             ->first();
@@ -99,8 +95,8 @@ class BottomNav extends Component
 
     public function checkPaymentStatus()
     {
-        $not = Transaction::where('user_id', auth()->id())->where('status', 'tidak dibayar')->count();
-        $notYet = Transaction::where('user_id', auth()->id())->where('status', 'belum dibayar')->count();
+        $not = Transaction::where('user_id', Auth::id())->where('status', 'tidak dibayar')->count();
+        $notYet = Transaction::where('user_id', Auth::id())->where('status', 'belum dibayar')->count();
 
         $this->paymentIndicator = $not > 0 ? 'danger' : ($notYet > 0 ? 'warning' : 'success');
     }

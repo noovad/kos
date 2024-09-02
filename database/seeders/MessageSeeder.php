@@ -26,6 +26,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Halo, selamat datang di kamar baru Anda. Jika ada pertanyaan, jangan ragu untuk bertanya.',
                 'is_group' => false,
                 'is_admin' => false,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
             [
@@ -34,6 +35,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Halo, selamat datang di kamar baru Anda. Jika ada pertanyaan, jangan ragu untuk bertanya.',
                 'is_group' => false,
                 'is_admin' => false,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
             [
@@ -42,6 +44,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Halo, selamat datang di kamar baru Anda. Jika ada pertanyaan, jangan ragu untuk bertanya.',
                 'is_group' => false,
                 'is_admin' => false,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
             [
@@ -50,6 +53,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Halo, selamat datang di kamar baru Anda. Jika ada pertanyaan, jangan ragu untuk bertanya.',
                 'is_group' => false,
                 'is_admin' => false,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
             [
@@ -58,6 +62,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Halo, selamat datang di kamar baru Anda. Jika ada pertanyaan, jangan ragu untuk bertanya.',
                 'is_group' => false,
                 'is_admin' => false,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
             [
@@ -66,6 +71,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Halo, selamat datang di kamar baru Anda. Jika ada pertanyaan, jangan ragu untuk bertanya.',
                 'is_group' => false,
                 'is_admin' => false,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
             [
@@ -74,6 +80,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Halo, selamat datang di kamar baru Anda. Jika ada pertanyaan, jangan ragu untuk bertanya.',
                 'is_group' => false,
                 'is_admin' => false,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
             [
@@ -82,6 +89,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Halo, selamat datang di kamar baru Anda. Jika ada pertanyaan, jangan ragu untuk bertanya.',
                 'is_group' => false,
                 'is_admin' => false,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
             [
@@ -90,6 +98,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Halo, selamat datang di kamar baru Anda. Jika ada pertanyaan, jangan ragu untuk bertanya.',
                 'is_group' => false,
                 'is_admin' => false,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
 
@@ -101,6 +110,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Selamat datang di grup chat! Silahkan berbagi informasi atau pertanyaan di sini.',
                 'is_group' => true,
                 'is_admin' => false,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
             [
@@ -109,6 +119,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Terima kasih, semoga kita bisa saling membantu di sini.',
                 'is_group' => true,
                 'is_admin' => false,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
             [
@@ -117,6 +128,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Jika ada yang butuh bantuan, jangan ragu untuk bertanya.',
                 'is_group' => true,
                 'is_admin' => false,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
             [
@@ -125,6 +137,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Apakah ada jadwal rutin untuk acara bersama?',
                 'is_group' => true,
                 'is_admin' => false,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
             [
@@ -133,6 +146,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Saya juga baru bergabung, senang bisa menjadi bagian dari grup ini.',
                 'is_group' => true,
                 'is_admin' => false,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
             [
@@ -141,6 +155,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Halo semuanya, mari kita jaga komunikasi yang baik di sini.',
                 'is_group' => true,
                 'is_admin' => false,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
 
@@ -151,6 +166,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Halo semua, saya ingin mengingatkan bahwa batas akhir pembayaran uang kos adalah minggu depan. Tolong pastikan semua penghuni sudah melakukan pembayaran tepat waktu.',
                 'is_group' => false,
                 'is_admin' => true,
+                'is_read' => true,
                 'created_at' => Carbon::now()->subDays(10),
             ],
             [
@@ -159,6 +175,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Terima kasih atas pengingatnya. Saya juga ingin menambahkan, kita harus lebih ketat dalam memantau pembayaran bulan ini, mengingat ada beberapa penghuni yang selalu terlambat membayar.',
                 'is_group' => false,
                 'is_admin' => true,
+                'is_read' => true,
                 'created_at' => Carbon::now()->subDays(9),
             ],
             [
@@ -167,6 +184,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Benar, kita harus lebih disiplin soal ini. Saya usulkan untuk mengirimkan notifikasi pembayaran sehari sebelum batas akhir, agar mereka tidak lupa.',
                 'is_group' => false,
                 'is_admin' => true,
+                'is_read' => true,
                 'created_at' => Carbon::now()->subDays(8),
             ],
             [
@@ -175,6 +193,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Setuju, notifikasi sehari sebelumnya sangat membantu. Selain itu, bagaimana dengan kebersihan minggu ini? Apakah ada masalah yang perlu kita selesaikan?',
                 'is_group' => false,
                 'is_admin' => true,
+                'is_read' => true,
                 'created_at' => Carbon::now()->subDays(7),
             ],
             [
@@ -183,6 +202,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Untuk kebersihan, saya mendapat laporan bahwa beberapa penghuni mengeluh tentang kondisi kamar mandi di lantai dua. Petugas kebersihan sudah diberi tahu, dan mereka akan membersihkannya lebih intensif.',
                 'is_group' => false,
                 'is_admin' => true,
+                'is_read' => true,
                 'created_at' => Carbon::now()->subDays(6),
             ],
             [
@@ -191,6 +211,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Bagus, kita juga perlu memastikan bahwa setiap penghuni mengikuti jadwal kebersihan yang sudah disepakati. Saya perhatikan beberapa orang masih belum mematuhi jadwal.',
                 'is_group' => false,
                 'is_admin' => true,
+                'is_read' => true,
                 'created_at' => Carbon::now()->subDays(5),
             ],
             [
@@ -199,6 +220,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Tepat sekali, saya setuju. Mungkin kita bisa melakukan pengecekan secara berkala untuk memastikan semua penghuni menjalankan tugas kebersihan mereka.',
                 'is_group' => false,
                 'is_admin' => true,
+                'is_read' => true,
                 'created_at' => Carbon::now()->subDays(4),
             ],
             [
@@ -207,6 +229,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Itu ide yang bagus. Saya bisa membuat daftar tugas yang lebih jelas dan membagikannya kepada semua penghuni.',
                 'is_group' => false,
                 'is_admin' => true,
+                'is_read' => true,
                 'created_at' => Carbon::now()->subDays(3),
             ],
             [
@@ -215,6 +238,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Oke, mari kita mulai dengan pembersihan akhir minggu ini. Kita bisa menggunakan kesempatan ini untuk mengingatkan semua penghuni tentang pentingnya kebersihan.',
                 'is_group' => false,
                 'is_admin' => true,
+                'is_read' => true,
                 'created_at' => Carbon::now()->subDays(2),
             ],
             [
@@ -223,6 +247,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Setuju. Mari kita lanjutkan komunikasi ini dengan baik dan pastikan semuanya berjalan lancar. Terima kasih atas kerjasamanya.',
                 'is_group' => false,
                 'is_admin' => true,
+                'is_read' => true,
                 'created_at' => Carbon::now()->subDay(),
             ],
             [
@@ -231,6 +256,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Terima kasih kembali. Semoga minggu ini berjalan lancar tanpa ada masalah yang berarti.',
                 'is_group' => false,
                 'is_admin' => true,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
             [
@@ -239,6 +265,7 @@ class MessageSeeder extends Seeder
                 'message' => 'Amin. Semangat semua!',
                 'is_group' => false,
                 'is_admin' => true,
+                'is_read' => true,
                 'created_at' => Carbon::now(),
             ],
         ]);

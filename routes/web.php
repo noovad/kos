@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'layouts.pages')->name('user.home');
-
 Route::middleware('guest')->group(function () {
     Route::view('/login', 'layouts.pages')->name('user.login');
 });
@@ -29,7 +27,6 @@ Route::middleware(['auth', 'isUser'])->group(function () {
 //admin
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::view('/admin', 'layouts.pages')->name('admin.dashboard');
-    Route::view('/admin/dashboard', 'layouts.pages')->name('admin.dashboard');
     Route::view('/admin/room', 'layouts.pages')->name('admin.room-index');
     Route::view('/admin/room-type', 'layouts.pages')->name('admin.room-type-index');
     Route::view('/admin/room-type/create', 'layouts.pages')->name('admin.room-type-posts');
