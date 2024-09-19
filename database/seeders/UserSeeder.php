@@ -69,7 +69,7 @@ class UserSeeder extends Seeder
         $usersWithRoom = [];
         for ($i = 4; $i <= 18; $i++) { 
             $roomId = ($i - 3); 
-            $startDate = $faker->dateTimeBetween('2024-06-01', '2024-06-30')->format('Y-m-d');
+            $startDate = $faker->dateTimeBetween('2024-07-01', '2024-07-30')->format('Y-m-d');
             if (in_array($roomId, [9, 10])) { 
                 $roomId = null;
                 $startDate = null;
